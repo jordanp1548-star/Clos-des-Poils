@@ -587,6 +587,10 @@ route=function(){
   if(h==='compte'&&me&&prof?.role==='seller')return closSeller();
   return closOriginalRoute();
 };
+// Important : le listener hashchange initial pointait vers l'ancienne route.
+// On le remplace pour que FAQ, Contact et Messagerie soient réellement routées.
+removeEventListener('hashchange', closOriginalRoute);
+addEventListener('hashchange', route);
 function closContact(){
  app.innerHTML=`<h1>Contacter l’éleveur</h1><div class="card"><p>Une question sur un animal, une réservation ou les conditions d’accueil ? Écrivez directement à l’éleveur depuis votre espace client.</p>
  ${me?'<a href="#/messages"><button>Ouvrir la messagerie</button></a>':`<p>Pour conserver une trace de vos échanges, créez un compte ou connectez-vous avant d’envoyer votre message.</p><a href="#/compte"><button>Créer un compte / Se connecter</button></a>`}
