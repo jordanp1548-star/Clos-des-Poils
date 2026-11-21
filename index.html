@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Le Clos des Petits Poils</title>
+<title>Le Clos des Poils</title>
 <style>
 :root{--bg:#eef3ec;--card:#fff;--ink:#1f2a24;--mut:#5d6b62;--g:#2f5d43;--a:#e0953a;--line:#d5dfd3}
 @media(prefers-color-scheme:dark){:root{--bg:#151c17;--card:#1e2822;--ink:#e8efe9;--mut:#9fb0a5;--g:#3f7a58;--a:#f0b05c;--line:#2e3b33}}
@@ -17,15 +17,15 @@ label{display:block;margin:8px 0}.row{display:flex;gap:10px;flex-wrap:wrap;align
 footer{text-align:center;padding:24px;color:var(--mut);font-size:.9rem}footer a{color:var(--mut);margin:0 8px}
 .mut{color:var(--mut)}.err{color:#b3382c}:focus-visible{outline:3px solid var(--a);outline-offset:2px}summary{cursor:pointer}
 </style></head><body>
-<header><b id="brand">🐾 Le Clos des Petits Poils</b><nav id="nav"></nav></header>
+<header><b id="brand">🐾 Le Clos des Poils</b><nav id="nav"></nav></header>
 <main id="app"></main>
 <footer><a href="#/mentions">Mentions légales</a><a href="#/confidentialite">Confidentialité</a><a href="#/reglement">Règlement</a><a href="#/cgv">Conditions de vente</a></footer>
 <!-- Pour un site 100 % RGPD, téléchargez ce fichier et hébergez-le vous-même à côté de index.html -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 /* === À REMPLIR (Supabase > Project Settings > API) === */
-const SB_URL='https://VOTRE-PROJET.supabase.co', SB_KEY='VOTRE_CLE_ANON_PUBLIQUE';
-let ELEV='[NOM DE L’ÉLEVEUR]', ACOMPTE=300, PAYINFO='[À renseigner : IBAN, numéro Wero, ordre du chèque]';
+const SB_URL='https://xohucwmckmcjqznmfbrs.supabase.co', SB_KEY='sb_publishable_7xiq-m63V_LGIgVbIhQ5ug_7OEClRCa';
+let ELEV='Clos des Poils', ACOMPTE=300, PAYINFO='[À renseigner : 0648774637, POUGNET Jordan]';
 /* ===================================================== */
 const sb=supabase.createClient(SB_URL,SB_KEY),$=s=>document.querySelector(s),app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -104,7 +104,7 @@ Prix : [TTC / TVA non applicable, art. 293 B du CGI]. Les animaux sont vendus se
 [Droit de rétractation en cas de contrat conclu à distance ; garantie légale de conformité ; garantie des défauts cachés et vices rédhibitoires ; documents remis à l’acquéreur (identification, carnet de santé, certificat d’information et d’engagement selon l’espèce) ; remboursement de l’acompte ; médiation de la consommation.]`}};
 let me=null,prof=null,OPEN=null,CFG={};
 const isA=()=>prof?.role==='admin'||prof?.role==='dev',isD=()=>prof?.role==='dev';
-const DEF={name:'Le Clos des Petits Poils',hero:'Élevage familial de chiots, chatons et lapereaux. Retrouvez ici le suivi de votre futur compagnon.',colors:{},css:'',sections:[]};
+const DEF={name:'Le Clos des Poils',hero:'Élevage familial de chiots, chatons et lapereaux. Retrouvez ici le suivi de votre futur compagnon.',colors:{},css:'',sections:[]};
 const secs=w=>(CFG.sections||[]).filter(s=>s.where===w),secHtml=s=>`<div class="card"><h2>${esc(s.title)}</h2>${s.html}</div>`;
 async function loadCfg(){const{data}=await sb.from('settings').select('value').eq('key','site_config').maybeSingle();try{CFG={...DEF,...JSON.parse(data?.value||'{}')}}catch{CFG={...DEF}}
 if(CFG.elev)ELEV=CFG.elev;if(CFG.acompte!=null)ACOMPTE=+CFG.acompte;if(CFG.payinfo)PAYINFO=CFG.payinfo;if(CFG.contracts)CT=CFG.contracts;if(CFG.careCats)CC=CFG.careCats;if(CFG.statuses)ST=CFG.statuses;
