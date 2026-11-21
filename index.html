@@ -16,6 +16,14 @@ label{display:block;margin:8px 0}.row{display:flex;gap:10px;flex-wrap:wrap;align
 .tag{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--a);color:#1f2a24;font-size:.85rem;font-weight:400}
 footer{text-align:center;padding:24px;color:var(--mut);font-size:.9rem}footer a{color:var(--mut);margin:0 8px}
 .mut{color:var(--mut)}.err{color:#b3382c}:focus-visible{outline:3px solid var(--a);outline-offset:2px}summary{cursor:pointer}
+@media print {
+  header, footer, nav, button, form, .no-print, .sf, .ef, .cf, .pf, #df, #nu { display: none !important; }
+  body { background: #fff; color: #000; }
+  main { max-width: 100%; padding: 0; }
+  .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
+  details { display: block; }
+  summary { font-weight: bold; margin-bottom: 10px; }
+}
 </style></head><body>
 <header><b id="brand">🐾 Le Clos des Poils</b><nav id="nav"></nav></header>
 <main id="app"></main>
@@ -119,7 +127,7 @@ $('#brand').textContent='🐾 '+CFG.name;document.title=CFG.name}
 const fmt=x=>x.split('\n\n').map(p=>p.startsWith('# ')?`<h3>${esc(p.slice(2).split('\n')[0])}</h3>${esc(p.split('\n').slice(1).join('\n')).replace(/\n/g,'<br>')}`:`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('');
 async function init(){let bad=0;try{await loadCfg();const{data:{session}}=await sb.auth.getSession();me=session?.user||null;prof=null;if(me){const{data}=await sb.from('profiles').select('*').eq('id',me.id).single();prof=data}}catch(e){bad=1;if(!CFG.name)CFG={...DEF};app.innerHTML='<div class="card err">Erreur de chargement : '+esc(e.message||e)+'</div>'}nav();if(!bad)route()}
 sb.auth.onAuthStateChange((ev,sess)=>{const id=sess?.user?.id||null;if(id!==(me?.id||null))setTimeout(init,0)});addEventListener('hashchange',route);
-function nav(){$('#nav').innerHTML='<a href="#/">Accueil</a>'+secs('page').map(s=>`<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('')+(me?`${isA()?'<a href="#/admin-textes">Textes légaux</a>':''}${isD()?'<a href="#/dev">Mode développeur</a>':''}<a href="#/compte">Mon espace</a><a href="#" id="out">Déconnexion</a>`:'<a href="#/compte">Connexion</a>');const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut()}}
+${isA()?'<a href="#/admin-textes">Textes légaux</a>':''}{$('#nav').innerHTML='<a href="#/">Accueil</a>'+secs('page').map(s=>`<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('')+(me?`${isD()?'<a href="#/admin-textes">Textes légaux</a>':''}${isD()?'<a href="#/dev">Mode développeur</a>':''}<a href="#/compte">Mon espace</a><a href="#" id="out">Déconnexion</a>`:'<a href="#/compte">Connexion</a>');const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut()}}
 function route(){const h=location.hash.slice(2);if(DOCS[h])return doc(h);if(h==='compte')return me?(isA()?admin():client()):login();if(h==='admin-textes'&&isA())return textes();if(h==='dev'&&isD())return dev();if(h.startsWith('p-')){const x=secs('page').find(y=>'p-'+y.id===h);if(x){app.innerHTML=`<h1>${esc(x.title)}</h1>${x.html}`;return}}home()}
 async function home(){const{data}=await sb.from('animals').select('name,emoji,sp,descr,born,remise,price').eq('status','Disponible');
 app.innerHTML=`<h1>${esc(CFG.name)}</h1><p>${esc(CFG.hero)}</p><h2>Disponibles</h2>`+(data?.length?data.map(a=>`<div class="card"><h3>${esc(a.emoji)} ${esc(a.name)} <span class="tag">À l’achat</span></h3><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)}<br><b>${eur(a.price)}</b></p></div>`).join(''):'<p class="mut">Aucun animal disponible pour le moment.</p>')+'<p><a href="#/compte">Espace acquéreur</a></p>'+secs('home').map(secHtml).join('')}
@@ -138,7 +146,9 @@ if(r.error)$('#m').textContent=r.error.message;else if(sign&&!r.data.session)app
 const careHtml=a=>Object.entries(CC).map(([k,l])=>{const c=a.data?.care?.[k]||[];return c.length?`<h4>${l}</h4>`+c.map(x=>`<div>${esc(x.n)} — ${dt(x.d)}${x.rd?' · rappel le '+dt(x.rd):''}</div>`).join(''):''}).join('')||'<div class="mut">Aucun soin enregistré</div>';
 const fill=(t,a)=>t.replace('{eleveur}',ELEV).replace('{acquereur}',prof.prenom+' '+prof.nom).replace(/\{animal\}/g,a.name).replace('{desc}',a.descr||'').replace('{naissance}',dd(a.born)).replace('{remise}',dd(a.remise)).replace('{prix}',eur(a.price)).replace('{acompte}',eur(ACOMPTE));
 const fiche=(a,P,S)=>{const p=P.filter(x=>x.animal_id==a.id),paid=p.reduce((s,x)=>s+x.a,0),sg=S.filter(x=>x.animal_id==a.id);
-return `<div class="card"><h2>${esc(a.emoji)} ${esc(a.name)} <span class="tag">${esc(a.status)}</span></h2><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)} · remise prévue le ${dt(a.remise)}</p>
+return `<div class="card"><h2>${esc(a.emoji)} ${esc(a.name)} 
+<button class="s" onclick="window.print()" style="float:right;margin-top:-40px">🖨️ Imprimer la fiche PDF</button> 
+<span class="tag">${esc(a.status)}</span></h2><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)} · remise prévue le ${dt(a.remise)}</p>
 <h3>Paiements</h3>${p.map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun paiement enregistré</div>'}
 <p><b>Prix ${eur(a.price)} · versé ${eur(paid)} · reste ${eur(a.price-paid)}</b></p><p class="mut">Acompte : ${eur(ACOMPTE)} sous 7 jours. ${esc(PAYINFO)}</p>
 <h3>Suivi santé</h3>${careHtml(a)}<h3>Contrats</h3>`+CT.map(([k,t,x])=>{const s=sg.find(y=>y.contract_key==k);return `<details><summary>${t} ${s?'✔ signé le '+dt(s.at):''}</summary><p>${esc(fill(x,a)).replace(/\n/g,'<br>')}</p>${s?'':`<form class="sf" data-a="${a.id}" data-k="${k}"><label><input type="checkbox" required> Lu et approuvé</label><label>Nom complet<input required></label><button>Signer</button></form>`}</details>`}).join('')+'</div>'};
@@ -151,6 +161,7 @@ $('#del').onclick=async()=>{if(confirm('Supprimer définitivement votre compte ?
 async function admin(){const[{data:A},{data:U},{data:P},{data:S}]=await Promise.all([sb.from('animals').select('*').order('id'),sb.from('profiles').select('id,prenom,nom').eq('role','client'),sb.from('payments').select('*').order('d'),sb.from('signatures').select('*')]);
 const ML={name:60,emoji:4,sp:40,descr:500,sex:20},inp=(a,k,l)=>`<label>${l}<input name="${k}" maxlength="${ML[k]}" value="${esc(a[k])}"></label>`;
 app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</button><br><br>`+A.map(a=>`<details class="card" data-id="${a.id}" ${OPEN==a.id?'open':''}><summary><b>${esc(a.emoji)} ${esc(a.name)}</b> <span class="tag">${esc(a.status)}</span></summary>
+<button type="button" class="s" onclick="window.print()" style="float:right">🖨️ Imprimer</button>
 <form class="ef"><div class="row">${inp(a,'name','Nom')}${inp(a,'emoji','Emoji')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
 <div class="row"><label>Naissance<input type="date" name="born" value="${a.born||''}"></label><label>Remise<input type="date" name="remise" value="${a.remise||''}"></label><label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
 <label>Statut<select name="status">${ST.map(s=>`<option ${s==a.status?'selected':''}>${s}</option>`).join('')}</select></label>
@@ -177,7 +188,9 @@ app.innerHTML=`<h1>Mode développeur</h1><form id="df" class="card"><h3>Site</h3
 <h3>Sections</h3><p class="mut">Emplacement : home (accueil), client (espace acquéreur) ou page (nouvelle page dans le menu). Contenu en HTML libre.</p>
 <div id="secs"></div><button type="button" class="s" id="addsec">Ajouter une section</button>
 <h3>Informations légales</h3><p class="mut">Elles remplacent les variables des textes légaux.</p>${LK.map(([k,l])=>`<label>${l}<input name="l_${k}" value="${esc(c.legal?.[k])}"></label>`).join('')}<h3>Avancé (JSON)</h3><p class="mut">Éleveur, acompte, modes de paiement, textes des contrats, catégories de soins, statuts.</p><textarea name="adv">${esc(adv)}</textarea><br><button>Enregistrer le site</button></form>
-<div class="card"><h3>Comptes</h3><div id="accts"></div></div>
+<div class="card"><h3>Comptes</h3>
+<div style="display:flex; justify-content:space-between; align-items:center;"><h3>Comptes</h3><button type="button" class="s" onclick="window.print()">🖨️ Imprimer la liste</button></div>
+<div id="accts"></div></div>
 <form id="nu" class="card"><h3>Créer un compte</h3><div class="row"><label>Prénom<input name="prenom" required maxlength="60"></label><label>Nom<input name="nom" required maxlength="60"></label><label>E-mail<input name="email" type="email" required></label><label>Mot de passe temporaire<input name="password" type="password" minlength="10" required></label><label>Rôle<select name="role"><option>client</option><option>admin</option><option>dev</option></select></label><button>Créer</button></div></form>
 <div class="card"><h3>Base de données (accès direct)</h3><div class="row"><select id="tb">${['animals','payments','signatures','profiles','settings'].map(t=>`<option>${t}</option>`).join('')}</select><button class="s" id="ld">Charger</button><button id="sv">Enregistrer (upsert)</button></div><textarea id="rows"></textarea><div class="row"><input id="delid" placeholder="id (ou clé) à supprimer"><button class="d" id="dl">Supprimer</button></div></div>`;
 const S=(c.sections||[]).map(x=>({...x})),rs=()=>{$('#secs').innerHTML=S.map((s,i)=>`<div class="card" data-i="${i}"><div class="row"><label>Identifiant<input data-f="id" value="${esc(s.id)}"></label><label>Titre<input data-f="title" value="${esc(s.title)}"></label><label>Emplacement<select data-f="where">${['home','client','page'].map(w=>`<option ${w==s.where?'selected':''}>${w}</option>`).join('')}</select></label><button type="button" class="d" data-rm="${i}">Retirer</button></div><textarea data-f="html">${esc(s.html)}</textarea></div>`).join('');
