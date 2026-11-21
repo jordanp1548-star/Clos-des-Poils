@@ -361,7 +361,7 @@ document.querySelectorAll('[data-print-animal]').forEach(b=>b.onclick=()=>{const
 document.querySelectorAll('.sf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('signatures').insert({animal_id:+f.dataset.a,user_id:me.id,contract_key:f.dataset.k,name:f.querySelector('input:not([type=checkbox])').value});error?alert(error.message):(alert('Contrat signé ✔'),client())});
 $('#ex').onclick=()=>{const u=document.createElement('a');u.href=URL.createObjectURL(new Blob([JSON.stringify({profil:prof,animaux:A,paiements:P,signatures:S},null,1)],{type:'application/json'}));u.download='mes-donnees.json';u.click()};
 $('#del').onclick=async()=>{if(confirm('Supprimer définitivement votre compte ? Les contrats signés peuvent être conservés selon nos obligations légales.')){const{error}=await sb.rpc('delete_my_account');if(error){alert(error.message);return}await sb.auth.signOut();location.hash='#/'}}}
-async function admin(){const[{data:A},{data:U},{data:P},{data:S}]=await Promise.all([sb.from('animals').select('*').order('id'),sb.from('profiles').select('id,prenom,nom').eq('role','client'),sb.from('payments').select('*').order('d'),sb.from('signatures').select('*')]);
+async function admin(){const[{data:A},{data:U},{data:P},{data:S}]=await Promise.all([sb.from('animals').select('*').order('id'),sb.from('profiles').select('id,prenom,nom,role').in('role',['client','seller']),sb.from('payments').select('*').order('d'),sb.from('signatures').select('*')]);
 const ML={name:60,sp:40,descr:500,sex:20},inp=(a,k,l)=>`<label>${l}<input name="${k}" maxlength="${ML[k]}" value="${esc(a[k])}"></label>`;
 app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</button><br><br>`+A.map(a=>{
   const photos = a.photos || [];
@@ -385,7 +385,7 @@ app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</butto
   <form class="ef"><div class="row">${inp(a,'name','Nom')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
   <div class="row"><label>Naissance<input type="date" name="born" value="${a.born||''}"></label><label>Remise<input type="date" name="remise" value="${a.remise||''}"></label><label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
   <label>Statut<select name="status">${ST.map(s=>`<option ${s==a.status?'selected':''}>${s}</option>`).join('')}</select></label>
-  <label>Acquéreur<select name="buyer"><option value="">—</option>${U.map(u=>`<option value="${u.id}" ${u.id==a.buyer?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label></div>
+  <label>Vendeur responsable<select name="seller_id"><option value="">— Aucun —</option>${U.filter(u=>u.role==='seller').map(u=>`<option value="${u.id}" ${u.id==a.seller_id?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label><label>Acquéreur<select name="buyer"><option value="">—</option>${U.filter(u=>u.role==='client').map(u=>`<option value="${u.id}" ${u.id==a.buyer?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label></div>
   ${(()=>{const r=a.data?.profile||{},v=(k)=>esc(r[k]||'');return `<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Identification</h3><div class="row"><label>Animal identifié ?<select name="p_identifie" class="ident-select"><option ${r.identifie==='Non'?'selected':''}>Non</option><option ${r.identifie==='Oui'?'selected':''}>Oui</option></select></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Type d'identification<select name="p_identification_type"><option value="">— Choisir —</option>${['Puce électronique','Tatouage','Bague','Autre'].map(x=>`<option ${r.identification_type===x?'selected':''}>${x}</option>`).join('')}</select></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Numéro d'identification<input name="p_identification_numero" value="${v('identification_numero')}" placeholder="Numéro / référence"></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Date d'identification<input type="date" name="p_identification_date" value="${v('identification_date')}"></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Organisme / vétérinaire<input name="p_identification_organisme" value="${v('identification_organisme')}"></label></div>
   <h3>Informations générales</h3><div class="row"><label>Race<input name="p_race" value="${v('race')}"></label><label>Couleur / robe<input name="p_couleur" value="${v('couleur')}"></label><label>Poids actuel<input name="p_poids" value="${v('poids')}" placeholder="Ex. 850 g"></label><label>Père<input name="p_pere" value="${v('pere')}"></label><label>Mère<input name="p_mere" value="${v('mere')}"></label></div>
   <h3>Disponibilité et adoption</h3><div class="row"><label>Date de disponibilité estimée<input type="date" name="p_disponibilite_prevue" value="${v('disponibilite_prevue')}"></label><label>Date de disponibilité réelle<input type="date" name="p_disponibilite_reelle" value="${v('disponibilite_reelle')}"></label><label>Date de réservation<input type="date" name="p_date_reservation" value="${v('date_reservation')}"></label><label>Date de départ prévue<input type="date" name="p_depart_prevu" value="${v('depart_prevu')}"></label><label>Date de départ effective<input type="date" name="p_depart_effectif" value="${v('depart_effectif')}"></label><label>Acompte versé (€)<input type="number" step="0.01" name="p_acompte" value="${v('acompte')}"></label></div>
@@ -525,12 +525,139 @@ let uiLabels;try{uiLabels=JSON.parse(f.ui_labels.value||'{}')}catch{return alert
 const{error}=await sb.from('settings').upsert({key:'site_config',value:JSON.stringify({...a,name:f['name'].value,hero:f.hero.value,css:f.css.value,colors,sections:S,uiLabels,pdf:{title:f.pdf_title.value,subtitle:f.pdf_subtitle.value,footer:f.pdf_footer.value},legal:Object.fromEntries(LK.map(([k])=>[k,f['l_'+k].value]))}),validated:true,validated_at:new Date().toISOString(),validated_by:me.id});
 if(error)alert(error.message);else{await loadCfg();nav();alert('Site enregistré')}};
 const accts=async()=>{const[{data:U},{data:A}]=await Promise.all([sb.from('profiles').select('*').order('created_at'),sb.from('animals').select('id,buyer')]);
-$('#accts').innerHTML='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><tr><th align="left">Nom</th><th align="left">E-mail</th><th>Rôle</th><th>Créé le</th><th>Animaux</th><th></th></tr>'+U.map(u=>`<tr><td>${esc((u.prenom||'')+' '+(u.nom||''))}</td><td>${esc(u.email)}</td><td><select data-u="${u.id}">${['client','admin','dev'].map(r=>`<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></td><td>${dt(u.created_at)}</td><td align="center">${A.filter(a=>a.buyer==u.id).length}</td><td><button class="d" data-x="${u.id}" data-e="${esc(u.email)}">Supprimer</button></td></tr>`).join('')+'</table></div>';
+$('#accts').innerHTML='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><tr><th align="left">Nom</th><th align="left">E-mail</th><th>Rôle</th><th>Créé le</th><th>Animaux</th><th></th></tr>'+U.map(u=>`<tr><td>${esc((u.prenom||'')+' '+(u.nom||''))}</td><td>${esc(u.email)}</td><td><select data-u="${u.id}">${['client','seller','admin','dev'].map(r=>`<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></td><td>${dt(u.created_at)}</td><td align="center">${A.filter(a=>a.buyer==u.id).length}</td><td><button class="d" data-x="${u.id}" data-e="${esc(u.email)}">Supprimer</button></td></tr>`).join('')+'</table></div>';
 document.querySelectorAll('[data-u]').forEach(x=>x.onchange=async()=>{try{await fn('admin-set-role',{id:x.dataset.u,role:x.value});alert('Rôle modifié')}catch(e){alert(e.message)}accts()});
 document.querySelectorAll('[data-x]').forEach(b=>b.onclick=async()=>{if(!confirm('Supprimer le compte '+b.dataset.e+' ? Ses animaux seront détachés, ses contrats signés conservés.'))return;try{await fn('admin-delete-user',{id:b.dataset.x})}catch(e){alert(e.message)}accts()})};accts();
 $('#nu').onsubmit=async e=>{e.preventDefault();try{await fn('admin-create-user',Object.fromEntries(new FormData(e.target)));e.target.reset();alert('Compte créé')}catch(x){alert(x.message)}accts()};
 $('#ld').onclick=async()=>{const{data,error}=await sb.from($('#tb').value).select('*');$('#rows').value=error?error.message:JSON.stringify(data,null,1)};
 $('#sv').onclick=async()=>{let v;try{v=JSON.parse($('#rows').value)}catch{return alert('JSON invalide')}const{error}=await sb.from($('#tb').value).upsert(v);alert(error?error.message:'Enregistré')};
 $('#dl').onclick=async()=>{const t=$('#tb').value;if(!confirm('Supprimer cette ligne de '+t+' ?'))return;const{error}=await sb.from(t).delete().eq(t==='settings'?'key':'id',$('#delid').value);alert(error?error.message:'Supprimé')}}
+/* === EXTENSION LE CLOS DES POILS : rôles, espace vendeur, messagerie === */
+const CLOS_ROLE_LABELS={client:'Client',admin:'Éleveur / administrateur',seller:'Vendeur',dev:'Développeur'};
+const closIsStaff=()=>['admin','dev'].includes(prof?.role);
+const closCanSeeAll=()=>['admin','dev'].includes(prof?.role);
+const closNotice=(msg)=>`<div class="card" role="status">${esc(msg)}</div>`;
+const closDate=d=>d?new Date(d).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}):'';
+let closActiveConversation=null,closRealtime=null;
+
+// Navigation enrichie : chaque rôle reçoit son propre espace.
+nav=function(){
+  const publicLinks='<a href="#/">Accueil</a><a href="#/faq">FAQ</a><a href="#/contact">Contact</a>'+secs('page').map(s=>`<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('')+'<a href="#/mentions">Informations légales</a>';
+  let privateLinks='';
+  if(!me){privateLinks='<a href="#/compte">Connexion / Inscription</a>'}
+  else {
+    const label=prof?.role==='admin'?'Espace éleveur':prof?.role==='dev'?'Administration':prof?.role==='seller'?'Espace vendeur':'Mon espace client';
+    privateLinks=`<a href="#/compte">${label}</a>`;
+    if(prof?.role==='dev')privateLinks+='<a href="#/dev">Administration du site</a><a href="#/admin-textes">Documents légaux</a>';
+    if(closIsStaff())privateLinks+='<a href="#/messages">Messagerie</a>';
+    privateLinks+='<a href="#" id="out">Déconnexion</a>';
+  }
+  $('#nav').innerHTML=publicLinks+privateLinks;
+  const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();if(closRealtime){sb.removeChannel(closRealtime);closRealtime=null}await sb.auth.signOut()};
+};
+
+const closPublicCTA=()=>`<section class="card" style="border:2px solid var(--g);background:#fff">
+  <h2>Vous souhaitez accueillir l’un de nos animaux ?</h2>
+  <p>Créez votre espace personnel pour échanger avec l’éleveur, poser vos questions, demander une réservation et suivre votre futur compagnon.</p>
+  <div class="row"><a href="#/compte"><button type="button">Créer mon compte / Me connecter</button></a><a href="#/contact"><button type="button" class="s">Contacter l’éleveur</button></a></div>
+  <p class="mut">Un compte vous permet de conserver l’historique de vos échanges et de retrouver les informations de votre réservation.</p>
+</section>`;
+const closOriginalHome=home;
+home=async function(){await closOriginalHome();if(!me){app.insertAdjacentHTML('afterbegin',closPublicCTA());app.insertAdjacentHTML('beforeend',`<div class="card"><h3>Une question avant de vous décider ?</h3><p>L’éleveur peut vous renseigner sur le caractère, les disponibilités, les conditions d’accueil et les étapes d’une réservation.</p><a href="#/contact">Contacter Le Clos des Poils</a></div>`)}else{app.insertAdjacentHTML('beforeend','<p><a href="#/messages">Ouvrir ma messagerie</a></p>')}};
+
+// Connexion et inscription : choix explicite, rôle attribué uniquement par un administrateur.
+const closOriginalLogin=login;
+login=function(sign=false){
+  closOriginalLogin(sign);
+  if(!sign){
+    const card=app.querySelector('.card');
+    if(card)card.insertAdjacentHTML('beforeend',`<hr><p><b>Vous découvrez l’élevage ?</b></p><p>Créez un compte client pour contacter l’éleveur, demander une réservation et suivre votre dossier.</p><button type="button" class="s" id="clos-register">Créer mon compte client</button><p class="mut">Les comptes vendeur, éleveur et développeur sont créés ou autorisés par l’administration. Ils ne peuvent pas être choisis librement à l’inscription.</p>`);
+    const b=$('#clos-register');if(b)b.onclick=()=>login(true);
+  }
+};
+
+// Pages publiques supplémentaires.
+const closOriginalRoute=route;
+route=function(){
+  const h=location.hash.slice(2);
+  if(h==='contact')return closContact();
+  if(h==='faq')return closFaq();
+  if(h==='messages'){if(!me){location.hash='#/compte';return}if(prof?.role==='seller')return closSellerMessages();if(closIsStaff())return closStaffMessages();return closClientMessages()}
+  if(h==='vendeur'){if(me&&prof?.role==='seller')return closSeller();location.hash='#/compte';return}
+  if(h==='compte'&&me&&prof?.role==='seller')return closSeller();
+  return closOriginalRoute();
+};
+function closContact(){
+ app.innerHTML=`<h1>Contacter l’éleveur</h1><div class="card"><p>Une question sur un animal, une réservation ou les conditions d’accueil ? Écrivez directement à l’éleveur depuis votre espace client.</p>
+ ${me?'<a href="#/messages"><button>Ouvrir la messagerie</button></a>':`<p>Pour conserver une trace de vos échanges, créez un compte ou connectez-vous avant d’envoyer votre message.</p><a href="#/compte"><button>Créer un compte / Se connecter</button></a>`}
+ <hr><p><b>Contact téléphonique</b><br><a href="tel:0648774637">06 48 77 46 37</a></p><p class="mut">Les demandes envoyées depuis le site sont conservées dans votre espace personnel.</p></div>`;
+}
+function closFaq(){
+ const rows=[['Comment réserver un animal ?','Créez un compte client, ouvrez la messagerie et indiquez le nom de l’animal qui vous intéresse. L’éleveur vous répondra pour préciser les disponibilités et les étapes.'],['Puis-je visiter l’élevage ?','Contactez l’éleveur afin de convenir des modalités et d’un éventuel rendez-vous.'],['Comment suivre mon futur compagnon ?','Une fois votre compte associé à un animal, vous retrouverez sa fiche, les photos, les informations de santé et les paiements enregistrés dans Mon espace.'],['Comment contacter l’éleveur ?','Depuis la messagerie de votre compte ou par téléphone au 06 48 77 46 37.'],['Comment créer un compte vendeur ?','Les rôles vendeur, éleveur et développeur sont attribués par l’administration. Une inscription publique crée uniquement un compte client.'],['Mes échanges sont-ils privés ?','Les conversations sont accessibles au client concerné, à l’éleveur / administrateur et au développeur du site pour le suivi technique et la modération.']];
+ app.innerHTML='<h1>Questions fréquentes</h1><p>Les réponses aux questions les plus courantes sur le fonctionnement du site.</p>'+rows.map(([q,a])=>`<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')+`<div class="card"><b>Vous ne trouvez pas votre réponse ?</b><p><a href="#/contact">Contactez l’éleveur</a></p></div>`;
+}
+
+// Messagerie commune. Les droits réels sont imposés par les politiques RLS du SQL fourni séparément.
+async function closGetConversations(){
+ const {data,error}=await sb.from('conversations').select('id,customer_id,assigned_to,subject,status,created_at,updated_at').order('updated_at',{ascending:false});
+ if(error)throw error;return data||[];
+}
+async function closGetMessages(cid){const{data,error}=await sb.from('messages').select('id,conversation_id,sender_id,body,created_at').eq('conversation_id',cid).order('created_at');if(error)throw error;return data||[]}
+function closMessageShell(title,conversations,selected){
+ return `<h1>${esc(title)}</h1><div class="card"><div class="row" style="align-items:center"><div style="flex:1"><b>${conversations.length} conversation(s)</b><p class="mut">Messages enregistrés dans votre espace sécurisé.</p></div><button type="button" class="s" id="clos-refresh">Actualiser</button></div><div class="row" style="align-items:flex-start"><aside style="flex:1;min-width:230px;max-width:360px" id="clos-thread-list">${conversations.map(c=>`<button type="button" class="s" data-open-conv="${c.id}" style="display:block;width:100%;text-align:left;margin:5px 0;white-space:normal"><b>${esc(c.subject||'Demande de contact')}</b><br><small>${esc(c.status||'Ouverte')} · ${closDate(c.updated_at||c.created_at)}</small></button>`).join('')||'<p class="mut">Aucune conversation pour le moment.</p>'}</aside><section style="flex:2;min-width:260px" id="clos-thread"><p class="mut">Sélectionnez une conversation pour afficher les messages.</p></section></div></div>`;
+}
+async function closRenderThread(cid,canReply=true){
+ closActiveConversation=cid;const thread=$('#clos-thread');if(!thread)return;
+ const {data:conv,error:ce}=await sb.from('conversations').select('id,subject,status,customer_id,assigned_to').eq('id',cid).single();if(ce){thread.innerHTML=closNotice('Conversation inaccessible.');return}
+ const msgs=await closGetMessages(cid);
+ thread.innerHTML=`<h3>${esc(conv.subject||'Discussion')}</h3><p class="mut">Statut : ${esc(conv.status||'ouverte')}</p><div id="clos-message-log" style="max-height:440px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg)">${msgs.map(m=>`<div style="max-width:88%;margin:8px ${m.sender_id===me.id?'0 0 8px auto':'0 auto 8px 0'};padding:10px 12px;border-radius:12px;background:${m.sender_id===me.id?'#e5efe7':'#fff'}"><div>${esc(m.body).replace(/\n/g,'<br>')}</div><small class="mut">${closDate(m.created_at)} ${m.sender_id===me.id?'· Vous':''}</small></div>`).join('')||'<p class="mut">Aucun message.</p>'}</div>${canReply?`<form id="clos-send-message" style="margin-top:12px"><label>Votre message<textarea name="body" rows="3" maxlength="5000" required placeholder="Écrivez votre message…"></textarea></label><button>Envoyer le message</button></form>`:''}`;
+ const log=$('#clos-message-log');if(log)log.scrollTop=log.scrollHeight;
+ const form=$('#clos-send-message');if(form)form.onsubmit=async e=>{e.preventDefault();const body=new FormData(form).get('body').trim();if(!body)return;const b=form.querySelector('button');b.disabled=true;const{error}=await sb.from('messages').insert({conversation_id:cid,sender_id:me.id,body});if(error){alert('Envoi impossible : '+error.message);b.disabled=false;return}await sb.from('conversations').update({updated_at:new Date().toISOString()}).eq('id',cid);await closRenderThread(cid,canReply)};
+}
+async function closCreateConversation(subject,body,animalId=null){
+ const{data,error}=await sb.from('conversations').insert({customer_id:me.id,subject:subject.trim(),status:'ouverte',animal_id:animalId}).select('id').single();if(error)throw error;
+ const{error:meErr}=await sb.from('messages').insert({conversation_id:data.id,sender_id:me.id,body:body.trim()});if(meErr)throw meErr;
+ return data.id;
+}
+async function closClientMessages(){
+ try{
+  const conv=await closGetConversations();app.innerHTML=`<h1>Ma messagerie</h1><div class="card"><h3>Nouvelle demande à l’éleveur</h3><form id="clos-new-conversation"><label>Objet<input name="subject" required maxlength="140" placeholder="Ex. Renseignements sur un chiot"></label><label>Votre message<textarea name="body" required maxlength="5000" placeholder="Présentez votre demande…"></textarea></label><label>Animal concerné (facultatif)<select name="animal_id"><option value="">Aucun animal sélectionné</option></select></label><button>Envoyer à l’éleveur</button></form></div>`+closMessageShell('Mes discussions',conv);
+  const {data:animals}=await sb.from('animals').select('id,name').eq('buyer',me.id);const sel=app.querySelector('[name="animal_id"]');(animals||[]).forEach(a=>sel.insertAdjacentHTML('beforeend',`<option value="${a.id}">${esc(a.name)}</option>`));
+  $('#clos-new-conversation').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));try{const id=await closCreateConversation(f.subject,f.body,f.animal_id?Number(f.animal_id):null);alert('Message envoyé à l’éleveur.');await closClientMessages();await closRenderThread(id,true)}catch(x){alert(x.message)}};
+  document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=()=>closRenderThread(b.dataset.openConv,true));$('#clos-refresh').onclick=closClientMessages;
+ }catch(e){app.innerHTML='<h1>Ma messagerie</h1>'+closNotice('La messagerie nécessite la migration SQL fournie et ses règles de sécurité. Détail : '+e.message)}
+}
+async function closStaffMessages(){
+ try{const conv=await closGetConversations();app.innerHTML=closMessageShell(prof.role==='dev'?'Centre de supervision des conversations':'Messagerie de l’élevage',conv);
+ document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=async()=>{await closRenderThread(b.dataset.openConv,true);const thread=$('#clos-thread');if(thread){const c=conv.find(x=>String(x.id)===String(b.dataset.openConv));if(c&&prof.role==='admin'){const {data:sellers}=await sb.from('profiles').select('id,prenom,nom').eq('role','seller');thread.insertAdjacentHTML('afterbegin',`<label>Attribuer au vendeur<select id="clos-assign"><option value="">Non attribué / éleveur</option>${(sellers||[]).map(s=>`<option value="${s.id}" ${s.id===c.assigned_to?'selected':''}>${esc((s.prenom||'')+' '+(s.nom||''))}</option>`).join('')}</select></label>`);$('#clos-assign').onchange=async e=>{const{error}=await sb.from('conversations').update({assigned_to:e.target.value||null}).eq('id',c.id);if(error)alert(error.message);else alert('Attribution mise à jour')}}}});
+ $('#clos-refresh').onclick=closStaffMessages;
+ }catch(e){app.innerHTML='<h1>Messagerie</h1>'+closNotice('Impossible de charger les conversations : '+e.message)}
+}
+async function closSellerMessages(){
+ try{const conv=await closGetConversations();app.innerHTML=closMessageShell('Messages attribués à mon compte vendeur',conv);document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=()=>closRenderThread(b.dataset.openConv,true));$('#clos-refresh').onclick=closSellerMessages}catch(e){app.innerHTML=closNotice(e.message)}
+}
+
+// Tableau de bord vendeur : uniquement les annonces qui lui sont affectées.
+async function closSeller(){
+ try{
+ const[{data:A,error},{data:U}]=await Promise.all([sb.from('animals').select('*').eq('seller_id',me.id).order('id'),sb.from('profiles').select('id,prenom,nom,role').in('role',['client','seller'])]);if(error)throw error;
+ app.innerHTML=`<h1>Espace vendeur</h1><p>Gérez vos annonces, suivez les demandes qui vous sont attribuées et répondez aux clients.</p><div class="row"><div class="card" style="flex:1"><b>${A.length}</b><br><span class="mut">Annonce(s) attribuée(s)</span></div><div class="card" style="flex:1"><a href="#/messages">Ouvrir ma messagerie</a></div></div><div class="card"><h2>Ajouter une annonce</h2><form id="clos-seller-new" class="row"><label>Nom<input name="name" required maxlength="60"></label><label>Espèce<input name="sp" required maxlength="60"></label><label>Prix (€)<input name="price" type="number" min="0" step="0.01" required></label><label>Statut<select name="status"><option>À naître</option><option>En croissance</option><option>Disponible</option></select></label><label>Description<textarea name="descr" rows="2"></textarea></label><button>Créer l’annonce</button></form></div><h2>Mes annonces</h2>`+(A.map(a=>`<div class="card"><form class="clos-seller-edit" data-id="${a.id}"><h3>${esc(a.name)} <span class="tag">${esc(a.status)}</span></h3><div class="row"><label>Nom<input name="name" value="${esc(a.name)}" required></label><label>Espèce<input name="sp" value="${esc(a.sp)}"></label><label>Prix (€)<input name="price" type="number" min="0" step="0.01" value="${Number(a.price)||0}"></label><label>Statut<select name="status">${ST.map(s=>`<option ${s===a.status?'selected':''}>${esc(s)}</option>`).join('')}</select></label><label>Description<textarea name="descr" rows="2">${esc(a.descr||'')}</textarea></label></div><button>Enregistrer</button></form></div>`).join('')||'<p class="mut">Aucune annonce ne vous est encore attribuée. Demandez à l’éleveur de vous affecter un animal.</p>');
+ $('#clos-seller-new').onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.target));o.price=Number(o.price);o.seller_id=me.id;const{error}=await sb.from('animals').insert(o);if(error)alert(error.message);else closSeller()};
+ document.querySelectorAll('.clos-seller-edit').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.price=Number(o.price);const{error}=await sb.from('animals').update(o).eq('id',f.dataset.id).eq('seller_id',me.id);if(error)alert(error.message);else closSeller()});
+ }catch(e){app.innerHTML='<h1>Espace vendeur</h1>'+closNotice('Espace vendeur non prêt : appliquez la migration SQL. '+e.message)}
+}
+
+// Étend les espaces client / éleveur / développeur sans supprimer les fonctions historiques.
+const closOriginalClient=client;
+client=async function(){await closOriginalClient();const box=document.createElement('div');box.className='card';box.innerHTML='<h2>Messagerie avec l’éleveur</h2><p>Posez vos questions, transmettez un document ou demandez des nouvelles de votre réservation.</p><a href="#/messages"><button>Accéder à mes discussions</button></a>';app.append(box)};
+const closOriginalAdmin=admin;
+admin=async function(){await closOriginalAdmin();const box=document.createElement('div');box.className='card';box.innerHTML='<h2>Messagerie et demandes clients</h2><p>Consultez toutes les demandes, répondez aux clients et attribuez une conversation à un vendeur.</p><a href="#/messages"><button>Ouvrir toutes les conversations</button></a><p><b>Gestion vendeurs :</b> attribuez le rôle vendeur depuis la gestion des comptes, puis affectez-lui les animaux et les conversations.</p>';app.prepend(box)};
+const closOriginalDev=dev;
+dev=async function(){await closOriginalDev();const box=document.createElement('div');box.className='card';box.innerHTML='<h2>Supervision globale</h2><p>Le développeur dispose d’une vue transversale sur toutes les conversations afin de diagnostiquer les problèmes et suivre le bon fonctionnement du service.</p><a href="#/messages"><button>Voir toutes les conversations</button></a><p class="mut">Les permissions de lecture globale sont également vérifiées par Supabase, pas seulement par cette interface.</p>';app.prepend(box)};
+
+// Remplace les listes de rôles de l'interface développeur pour intégrer les vendeurs.
+const closRoleObserver=new MutationObserver(()=>document.querySelectorAll('select[data-u]').forEach(s=>{if(![...s.options].some(o=>o.value==='seller'))s.insertAdjacentHTML('beforeend','<option value="seller">seller</option>')}));
+closRoleObserver.observe(document.body,{childList:true,subtree:true});
+
 init();
 </script></body></html>
