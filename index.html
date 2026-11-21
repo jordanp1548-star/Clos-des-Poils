@@ -163,6 +163,28 @@ if(CFG.elev)ELEV=CFG.elev;if(CFG.acompte!=null)ACOMPTE=+CFG.acompte;if(CFG.payin
 const r=document.documentElement.style;['g','a','bg'].forEach(k=>r.removeProperty('--'+k));for(const[k,v]of Object.entries(CFG.colors||{}))if(v)r.setProperty('--'+k,v);
 let st=$('#cs');if(!st){st=document.createElement('style');st.id='cs';document.head.append(st)}st.textContent=CFG.css||'';
 $('#brand').textContent=CFG.name;document.title=CFG.name}
+function applyDeveloperLabels(root=document){
+  const labels=CFG.uiLabels||{};
+  if(!Object.keys(labels).length)return;
+  const walk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walk.nextNode())nodes.push(walk.currentNode);
+  nodes.forEach(node=>{
+    const original=node.nodeValue.trim();
+    if(Object.prototype.hasOwnProperty.call(labels,original)){
+      const leading=node.nodeValue.match(/^\s*/)?.[0]||'';
+      const trailing=node.nodeValue.match(/\s*$/)?.[0]||'';
+      node.nodeValue=leading+labels[original]+trailing;
+    }
+  });
+}
+const labelObserver=new MutationObserver(records=>{
+  if(!CFG.uiLabels||!Object.keys(CFG.uiLabels).length)return;
+  records.forEach(rec=>rec.addedNodes.forEach(n=>{
+    if(n.nodeType===Node.ELEMENT_NODE)applyDeveloperLabels(n);
+    else if(n.nodeType===Node.TEXT_NODE&&n.parentElement)applyDeveloperLabels(n.parentElement);
+  }));
+});
+labelObserver.observe(document.body,{childList:true,subtree:true});
 const fmt=x=>x.split('\n\n').map(p=>p.startsWith('# ')?`<h3>${esc(p.slice(2).split('\n')[0])}</h3>${esc(p.split('\n').slice(1).join('\n')).replace(/\n/g,'<br>')}`:`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('');
 async function init(){let bad=0;try{await loadCfg();const{data:{session}}=await sb.auth.getSession();me=session?.user||null;prof=null;if(me){const{data}=await sb.from('profiles').select('*').eq('id',me.id).single();prof=data}}catch(e){bad=1;if(!CFG.name)CFG={...DEF};app.innerHTML='<div class="card err">Erreur de chargement : '+esc(e.message||e)+'</div>'}nav();if(!bad)route()}
 sb.auth.onAuthStateChange((ev,sess)=>{const id=sess?.user?.id||null;if(id!==(me?.id||null))setTimeout(init,0)});addEventListener('hashchange',route);
@@ -184,9 +206,9 @@ async function home(){
     if(r.race)lignes.push(`<span><b>Race :</b> ${esc(r.race)}</span>`);
     if(a.sex)lignes.push(`<span><b>Sexe :</b> ${esc(a.sex)}</span>`);
     if(r.couleur)lignes.push(`<span><b>Robe :</b> ${esc(r.couleur)}</span>`);
-    if(a.born)lignes.push(`<span><b>Né(e) le :</b> ${dt(a.born)}</span>`);
+    lignes.push(`<span><b>Date de naissance :</b> ${a.born?dt(a.born):'À confirmer'}</span>`);
     if(r.poids)lignes.push(`<span><b>Poids :</b> ${esc(r.poids)}</span>`);
-    if(disponibilite)lignes.push(`<span><b>Disponible à partir du :</b> ${dt(disponibilite)}</span>`);
+    lignes.push(`<span><b>Disponible à partir du :</b> ${disponibilite?dt(disponibilite):'À confirmer'}</span>`);
     const complement=[];
     if(r.caractere)complement.push(`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`);
     if(r.habitudes)complement.push(`<p><b>Habitudes et socialisation :</b> ${esc(r.habitudes)}</p>`);
@@ -279,44 +301,59 @@ function printAnimalSheet(a,P=[],S=[]){
   const photos=a.photos||[];
   const care=a.data?.care||{};
   const pdfCfg=CFG.pdf||{};
-  const value=(v)=>v!==undefined&&v!==null&&String(v).trim()!==''?esc(v):'';
-  const field=(label,v)=>value(v)?`<div class="field"><strong>${label}</strong><span>${value(v)}</span></div>`:'';
-  const section=(title,content)=>content?`<section><h2>${title}</h2>${content}</section>`:'';
+  const val=v=>v!==undefined&&v!==null&&String(v).trim()!==''?esc(v):'';
+  const field=(label,v)=>val(v)?`<div class="field"><b>${label}</b><span>${val(v)}</span></div>`:'';
+  const block=(title,content)=>content?`<section><h2>${title}</h2>${content}</section>`:'';
   const careHtml=Object.entries(CC).map(([key,label])=>{
     const entries=care[key]||[];
-    if(!entries.length)return '';
-    return `<h3>${esc(label)}</h3><ul>${entries.map(x=>`<li>${esc(x.n||'')} — ${dt(x.d)}${x.rd?' · Rappel : '+dt(x.rd):''}</li>`).join('')}</ul>`;
-  }).join('');
-  const gallery=photos.length?`<div class="gallery">${photos.map(ph=>`<figure><img src="${esc(ph.url)}" alt="Photographie de ${esc(a.name)}"><figcaption>${dt(ph.date)}${ph.comment?' — '+esc(ph.comment):''}</figcaption></figure>`).join('')}</div>`:'<p>Aucune photographie enregistrée.</p>';
-  const htmlDoc=`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fiche de ${esc(a.name)} - ${esc(CFG.name||'Le Clos des Poils')}</title>
+    return entries.length?`<div class="careline"><b>${esc(label)} :</b> ${entries.map(x=>`${esc(x.n||'')} (${dt(x.d)}${x.rd?' ; rappel '+dt(x.rd):''})`).join(' · ')}</div>`:'';
+  }).join('')||'<p>Aucun soin enregistré.</p>';
+  const paymentsHtml=payments.length?payments.map(x=>`${dt(x.d)} ${esc(x.l||'Paiement')} : ${eur(x.a)}`).join(' · '):'Aucun paiement enregistré';
+  const photo=photos.length?`<img class="portrait" src="${esc(photos[photos.length-1].url)}" alt="Photo de ${esc(a.name)}">`:'';
+  const availability=profile.disponibilite_reelle||profile.disponibilite_prevue||'';
+  const doc=`<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Fiche ${esc(a.name)}</title>
   <style>
-  @page{size:A4;margin:15mm}*{box-sizing:border-box}body{font:10.5pt/1.5 Arial,sans-serif;color:#26332b;margin:0}
-  header{border-bottom:3px solid #315b45;padding-bottom:12px;margin-bottom:18px}
-  .brand{font-size:18pt;font-weight:700;color:#315b45}.sub{color:#68756c;font-size:9pt}
-  h1{font-size:23pt;margin:8px 0 3px}h2{font-size:14pt;color:#315b45;border-bottom:1px solid #dfe6df;padding-bottom:5px;margin:18px 0 8px}
-  h3{font-size:11pt;margin:10px 0 4px}p{margin:4px 0 8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 18px}
-  .field{padding:3px 0;border-bottom:1px dotted #d9dfd9}.field strong{display:block;font-size:8.5pt;color:#68756c}
-  .hero{display:flex;gap:18px;align-items:center;margin:12px 0}.hero img{width:118px;height:118px;object-fit:cover;border-radius:10px}
-  .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.gallery figure{margin:0;break-inside:avoid}.gallery img{width:100%;height:190px;object-fit:cover;border-radius:7px}.gallery figcaption{font-size:8.5pt;color:#68756c;margin-top:3px}
-  ul{margin:4px 0 8px;padding-left:20px}footer{margin-top:24px;border-top:1px solid #dfe6df;padding-top:8px;color:#68756c;font-size:8pt}
-  .note{font-size:8.5pt;color:#68756c}
+  @page{size:A4 portrait;margin:7mm}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;color:#26332b;font:7.3pt/1.22 Arial,sans-serif}
+  body{width:100%}
+  header{display:flex;justify-content:space-between;align-items:end;border-bottom:2px solid #315b45;padding:0 0 4px;margin-bottom:5px}
+  .brand{font-size:12pt;font-weight:bold;color:#315b45}.sub{font-size:7pt;color:#68756c;text-align:right}
+  .hero{display:flex;align-items:center;gap:9px;margin:4px 0 6px;min-height:44px}
+  .portrait{width:48px;height:48px;object-fit:cover;border-radius:6px}
+  h1{font-size:15pt;margin:0 0 2px}h2{font-size:8.2pt;color:#315b45;margin:0 0 3px;padding-bottom:2px;border-bottom:1px solid #dfe6df}
+  h3{font-size:7.4pt;margin:3px 0 1px}
+  .meta{color:#68756c;font-size:6.6pt}
+  .layout{display:grid;grid-template-columns:1fr 1fr;gap:5px 9px;align-items:start}
+  section{border:1px solid #e1e6df;border-radius:4px;padding:4px;break-inside:avoid;page-break-inside:avoid;min-width:0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 7px}
+  .field{min-width:0;padding:1px 0;border-bottom:1px dotted #e1e6df;overflow-wrap:anywhere}
+  .field b{color:#68756c;font-size:6.3pt;display:block;font-weight:600}
+  .field span{display:block}
+  p{margin:2px 0}ul{margin:2px 0;padding-left:12px}
+  .careline{margin:2px 0;overflow-wrap:anywhere}
+  .wide{grid-column:1/-1}
+  footer{border-top:1px solid #dfe6df;margin-top:5px;padding-top:3px;font-size:6pt;color:#68756c}
+  .small{font-size:6.2pt;color:#68756c}
+  @media print{html,body{width:100%;height:auto}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   </style></head><body>
-  <header><div class="brand">${esc(pdfCfg.title||CFG.name||'Le Clos des Poils')}</div><div class="sub">${esc(pdfCfg.subtitle||'Fiche individuelle de suivi')}</div></header>
-  <div class="hero">${photos.length?`<img src="${esc(photos[photos.length-1].url)}" alt="">`:''}<div><h1>${esc(a.name)}</h1><div>${esc(a.sp||'')} ${a.sex?'· '+esc(a.sex):''} ${a.status?'· '+esc(a.status):''}</div><div class="sub">Document généré le ${new Date().toLocaleDateString('fr-FR')}</div></div></div>
-  ${section('Identification',`<div class="grid">${field('Espèce',a.sp)}${field('Race',profile.race)}${field('Sexe',a.sex)}${field('Couleur / robe',profile.couleur)}${field('Date de naissance',dt(a.born))}${field('Poids actuel',profile.poids)}${field('Identification',profile.identifie==='Oui'?(profile.identification_type||'')+' '+(profile.identification_numero||''):'Non renseigné')}</div>`)}
-  ${section('Origines et portée',`<div class="grid">${field('Référence de portée',profile.numero_portee)}${field('Père',profile.pere_portee||profile.pere)}${field('Mère',profile.mere_portee||profile.mere)}${field('Date de saillie',dt(profile.date_saillie))}${field('Date de mise bas',dt(profile.date_mise_bas))}${field('Nombre de petits nés',profile.petits_nes)}${field('Petits vivants à la naissance',profile.petits_vivants)}${field('Petits sevrés',profile.petits_sevres)}${field('Date de sevrage',dt(profile.date_sevrage))}</div>${field('Observations sur la portée',profile.deroulement_portee)}${field('Suivi de la portée',profile.origines_portee)}`)}
-  ${section('Développement et comportement',`${field('Caractère',profile.caractere)}${field('Habitudes et socialisation',profile.habitudes)}${field('Alimentation actuelle',profile.alimentation)}${field('Conseils particuliers',profile.conseils)}`)}
-  ${section('Suivi sanitaire',`${field('Dernier contrôle vétérinaire',dt(profile.dernier_controle))}${field('Antécédents / traitements',profile.antecedents)}${field('Observations de santé',profile.notes_sante)}${careHtml||'<p>Aucun soin enregistré.</p>'}`)}
-  ${section('Réservation et paiements',`<div class="grid">${field('Disponibilité prévue',dt(profile.disponibilite_prevue))}${field('Disponibilité confirmée',dt(profile.disponibilite_reelle))}${field('Date de réservation',dt(profile.date_reservation))}${field('Date de remise prévue',dt(a.remise))}${field('Prix de vente',eur(a.price))}${field('Total versé',eur(paid))}${field('Solde restant',eur((Number(a.price)||0)-paid))}</div>${payments.length?'<h3>Historique des paiements</h3><ul>'+payments.map(x=>`<li>${dt(x.d)} — ${esc(x.l||'Paiement')} : ${eur(x.a)}</li>`).join('')+'</ul>':'<p>Aucun paiement enregistré.</p>'}`)}
-  ${section('Photographies',gallery)}
-  <footer>${esc(pdfCfg.footer||'Document de suivi édité par l’éleveur. Il ne remplace pas les documents vétérinaires ou officiels.')}</footer>
-  <script>window.addEventListener('load',()=>{const imgs=[...document.images];Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=r;i.onerror=r}))).then(()=>setTimeout(()=>window.print(),250));});<\/script>
+  <header><div class="brand">${esc(pdfCfg.title||CFG.name||'Le Clos des Poils')}</div><div class="sub">${esc(pdfCfg.subtitle||'Fiche individuelle de présentation et de suivi')}</div></header>
+  <div class="hero">${photo}<div><h1>${esc(a.name)}</h1><div>${esc(a.sp||'Espèce non renseignée')} · ${esc(a.sex||'Sexe non renseigné')} · ${esc(a.status||'Statut non renseigné')}</div><div class="meta">Fiche éditée le ${new Date().toLocaleDateString('fr-FR')} · ${photos.length} photo(s) enregistrée(s)</div></div></div>
+  <div class="layout">
+  ${block('IDENTITÉ ET DISPONIBILITÉ',`<div class="grid">${field('Espèce',a.sp)}${field('Race',profile.race)}${field('Sexe',a.sex)}${field('Couleur / robe',profile.couleur)}${field('Date de naissance',dt(a.born)||'À confirmer')}${field('Disponible à partir du',dt(availability)||'À confirmer')}${field('Poids actuel',profile.poids)}${field('Statut',a.status)}${field('Identification',profile.identifie==='Oui'?(profile.identification_type||'')+' '+(profile.identification_numero||''):'Non renseignée')}${field('Date d’identification',dt(profile.identification_date))}</div>${field('Description',a.descr)}`)}
+  ${block('ORIGINES ET PORTÉE',`<div class="grid">${field('Référence de portée',profile.numero_portee)}${field('Père',profile.pere_portee||profile.pere)}${field('Mère',profile.mere_portee||profile.mere)}${field('Date de saillie',dt(profile.date_saillie))}${field('Date de mise bas',dt(profile.date_mise_bas))}${field('Petits nés / vivants',`${profile.petits_nes??''}${profile.petits_vivants!=null?' / '+profile.petits_vivants:''}`)}${field('Petits sevrés',profile.petits_sevres)}${field('Date de sevrage',dt(profile.date_sevrage))}${field('Variété de la portée',profile.race_portee)}${field('Poids moyen à la naissance',profile.poids_naissance)}</div>${field('Observations sur la portée',profile.deroulement_portee)}${field('Suivi de la portée',profile.origines_portee)}`)}
+  ${block('CARACTÈRE ET QUOTIDIEN',`<div class="grid">${field('Caractère',profile.caractere)}${field('Habitudes / socialisation',profile.habitudes)}${field('Alimentation actuelle',profile.alimentation)}${field('Conseils particuliers',profile.conseils)}</div>`)}
+  ${block('SANTÉ ET SOINS',`<div class="grid">${field('Dernier contrôle vétérinaire',dt(profile.dernier_controle))}${field('Antécédents / traitements',profile.antecedents)}${field('Observations de santé',profile.notes_sante)}</div>${careHtml}`)}
+  ${block('RÉSERVATION ET FINANCES',`<div class="grid">${field('Disponibilité estimée',dt(profile.disponibilite_prevue))}${field('Disponibilité confirmée',dt(profile.disponibilite_reelle))}${field('Date de réservation',dt(profile.date_reservation))}${field('Départ prévu',dt(profile.depart_prevu))}${field('Départ effectif',dt(profile.depart_effectif))}${field('Date de remise',dt(a.remise))}${field('Prix de vente',eur(a.price))}${field('Total versé',eur(paid))}${field('Solde restant',eur((Number(a.price)||0)-paid))}${field('Acompte déclaré',eur(profile.acompte))}</div><h3>Historique des paiements</h3><p>${paymentsHtml}</p>`)}
+  ${block('NOTES ET INFORMATIONS COMPLÉMENTAIRES',`${field('Notes complémentaires',profile.notes)}${field('Informations libres',profile.informations)}`)}
+  </div>
+  <footer>${esc(pdfCfg.footer||'Document de suivi édité par l’éleveur. Il ne remplace pas les documents vétérinaires ou officiels.')} <span class="small">— Les dates non renseignées sont indiquées « À confirmer ».</span></footer>
+  <script>window.addEventListener('load',()=>{const imgs=[...document.images];Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=r;i.onerror=r}))).then(()=>setTimeout(()=>{window.print()},200));});<\/script>
   </body></html>`;
   const win=window.open('','_blank');
   if(!win){alert('Autorisez les fenêtres contextuelles pour générer le document.');return;}
-  win.document.open();win.document.write(htmlDoc);win.document.close();
+  win.document.open();win.document.write(doc);win.document.close();
 }
-
 async function client(){const{data:A}=await sb.from('animals').select('*').eq('buyer',me.id),ids=(A||[]).map(a=>a.id);
 const[{data:P},{data:S}]=ids.length?await Promise.all([sb.from('payments').select('*').in('animal_id',ids).order('d'),sb.from('signatures').select('*').in('animal_id',ids)]):[{data:[]},{data:[]}];
 app.innerHTML=`<h1>Bonjour ${esc(prof.prenom)}</h1>`+(A?.length?A.map(a=>fiche(a,P,S)).join(''):'<p class="mut">Aucun animal n’est encore rattaché à votre compte. L’éleveur le fera après votre réservation.</p>')+secs('client').map(secHtml).join('')+'<div class="card"><h3>Mes données</h3><button class="s" id="ex">Télécharger mes données</button> <button class="d" id="del">Supprimer mon compte</button></div>';
@@ -372,8 +409,9 @@ app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</butto
 
   <h3>Soins</h3>${careHtml(a, true)}
   <form class="cf"><div class="row"><select name="k">${Object.entries(CC).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select><input name="n" placeholder="Nom du soin" required><label>Date<input type="date" name="d" required></label><label>Rappel<input type="date" name="rd"></label><button class="s">Ajouter un soin</button></div></form>
-  <h3>Paiements</h3>${P.filter(x=>x.animal_id==a.id).map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun</div>'}
-  <form class="pf"><div class="row"><input name="l" placeholder="Libellé" required><input type="number" step="0.01" name="a" placeholder="Montant €" required><input type="date" name="d" required><button class="s">Enregistrer un paiement</button></div></form>
+  <h3>Paiements enregistrés</h3><p class="mut">Le développeur et l’administrateur peuvent modifier ou supprimer un paiement existant. Toute modification est enregistrée dans la base de données.</p>
+  ${P.filter(x=>x.animal_id==a.id).map(x=>`<div class="card pay-item" data-payid="${esc(x.id)}" data-animal="${a.id}" style="margin:8px 0;padding:10px"><div class="row"><label>Libellé<input data-pay="l" value="${esc(x.l||'')}"></label><label>Montant (€)<input data-pay="a" type="number" min="0" step="0.01" value="${esc(x.a)}"></label><label>Date<input data-pay="d" type="date" value="${esc(x.d||'')}"></label><button type="button" class="s pay-save">Enregistrer les modifications</button><button type="button" class="d pay-delete">Supprimer le paiement</button></div></div>`).join('')||'<div class="mut">Aucun paiement enregistré.</div>'}
+  <form class="pf"><div class="row"><input name="l" placeholder="Libellé" required><input type="number" min="0" step="0.01" name="a" placeholder="Montant €" required><input type="date" name="d" required><button class="s">Enregistrer un paiement</button></div></form>
   <h3>Signatures</h3>${S.filter(x=>x.animal_id==a.id).map(x=>`<div>✔ ${esc(x.contract_key)} — ${esc(x.name)} le ${new Date(x.at).toLocaleString('fr-FR')}</div>`).join('')||'<div class="mut">Aucune</div>'}</details>`}).join('');
 const id=el=>+el.closest('[data-id]').dataset.id,done=i=>{OPEN=i;admin()};
 $('#new').onclick=async()=>{await sb.from('animals').insert({name:'Nouvel animal',status:'À naître'});admin()};
@@ -381,6 +419,22 @@ document.querySelectorAll('.ef').forEach(f=>f.onsubmit=async e=>{e.preventDefaul
 document.querySelectorAll('.ident-select').forEach(sel=>sel.onchange=()=>{const form=sel.closest('form');form.querySelectorAll('.ident-detail').forEach(el=>{el.style.display=sel.value==='Oui'?'block':'none';if(sel.value!=='Oui')el.querySelectorAll('input,select').forEach(i=>i.value='')})});
 document.querySelectorAll('.cf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f)),a=A.find(x=>x.id==id(f)),d=a.data||{};d.care=d.care||{};(d.care[o.k]=d.care[o.k]||[]).push({n:o.n,d:o.d,rd:o.rd});const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);error?alert(error.message):done(a.id)});
 document.querySelectorAll('.pf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.a=+o.a;o.animal_id=id(f);const{error}=await sb.from('payments').insert(o);error?alert(error.message):done(o.animal_id)});
+
+document.querySelectorAll('.pay-save').forEach(b=>b.onclick=async()=>{
+  const row=b.closest('.pay-item'),paymentId=row.dataset.payid;
+  const amount=Number(row.querySelector('[data-pay="a"]').value);
+  const o={l:row.querySelector('[data-pay="l"]').value.trim(),a:amount,d:row.querySelector('[data-pay="d"]').value};
+  if(!o.l||!o.d||!Number.isFinite(amount)||amount<0)return alert('Vérifiez le libellé, la date et le montant.');
+  if(!confirm('Confirmer la modification de ce paiement ?'))return;
+  const{error}=await sb.from('payments').update(o).eq('id',paymentId);
+  error?alert(error.message):done(Number(row.dataset.animal));
+});
+document.querySelectorAll('.pay-delete').forEach(b=>b.onclick=async()=>{
+  const row=b.closest('.pay-item'),paymentId=row.dataset.payid;
+  if(!confirm('Supprimer définitivement ce paiement ? Cette action ne peut pas être annulée.'))return;
+  const{error}=await sb.from('payments').delete().eq('id',paymentId);
+  error?alert(error.message):done(Number(row.dataset.animal));
+});
 
 document.querySelectorAll('.c-del').forEach(b=>b.onclick=async()=>{
   if(!confirm('Supprimer ce soin ?')) return;
@@ -454,6 +508,7 @@ app.innerHTML=`<h1>Administration du site</h1><p class="mut">Modifiez les conten
 <label>CSS personnalisé (libre)<textarea name="css">${esc(c.css)}</textarea></label>
 <h3>Sections</h3><p class="mut">Emplacement : home (accueil), client (espace acquéreur) ou page (nouvelle page dans le menu). Contenu en HTML libre.</p>
 <div id="secs"></div><button type="button" class="s" id="addsec">Ajouter une section</button>
+<h3>Personnalisation des textes et boutons</h3><p class="mut">Le développeur peut remplacer les libellés affichés dans le site. Dans le JSON, indiquez le texte actuel comme clé et le nouveau texte comme valeur. Cela permet de renommer des titres, boutons, liens et intitulés sans toucher au code.</p><label>Libellés personnalisés (JSON)<textarea name="ui_labels" rows="8">${esc(JSON.stringify(c.uiLabels||{},null,2))}</textarea></label>
 <h3>Modèles PDF</h3><p class="mut">Personnalisez l’en-tête et le pied de page des fiches individuelles exportées.</p><label>Titre des PDF<input name="pdf_title" value="${esc(c.pdf?.title||c.name||'Le Clos des Poils')}"></label><label>Sous-titre des PDF<input name="pdf_subtitle" value="${esc(c.pdf?.subtitle||'Fiche individuelle de suivi')}"></label><label>Pied de page des PDF<textarea name="pdf_footer" rows="2">${esc(c.pdf?.footer||'Document de suivi édité par l’éleveur. Il ne remplace pas les documents vétérinaires ou officiels.')}</textarea></label><h3>Informations légales</h3><p class="mut">Elles remplacent les variables des textes légaux.</p>${LK.map(([k,l])=>`<label>${l}<input name="l_${k}" value="${esc(c.legal?.[k])}"></label>`).join('')}<h3>Avancé (JSON)</h3><p class="mut">Éleveur, acompte, modes de paiement, textes des contrats, catégories de soins, statuts.</p><textarea name="adv">${esc(adv)}</textarea><br><button>Enregistrer le site</button></form>
 <div class="card">
 <div style="display:flex; justify-content:space-between; align-items:center;"><h3>Comptes</h3><button type="button" class="s" onclick="window.print()">Imprimer la liste</button></div>
@@ -466,7 +521,8 @@ document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{S.splice(+b.dat
 $('#addsec').onclick=()=>{S.push({id:'section'+(S.length+1),title:'Nouvelle section',where:'home',html:'<p>Contenu…</p>'});rs()};
 $('#df').onsubmit=async e=>{e.preventDefault();const f=e.target.elements;let a;try{a=JSON.parse(f.adv.value)}catch{return alert('JSON avancé invalide')}
 const colors={};for(const k of['g','a','bg'])if(f['c_'+k].value!==D[k])colors[k]=f['c_'+k].value;
-const{error}=await sb.from('settings').upsert({key:'site_config',value:JSON.stringify({...a,name:f['name'].value,hero:f.hero.value,css:f.css.value,colors,sections:S,pdf:{title:f.pdf_title.value,subtitle:f.pdf_subtitle.value,footer:f.pdf_footer.value},legal:Object.fromEntries(LK.map(([k])=>[k,f['l_'+k].value]))}),validated:true,validated_at:new Date().toISOString(),validated_by:me.id});
+let uiLabels;try{uiLabels=JSON.parse(f.ui_labels.value||'{}')}catch{return alert('JSON des libellés invalide')}
+const{error}=await sb.from('settings').upsert({key:'site_config',value:JSON.stringify({...a,name:f['name'].value,hero:f.hero.value,css:f.css.value,colors,sections:S,uiLabels,pdf:{title:f.pdf_title.value,subtitle:f.pdf_subtitle.value,footer:f.pdf_footer.value},legal:Object.fromEntries(LK.map(([k])=>[k,f['l_'+k].value]))}),validated:true,validated_at:new Date().toISOString(),validated_by:me.id});
 if(error)alert(error.message);else{await loadCfg();nav();alert('Site enregistré')}};
 const accts=async()=>{const[{data:U},{data:A}]=await Promise.all([sb.from('profiles').select('*').order('created_at'),sb.from('animals').select('id,buyer')]);
 $('#accts').innerHTML='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><tr><th align="left">Nom</th><th align="left">E-mail</th><th>Rôle</th><th>Créé le</th><th>Animaux</th><th></th></tr>'+U.map(u=>`<tr><td>${esc((u.prenom||'')+' '+(u.nom||''))}</td><td>${esc(u.email)}</td><td><select data-u="${u.id}">${['client','admin','dev'].map(r=>`<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></td><td>${dt(u.created_at)}</td><td align="center">${A.filter(a=>a.buyer==u.id).length}</td><td><button class="d" data-x="${u.id}" data-e="${esc(u.email)}">Supprimer</button></td></tr>`).join('')+'</table></div>';
