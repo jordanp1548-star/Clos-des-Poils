@@ -129,8 +129,42 @@ async function init(){let bad=0;try{await loadCfg();const{data:{session}}=await 
 sb.auth.onAuthStateChange((ev,sess)=>{const id=sess?.user?.id||null;if(id!==(me?.id||null))setTimeout(init,0)});addEventListener('hashchange',route);
 function nav(){$('#nav').innerHTML='<a href="#/">Accueil</a>'+secs('page').map(s=>`<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('')+(me?`${isD()?'<a href="#/admin-textes">Textes légaux</a>':''}${isD()?'<a href="#/dev">Mode développeur</a>':''}<a href="#/compte">Mon espace</a><a href="#" id="out">Déconnexion</a>`:'<a href="#/compte">Connexion</a>');const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut()}}
 function route(){const h=location.hash.slice(2);if(DOCS[h])return doc(h);if(h==='compte')return me?(isA()?admin():client()):login();if(h==='admin-textes'&&isA())return textes();if(h==='dev'&&isD())return dev();if(h.startsWith('p-')){const x=secs('page').find(y=>'p-'+y.id===h);if(x){app.innerHTML=`<h1>${esc(x.title)}</h1>${x.html}`;return}}home()}
-async function home(){const{data}=await sb.from('animals').select('name,emoji,sp,descr,born,remise,price,photos,data').eq('status','Disponible');
-app.innerHTML=`<h1>${esc(CFG.name)}</h1><p>${esc(CFG.hero)}</p><h2>Disponibles</h2>`+(data?.length?data.map(a=>{const photos=a.photos||[],photo=photos.length?photos[photos.length-1]:null,pr=a.data?.profile||{};return `<div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">${photo?`<img src="${esc(photo.url)}" alt="Photo de ${esc(a.name)}" loading="lazy" style="width:150px;height:150px;max-width:35vw;object-fit:cover;border-radius:12px;flex-shrink:0;">`:`<div aria-label="Aucune photo disponible" style="width:150px;height:150px;max-width:35vw;display:flex;align-items:center;justify-content:center;background:var(--line);border-radius:12px;font-size:2.5rem;flex-shrink:0;">📷</div>`}<div style="flex:1;min-width:180px;"><h3>${esc(a.emoji)} ${esc(a.name)} <span class="tag">Disponible</span></h3><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)}${pr.couleur?' · '+esc(pr.couleur):''}${(pr.disponibilite_reelle||pr.disponibilite_prevue)?' · Disponibilité : '+dt(pr.disponibilite_reelle||pr.disponibilite_prevue):''}<br><b>${eur(a.price)}</b></p>${pr.caractere?`<p>${esc(pr.caractere)}</p>`:''}</div></div>`}).join(''):'<p class="mut">Aucun animal disponible pour le moment.</p>')+'<p><a href="#/compte">Espace acquéreur</a></p>'+secs('home').map(secHtml).join('')}
+async function home(){
+  const {data,error}=await sb.from('animals').select('name,emoji,sp,descr,born,remise,price,sex,status,photos,data').eq('status','Disponible');
+  if(error){app.innerHTML=`<div class="card err">Impossible de charger les annonces : ${esc(error.message)}</div>`;return;}
+  const annonces=(data||[]).map(a=>{
+    const photos=a.photos||[],photo=photos.length?photos[photos.length-1]:null,r=a.data?.profile||{};
+    const disponibilite=r.disponibilite_reelle||r.disponibilite_prevue||a.remise||'';
+    const lignes=[];
+    if(a.sp)lignes.push(`<span><b>Espèce :</b> ${esc(a.sp)}</span>`);
+    if(r.race)lignes.push(`<span><b>Race :</b> ${esc(r.race)}</span>`);
+    if(a.sex)lignes.push(`<span><b>Sexe :</b> ${esc(a.sex)}</span>`);
+    if(r.couleur)lignes.push(`<span><b>Robe :</b> ${esc(r.couleur)}</span>`);
+    if(a.born)lignes.push(`<span><b>Né(e) le :</b> ${dt(a.born)}</span>`);
+    if(r.poids)lignes.push(`<span><b>Poids :</b> ${esc(r.poids)}</span>`);
+    if(disponibilite)lignes.push(`<span><b>Disponible à partir du :</b> ${dt(disponibilite)}</span>`);
+    const complement=[];
+    if(r.caractere)complement.push(`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`);
+    if(r.habitudes)complement.push(`<p><b>Habitudes et socialisation :</b> ${esc(r.habitudes)}</p>`);
+    if(r.alimentation)complement.push(`<p><b>Alimentation actuelle :</b> ${esc(r.alimentation)}</p>`);
+    if(r.conseils)complement.push(`<p><b>Conseils :</b> ${esc(r.conseils)}</p>`);
+    const origines=[];
+    if(r.date_mise_bas)origines.push(`<span><b>Date de naissance de la portée :</b> ${dt(r.date_mise_bas)}</span>`);
+    if(r.pere_portee)origines.push(`<span><b>Père :</b> ${esc(r.pere_portee)}</span>`);
+    if(r.mere_portee)origines.push(`<span><b>Mère :</b> ${esc(r.mere_portee)}</span>`);
+    if(r.numero_portee)origines.push(`<span><b>Référence de portée :</b> ${esc(r.numero_portee)}</span>`);
+    if(origines.length)complement.push(`<h4>Origines</h4><div class="row">${origines.join('')}</div>`);
+    const litter=(r.race_portee||r.poids_naissance||r.petits_nes!==''&&r.petits_nes!=null)
+      ? `<h4>Informations sur la portée</h4><div class="row">${r.race_portee?`<span><b>Variété :</b> ${esc(r.race_portee)}</span>`:''}${r.petits_nes!==''&&r.petits_nes!=null?`<span><b>Nombre de petits nés :</b> ${esc(r.petits_nes)}</span>`:''}${r.poids_naissance?`<span><b>Poids moyen à la naissance :</b> ${esc(r.poids_naissance)}</span>`:''}</div>`:'';
+    const enSavoirPlus=(complement.length||litter)?`<details style="margin-top:10px"><summary>En savoir plus sur ${esc(a.name)}</summary><div style="padding-top:8px">${complement.join('')}${litter}</div></details>`:'';
+    return `<article class="card" style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+      ${photo?`<img src="${esc(photo.url)}" alt="Photo de ${esc(a.name)}" loading="lazy" style="width:170px;height:170px;max-width:38vw;object-fit:cover;border-radius:12px;flex-shrink:0;">`:`<div aria-label="Aucune photo disponible" style="width:170px;height:170px;max-width:38vw;display:flex;align-items:center;justify-content:center;background:var(--line);border-radius:12px;font-size:2.5rem;flex-shrink:0;">📷</div>`}
+      <div style="flex:1;min-width:220px;"><h3 style="margin-top:0">${esc(a.emoji||'🐾')} ${esc(a.name)} <span class="tag">Disponible</span></h3>
+      ${a.descr?`<p>${esc(a.descr)}</p>`:''}<div class="row" style="gap:8px 18px">${lignes.join('')}</div>
+      ${r.caractere?`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`:''}${enSavoirPlus}<p style="font-size:1.15rem;margin-bottom:0"><b>${eur(a.price)}</b></p></div></article>`;
+  }).join('');
+  app.innerHTML=`<h1>${esc(CFG.name)}</h1><p>${esc(CFG.hero)}</p><h2>Nos animaux disponibles</h2>`+(annonces||'<p class="mut">Aucun animal disponible pour le moment.</p>')+'<p><a href="#/compte">Espace acquéreur</a></p>'+secs('home').map(secHtml).join('');
+}
 async function doc(k){const{data}=await sb.from('settings').select('*').eq('key',k).maybeSingle();const ok=data?.validated;
 app.innerHTML=`<h1>${DOCS[k].t}</h1>${ok?`<p class="mut">Version validée le ${dt(data.validated_at)}</p>`:'<p class="tag">Brouillon en attente de validation par l’éleveur</p>'}`+fmt(L(ok?data.value:DOCS[k].x))}
 function login(sign){app.innerHTML=`<div class="card"><h2>${sign?'Créer mon compte':'Connexion'}</h2><form id="f">
