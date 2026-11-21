@@ -25,7 +25,7 @@ footer{text-align:center;padding:24px;color:var(--mut);font-size:.9rem}footer a{
 <script>
 /* === À REMPLIR (Supabase > Project Settings > API) === */
 const SB_URL='https://xohucwmckmcjqznmfbrs.supabase.co', SB_KEY='sb_publishable_7xiq-m63V_LGIgVbIhQ5ug_7OEClRCa';
-let ELEV='Clos des Poils', ACOMPTE=300, PAYINFO='[À renseigner : 0648774637, POUGNET Jordan]';
+let ELEV='Clos des Poils', ACOMPTE=300, PAYINFO='Paiement par virement, Wero ou chèque. Pour obtenir les coordonnées de paiement (IBAN, ordre du chèque, adresse d’envoi), contactez l’éleveur par téléphone au 06 48 77 46 37 (Jordan Pougnet) : il vous les communiquera.';
 /* ===================================================== */
 const sb=supabase.createClient(SB_URL,SB_KEY),$=s=>document.querySelector(s),app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
