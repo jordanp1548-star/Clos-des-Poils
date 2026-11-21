@@ -17,7 +17,7 @@ label{display:block;margin:8px 0}.row{display:flex;gap:10px;flex-wrap:wrap;align
 footer{text-align:center;padding:24px;color:var(--mut);font-size:.9rem}footer a{color:var(--mut);margin:0 8px}
 .mut{color:var(--mut)}.err{color:#b3382c}:focus-visible{outline:3px solid var(--a);outline-offset:2px}summary{cursor:pointer}
 @media print {
-  header, footer, nav, button, form, .no-print, .sf, .ef, .cf, .pf, #df, #nu { display: none !important; }
+  header, footer, nav, button, form, .no-print, .sf, .ef, .cf, .pf, .uf, .del-photo, #df, #nu { display: none !important; }
   body { background: #fff; color: #000; }
   main { max-width: 100%; padding: 0; }
   .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
@@ -143,15 +143,55 @@ $('#sw').onclick=()=>login(!sign);
 $('#f').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
 const r=sign?await sb.auth.signUp({email:f.email,password:f.pw,options:{data:{prenom:f.prenom,nom:f.nom,tel:f.tel,consent:new Date().toISOString()}}}):await sb.auth.signInWithPassword({email:f.email,password:f.pw});
 if(r.error)$('#m').textContent=r.error.message;else if(sign&&!r.data.session)app.innerHTML='<div class="card">Compte créé. Vérifiez votre boîte mail pour confirmer votre adresse, puis connectez-vous.</div>'}}
-const careHtml=a=>Object.entries(CC).map(([k,l])=>{const c=a.data?.care?.[k]||[];return c.length?`<h4>${l}</h4>`+c.map(x=>`<div>${esc(x.n)} — ${dt(x.d)}${x.rd?' · rappel le '+dt(x.rd):''}</div>`).join(''):''}).join('')||'<div class="mut">Aucun soin enregistré</div>';
+const careHtml=(a,editable=false)=>{
+  return Object.entries(CC).map(([k,l])=>{
+    const c=a.data?.care?.[k]||[];
+    return c.length?`<h4>${l}</h4>`+c.map((x,i)=>`
+      <div class="care-item no-print" data-animal="${a.id}" data-k="${k}" data-i="${i}" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; border-bottom:1px dotted var(--line); padding-bottom:4px;">
+        <span>${esc(x.n)} — ${dt(x.d)}${x.rd?' · rappel le '+dt(x.rd):''}</span>
+        ${editable?`<span>
+          <button type="button" class="s c-edit" style="padding:2px 8px;font-size:0.8rem;margin-left:8px" title="Modifier">✏️</button>
+          <button type="button" class="d c-del" style="padding:2px 8px;font-size:0.8rem" title="Supprimer">❌</button>
+        </span>`:''}
+      </div>
+    `).join(''):'';
+  }).join('')||'<div class="mut">Aucun soin enregistré</div>'
+};
 const fill=(t,a)=>t.replace('{eleveur}',ELEV).replace('{acquereur}',prof.prenom+' '+prof.nom).replace(/\{animal\}/g,a.name).replace('{desc}',a.descr||'').replace('{naissance}',dd(a.born)).replace('{remise}',dd(a.remise)).replace('{prix}',eur(a.price)).replace('{acompte}',eur(ACOMPTE));
-const fiche=(a,P,S)=>{const p=P.filter(x=>x.animal_id==a.id),paid=p.reduce((s,x)=>s+x.a,0),sg=S.filter(x=>x.animal_id==a.id);
-return `<div class="card"><h2>${esc(a.emoji)} ${esc(a.name)} 
-<button class="s" onclick="window.print()" style="float:right;margin-top:-40px">🖨️ Imprimer la fiche PDF</button> 
-<span class="tag">${esc(a.status)}</span></h2><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)} · remise prévue le ${dt(a.remise)}</p>
-<h3>Paiements</h3>${p.map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun paiement enregistré</div>'}
-<p><b>Prix ${eur(a.price)} · versé ${eur(paid)} · reste ${eur(a.price-paid)}</b></p><p class="mut">Acompte : ${eur(ACOMPTE)} sous 7 jours. ${esc(PAYINFO)}</p>
-<h3>Suivi santé</h3>${careHtml(a)}<h3>Contrats</h3>`+CT.map(([k,t,x])=>{const s=sg.find(y=>y.contract_key==k);return `<details><summary>${t} ${s?'✔ signé le '+dt(s.at):''}</summary><p>${esc(fill(x,a)).replace(/\n/g,'<br>')}</p>${s?'':`<form class="sf" data-a="${a.id}" data-k="${k}"><label><input type="checkbox" required> Lu et approuvé</label><label>Nom complet<input required></label><button>Signer</button></form>`}</details>`}).join('')+'</div>'};
+const fiche=(a,P,S)=>{
+  const p=P.filter(x=>x.animal_id==a.id),paid=p.reduce((s,x)=>s+x.a,0),sg=S.filter(x=>x.animal_id==a.id);
+  const photos = a.photos || [];
+  const lastPhoto = photos.length > 0 ? photos[photos.length - 1] : null;
+  
+  const galerie = photos.length > 0 ? photos.map((ph, i) => `
+    <div style="margin-bottom:15px; border:1px solid var(--line); padding:10px; border-radius:8px;">
+      <img src="${esc(ph.url)}" style="max-width:100%; border-radius:8px; max-height:300px; object-fit:cover;" alt="Photo">
+      <p style="margin:8px 0 0 0;"><b>${dt(ph.date)}</b> — ${esc(ph.comment)}</p>
+      ${i === photos.length - 1 ? '<span class="tag" style="margin-left:10px">Photo de profil actuelle</span>' : ''}
+    </div>
+  `).join('') : '<p class="mut">Aucune photo pour le moment.</p>';
+
+  return `<div class="card">
+    <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+      ${lastPhoto ? `<img src="${esc(lastPhoto.url)}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--g);">` : '<div style="width:100px;height:100px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:2rem;">📷</div>'}
+      <div>
+        <h2 style="margin:0">${esc(a.emoji)} ${esc(a.name)} <span class="tag">${esc(a.status)}</span></h2>
+        <p style="margin:4px 0 0 0">${esc(a.sp)} · né(e) le ${dt(a.born)}</p>
+      </div>
+      <button class="s no-print" onclick="window.print()" style="margin-left:auto">🖨️ Imprimer la fiche PDF</button>
+    </div>
+    
+    <h3>Actualités en photos</h3>
+    ${galerie}
+    
+    <hr style="margin:20px 0; border:0; border-top:1px solid var(--line)">
+    
+    <h3>Paiements</h3>${p.map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun paiement enregistré</div>'}
+    <p><b>Prix ${eur(a.price)} · versé ${eur(paid)} · reste ${eur(a.price-paid)}</b></p><p class="mut">Acompte : ${eur(ACOMPTE)} sous 7 jours. ${esc(PAYINFO)}</p>
+    
+    <h3>Suivi santé</h3>${careHtml(a)}
+    
+    <h3>Contrats</h3>`+CT.map(([k,t,x])=>{const s=sg.find(y=>y.contract_key==k);return `<details><summary>${t} ${s?'✔ signé le '+dt(s.at):''}</summary><p>${esc(fill(x,a)).replace(/\n/g,'<br>')}</p>${s?'':`<form class="sf" data-a="${a.id}" data-k="${k}"><label><input type="checkbox" required> Lu et approuvé</label><label>Nom complet<input required></label><button>Signer</button></form>`}</details>`}).join('')+'</div>'};
 async function client(){const{data:A}=await sb.from('animals').select('*').eq('buyer',me.id),ids=(A||[]).map(a=>a.id);
 const[{data:P},{data:S}]=ids.length?await Promise.all([sb.from('payments').select('*').in('animal_id',ids).order('d'),sb.from('signatures').select('*').in('animal_id',ids)]):[{data:[]},{data:[]}];
 app.innerHTML=`<h1>Bonjour ${esc(prof.prenom)}</h1>`+(A?.length?A.map(a=>fiche(a,P,S)).join(''):'<p class="mut">Aucun animal n’est encore rattaché à votre compte. L’éleveur le fera après votre réservation.</p>')+secs('client').map(secHtml).join('')+'<div class="card"><h3>Mes données</h3><button class="s" id="ex">Télécharger mes données</button> <button class="d" id="del">Supprimer mon compte</button></div>';
@@ -160,27 +200,119 @@ $('#ex').onclick=()=>{const u=document.createElement('a');u.href=URL.createObjec
 $('#del').onclick=async()=>{if(confirm('Supprimer définitivement votre compte ? Les contrats signés peuvent être conservés selon nos obligations légales.')){const{error}=await sb.rpc('delete_my_account');if(error){alert(error.message);return}await sb.auth.signOut();location.hash='#/'}}}
 async function admin(){const[{data:A},{data:U},{data:P},{data:S}]=await Promise.all([sb.from('animals').select('*').order('id'),sb.from('profiles').select('id,prenom,nom').eq('role','client'),sb.from('payments').select('*').order('d'),sb.from('signatures').select('*')]);
 const ML={name:60,emoji:4,sp:40,descr:500,sex:20},inp=(a,k,l)=>`<label>${l}<input name="${k}" maxlength="${ML[k]}" value="${esc(a[k])}"></label>`;
-app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</button><br><br>`+A.map(a=>`<details class="card" data-id="${a.id}" ${OPEN==a.id?'open':''}><summary><b>${esc(a.emoji)} ${esc(a.name)}</b> <span class="tag">${esc(a.status)}</span></summary>
-<button type="button" class="s" onclick="window.print()" style="float:right">🖨️ Imprimer</button>
-<form class="ef"><div class="row">${inp(a,'name','Nom')}${inp(a,'emoji','Emoji')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
-<div class="row"><label>Naissance<input type="date" name="born" value="${a.born||''}"></label><label>Remise<input type="date" name="remise" value="${a.remise||''}"></label><label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
-<label>Statut<select name="status">${ST.map(s=>`<option ${s==a.status?'selected':''}>${s}</option>`).join('')}</select></label>
-<label>Acquéreur<select name="buyer"><option value="">—</option>${U.map(u=>`<option value="${u.id}" ${u.id==a.buyer?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label></div><button>Enregistrer la fiche</button></form>
-<h3>Soins</h3>${careHtml(a)}
-<form class="cf"><div class="row"><select name="k">${Object.entries(CC).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select><input name="n" placeholder="Nom du soin" required><label>Date<input type="date" name="d" required></label><label>Rappel<input type="date" name="rd"></label><button class="s">Ajouter un soin</button></div></form>
-<h3>Paiements</h3>${P.filter(x=>x.animal_id==a.id).map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun</div>'}
-<form class="pf"><div class="row"><input name="l" placeholder="Libellé" required><input type="number" step="0.01" name="a" placeholder="Montant €" required><input type="date" name="d" required><button class="s">Enregistrer un paiement</button></div></form>
-<h3>Signatures</h3>${S.filter(x=>x.animal_id==a.id).map(x=>`<div>✔ ${esc(x.contract_key)} — ${esc(x.name)} le ${new Date(x.at).toLocaleString('fr-FR')}</div>`).join('')||'<div class="mut">Aucune</div>'}</details>`).join('');
+app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</button><br><br>`+A.map(a=>{
+  const photos = a.photos || [];
+  const lastPhoto = photos.length > 0 ? photos[photos.length - 1] : null;
+  const galerieEdit = photos.map((ph, i) => `
+    <div style="margin-bottom:10px; border:1px solid var(--line); padding:8px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src="${esc(ph.url)}" style="width:60px; height:60px; border-radius:8px; object-fit:cover;">
+        <div><b>${dt(ph.date)}</b> — ${esc(ph.comment)}</div>
+      </div>
+      <button type="button" class="d del-photo" data-animal="${a.id}" data-i="${i}" style="padding:2px 8px;font-size:0.8rem">❌</button>
+    </div>
+  `).join('');
+
+  return `<details class="card" data-id="${a.id}" ${OPEN==a.id?'open':''}>
+  <summary style="display:flex; align-items:center; gap:10px;">
+    ${lastPhoto ? `<img src="${esc(lastPhoto.url)}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">` : '📷'}
+    <b>${esc(a.emoji)} ${esc(a.name)}</b> <span class="tag">${esc(a.status)}</span>
+  </summary>
+  <button type="button" class="s no-print" onclick="window.print()" style="float:right">🖨️ Imprimer</button>
+  <form class="ef"><div class="row">${inp(a,'name','Nom')}${inp(a,'emoji','Emoji')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
+  <div class="row"><label>Naissance<input type="date" name="born" value="${a.born||''}"></label><label>Remise<input type="date" name="remise" value="${a.remise||''}"></label><label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
+  <label>Statut<select name="status">${ST.map(s=>`<option ${s==a.status?'selected':''}>${s}</option>`).join('')}</select></label>
+  <label>Acquéreur<select name="buyer"><option value="">—</option>${U.map(u=>`<option value="${u.id}" ${u.id==a.buyer?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label></div><button>Enregistrer la fiche</button></form>
+  
+  <h3>Actualités en photos</h3>
+  <div style="background:var(--bg); padding:10px; border-radius:8px; margin-bottom:15px;">
+    ${galerieEdit || '<span class="mut">Aucune photo.</span>'}
+  </div>
+  <form class="uf" data-id="${a.id}" style="background:var(--card); border:1px dashed var(--g); padding:10px; border-radius:8px; margin-bottom:20px;">
+    <h4>Ajouter une photo d'actualité</h4>
+    <div class="row">
+      <label>Fichier image<input type="file" name="file" accept="image/*" required style="padding:5px"></label>
+      <label>Commentaire<input name="comment" placeholder="Ex: Première sortie au jardin !" required></label>
+      <button type="submit" class="s">Mettre en ligne</button>
+    </div>
+  </form>
+
+  <h3>Soins</h3>${careHtml(a, true)}
+  <form class="cf"><div class="row"><select name="k">${Object.entries(CC).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select><input name="n" placeholder="Nom du soin" required><label>Date<input type="date" name="d" required></label><label>Rappel<input type="date" name="rd"></label><button class="s">Ajouter un soin</button></div></form>
+  <h3>Paiements</h3>${P.filter(x=>x.animal_id==a.id).map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun</div>'}
+  <form class="pf"><div class="row"><input name="l" placeholder="Libellé" required><input type="number" step="0.01" name="a" placeholder="Montant €" required><input type="date" name="d" required><button class="s">Enregistrer un paiement</button></div></form>
+  <h3>Signatures</h3>${S.filter(x=>x.animal_id==a.id).map(x=>`<div>✔ ${esc(x.contract_key)} — ${esc(x.name)} le ${new Date(x.at).toLocaleString('fr-FR')}</div>`).join('')||'<div class="mut">Aucune</div>'}</details>`}).join('');
 const id=el=>+el.closest('[data-id]').dataset.id,done=i=>{OPEN=i;admin()};
 $('#new').onclick=async()=>{await sb.from('animals').insert({name:'Nouveau'});admin()};
 document.querySelectorAll('.ef').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.buyer=o.buyer||null;o.price=+o.price;o.born=o.born||null;o.remise=o.remise||null;const{error}=await sb.from('animals').update(o).eq('id',id(f));error?alert(error.message):done(id(f))});
 document.querySelectorAll('.cf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f)),a=A.find(x=>x.id==id(f)),d=a.data||{};d.care=d.care||{};(d.care[o.k]=d.care[o.k]||[]).push({n:o.n,d:o.d,rd:o.rd});const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);error?alert(error.message):done(a.id)});
-document.querySelectorAll('.pf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.a=+o.a;o.animal_id=id(f);const{error}=await sb.from('payments').insert(o);error?alert(error.message):done(o.animal_id)})}
+document.querySelectorAll('.pf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.a=+o.a;o.animal_id=id(f);const{error}=await sb.from('payments').insert(o);error?alert(error.message):done(o.animal_id)});
+
+document.querySelectorAll('.c-del').forEach(b=>b.onclick=async()=>{
+  if(!confirm('Supprimer ce soin ?')) return;
+  const el=b.closest('.care-item'), a=A.find(x=>x.id==el.dataset.animal), d=a.data||{};
+  if(d.care && d.care[el.dataset.k]){
+    d.care[el.dataset.k].splice(el.dataset.i, 1);
+    const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);
+    error?alert(error.message):done(a.id);
+  }
+});
+document.querySelectorAll('.c-edit').forEach(b=>b.onclick=async()=>{
+  const el=b.closest('.care-item'), a=A.find(x=>x.id==el.dataset.animal), d=a.data||{}, k=el.dataset.k, i=el.dataset.i;
+  const old=d.care[k][i];
+  const n=prompt('Nom du soin :', old.n);
+  if(n===null) return;
+  const date=prompt('Date du soin (AAAA-MM-JJ) :', old.d);
+  if(date===null) return;
+  const rd=prompt('Date de rappel (AAAA-MM-JJ, laissez vide si aucun) :', old.rd||'');
+  if(rd===null) return;
+  d.care[k][i]={n, d:date, rd:rd||null};
+  const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);
+  error?alert(error.message):done(a.id);
+});
+
+document.querySelectorAll('.uf').forEach(f=>f.onsubmit=async e=>{
+  e.preventDefault();
+  const fileInput = f.querySelector('input[type="file"]');
+  const comment = f.querySelector('input[name="comment"]').value;
+  const file = fileInput.files[0];
+  if(!file) return;
+  
+  f.querySelector('button').textContent = 'Envoi...';
+  const animalId = +f.dataset.id;
+  const animal = A.find(x=>x.id==animalId);
+  
+  const fileName = `${animalId}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '')}`;
+  const { error: uploadError } = await sb.storage.from('photos').upload(fileName, file);
+  if(uploadError) { alert(uploadError.message); f.querySelector('button').textContent = 'Mettre en ligne'; return; }
+  
+  const { data: { publicUrl } } = sb.storage.from('photos').getPublicUrl(fileName);
+  
+  const newPhoto = { url: publicUrl, comment: comment, date: new Date().toISOString() };
+  const newPhotos = animal.photos ? [...animal.photos, newPhoto] : [newPhoto];
+  
+  const { error: updateError } = await sb.from('animals').update({ photos: newPhotos }).eq('id', animalId);
+  if(updateError) alert(updateError.message);
+  else done(animalId);
+});
+
+document.querySelectorAll('.del-photo').forEach(b=>b.onclick=async()=>{
+  if(!confirm('Supprimer cette photo ?')) return;
+  const animal = A.find(x=>x.id==b.dataset.animal);
+  const newPhotos = [...animal.photos];
+  newPhotos.splice(b.dataset.i, 1);
+  
+  const { error } = await sb.from('animals').update({ photos: newPhotos }).eq('id', animal.id);
+  if(error) alert(error.message);
+  else done(animal.id);
+});
 async function textes(){const{data}=await sb.from('settings').select('*'),m=Object.fromEntries((data||[]).map(r=>[r.key,r]));
 app.innerHTML='<h1>Textes légaux</h1><p class="mut">Relisez chaque texte, complétez les [crochets], puis validez. Tant qu’un texte n’est pas validé, le brouillon s’affiche avec la mention « en attente de validation ».</p>'+Object.entries(DOCS).map(([k,d])=>`<form class="card" data-k="${k}"><h3>${d.t} ${m[k]?.validated?`<span class="tag">Validé le ${dt(m[k].validated_at)}</span>`:'<span class="tag">À valider</span>'}</h3><textarea name="x">${esc(m[k]?.value||d.x)}</textarea><br><button>Valider et publier</button></form>`).join('');
 document.querySelectorAll('form[data-k]').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('settings').upsert({key:f.dataset.k,value:f.x.value,validated:true,validated_at:new Date().toISOString(),validated_by:me.id});error?alert(error.message):textes()})}
 async function dev(){const c=CFG,col=c.colors||{},D={g:'#2f5d43',a:'#e0953a',bg:'#eef3ec'};
 const adv=JSON.stringify({elev:ELEV,acompte:ACOMPTE,payinfo:PAYINFO,contracts:CT,careCats:CC,statuses:ST},null,1);
+
+
 app.innerHTML=`<h1>Mode développeur</h1><form id="df" class="card"><h3>Site</h3>
 <label>Nom du site<input name="name" value="${esc(c.name)}"></label><label>Texte d’accueil<textarea name="hero" style="min-height:70px">${esc(c.hero)}</textarea></label>
 <div class="row">${[['g','Couleur principale'],['a','Accent'],['bg','Fond']].map(([k,l])=>`<label>${l}<input type="color" name="c_${k}" value="${col[k]||D[k]}"></label>`).join('')}</div>
