@@ -306,6 +306,7 @@ document.querySelectorAll('.del-photo').forEach(b=>b.onclick=async()=>{
   if(error) alert(error.message);
   else done(animal.id);
 });
+}
 async function textes(){const{data}=await sb.from('settings').select('*'),m=Object.fromEntries((data||[]).map(r=>[r.key,r]));
 app.innerHTML='<h1>Textes légaux</h1><p class="mut">Relisez chaque texte, complétez les [crochets], puis validez. Tant qu’un texte n’est pas validé, le brouillon s’affiche avec la mention « en attente de validation ».</p>'+Object.entries(DOCS).map(([k,d])=>`<form class="card" data-k="${k}"><h3>${d.t} ${m[k]?.validated?`<span class="tag">Validé le ${dt(m[k].validated_at)}</span>`:'<span class="tag">À valider</span>'}</h3><textarea name="x">${esc(m[k]?.value||d.x)}</textarea><br><button>Valider et publier</button></form>`).join('');
 document.querySelectorAll('form[data-k]').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('settings').upsert({key:f.dataset.k,value:f.x.value,validated:true,validated_at:new Date().toISOString(),validated_by:me.id});error?alert(error.message):textes()})}
