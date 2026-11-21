@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Le Clos des Poils</title>
+  <meta name="description" content="Le Clos des Poils — élevage familial de chiots, chatons et lapereaux. Découvrez nos animaux disponibles et contactez-nous.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐾%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" id="skip" href="#/">Aller au contenu principal</a>
+  <div id="sr-live" class="sr-only" role="status" aria-live="polite"></div>
+  <header>
+    <b id="brand">Le Clos des Poils</b>
+    <nav id="nav" aria-label="Navigation principale"></nav>
+    <div class="a11y-tools" role="group" aria-label="Options d’affichage">
+      <button type="button" id="a11y-minus" aria-label="Réduire la taille du texte">A−</button>
+      <button type="button" id="a11y-plus" aria-label="Agrandir la taille du texte">A+</button>
+      <button type="button" id="a11y-contrast" aria-pressed="false">Contraste</button>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"><p class="mut" role="status">Chargement…</p></main>
+
+  <footer aria-label="Informations légales">
+    <a href="#/mentions">Mentions légales</a>
+    <a href="#/confidentialite">Confidentialité</a>
+    <a href="#/reglement">Règlement</a>
+    <a href="#/cgv">Conditions de vente</a>
+  </footer>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+
+  <!-- Core -->
+  <script src="js/config.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/components.js"></script>
+
+  <!-- Pages -->
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/login.js"></script>
+  <script src="js/pages/legal.js"></script>
+  <script src="js/pages/faq.js"></script>
+  <script src="js/pages/contact.js"></script>
+  <script src="js/pages/client.js"></script>
+  <script src="js/pages/admin.js"></script>
+  <script src="js/pages/seller.js"></script>
+  <script src="js/pages/dev.js"></script>
+  <script src="js/pages/messages.js"></script>
+  <script src="js/pages/reservations.js"></script>
+  <script src="js/pages/gestion.js"></script>
+
+  <!-- Navigation + Router -->
+  <script src="js/a11y.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/router.js"></script>
+</body>
+</html>
