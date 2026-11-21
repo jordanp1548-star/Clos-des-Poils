@@ -1,27 +1,28 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Le Clos des Poils</title>
+<meta name="description" content="Le Clos des Poils — élevage familial de chiots, chatons et lapereaux. Découvrez nos animaux disponibles, nos valeurs et contactez-nous.">
 <style>
 :root{
-  --bg:#f5f5ef;--card:#fff;--ink:#26332b;--mut:#68756c;
-  --g:#315b45;--a:#c49a62;--line:#e1e6df;
-  --shadow:0 8px 28px rgba(34,52,40,.06);--radius:16px
+  --bg:#f6f7f2;--card:#fff;--ink:#24352b;--mut:#5a6b60;
+  --g:#315b45;--a:#c49a62;--line:#e1e8df;
+  --shadow:0 12px 32px rgba(32,55,40,.08);--radius:20px
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:16px clamp(16px,4vw,34px);background:var(--g);color:#fff;box-shadow:0 3px 14px rgba(0,0,0,.08)}
-header b{font-size:1.12rem;letter-spacing:.02em}
-header nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-header a{color:#fff;text-decoration:none;padding:7px 10px;border-radius:8px;font-size:.94rem}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(180deg,#edf3ec 0,#f7f8f4 320px);color:var(--ink)}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:13px clamp(14px,4vw,38px);background:rgba(39,79,55,.98);color:#fff;box-shadow:0 3px 14px rgba(0,0,0,.08);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+header b{font-size:1.2rem;letter-spacing:.02em}
+header nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+header a{color:#fff;text-decoration:none;padding:7px 10px;border-radius:8px;font-size:.9rem;font-weight:600}
 header a:hover,header a:focus-visible{background:rgba(255,255,255,.14)}
-main{width:min(1120px,100%);margin:0 auto;padding:clamp(16px,3vw,30px)}
+main{width:min(1180px,100%);margin:0 auto;padding:clamp(16px,3vw,36px)}
 h1,h2,h3,h4{line-height:1.25;letter-spacing:-.02em;color:var(--ink)}
-h1{font-size:clamp(1.8rem,4vw,2.5rem);margin:.2em 0 .45em}
-h2{font-size:1.55rem;margin:1.1em 0 .55em}
-h3{font-size:1.15rem;margin:1.1em 0 .55em}
+h1{font-size:clamp(2rem,4vw,3rem);margin:.2em 0 .45em;letter-spacing:-.045em}
+h2{font-size:1.45rem;margin:1.1em 0 .55em}
+h3{font-size:1.12rem;margin:1.1em 0 .55em}
 p{margin:.55em 0 1em}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(15px,2.5vw,22px);margin:0 0 16px;box-shadow:var(--shadow)}
+.card{background:var(--card);border:1px solid rgba(49,91,69,.10);border-radius:20px;padding:clamp(16px,2.5vw,24px);margin:0 0 16px;box-shadow:var(--shadow)}
 input,select,textarea,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
 input,select,textarea{width:100%;min-width:0}
 textarea{min-height:130px;resize:vertical}
@@ -35,22 +36,43 @@ label input,label select,label textarea{display:block;margin-top:5px}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
 .tag{display:inline-block;padding:3px 10px;border-radius:99px;background:#edf2ed;color:var(--g);font-size:.82rem;font-weight:650}
 footer{text-align:center;padding:28px 16px;color:var(--mut);font-size:.9rem}
-footer a{color:var(--mut);margin:0 8px}
+footer a{color:var(--mut);margin:0 8px;text-decoration:none}
+footer a:hover{color:var(--g);text-decoration:underline}
 .mut{color:var(--mut)}.err{color:#a8322a}
 :focus-visible{outline:3px solid var(--a);outline-offset:3px}
 summary{cursor:pointer;font-weight:650}
 details[open]>summary{margin-bottom:12px}
 hr{border:0;border-top:1px solid var(--line)}
-table{font-size:.94rem}th,td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top}
+table{font-size:.94rem;border-collapse:collapse;width:100%}th,td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
 img{max-width:100%}
-@media(max-width:650px){
-  header{align-items:flex-start}
-  header nav{width:100%;gap:3px}
-  header a{margin:0;padding:7px 8px;font-size:.88rem}
-  main{padding:15px}
-  .row>*{flex:1 1 100%}
-  .card{border-radius:13px}
-}
+.clos-hero{padding:clamp(24px,5vw,54px);border-radius:26px;background:linear-gradient(125deg,#244b35,#477452);color:#fff;box-shadow:0 18px 45px rgba(34,70,48,.2);margin-bottom:24px}
+.clos-hero h1,.clos-hero h2{color:#fff}.clos-hero p{max-width:720px;color:#edf4ed;font-size:1.08rem}
+.clos-kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.76rem;font-weight:800;color:#e4c99f}
+.clos-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.clos-actions a{text-decoration:none}
+.clos-actions button{padding:12px 18px;border-radius:12px}.clos-actions .s{color:#fff;border-color:rgba(255,255,255,.65);background:transparent}
+.clos-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:30px 0 14px}
+.clos-section-head h2{margin:0}
+.clos-category{margin:28px 0}
+.clos-category-head{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+.clos-category-head .clos-count{margin-left:auto;background:#eaf0e9;color:var(--g);border-radius:99px;padding:3px 10px;font-size:.82rem;font-weight:700}
+.clos-animal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr));gap:16px}
+.clos-animal{overflow:hidden;padding:0;display:flex;flex-direction:column}
+.clos-animal-photo{width:100%;height:220px;object-fit:cover;background:#e9eee8}
+.clos-animal-body{padding:18px;display:flex;flex-direction:column;gap:9px;flex:1}
+.clos-animal-meta{display:flex;gap:7px;flex-wrap:wrap}
+.clos-animal-meta span{background:#f0f4ef;border-radius:8px;padding:4px 8px;font-size:.82rem;color:#455b4b}
+.clos-price{font-size:1.2rem;font-weight:800;color:var(--g);margin-top:auto}
+.clos-filter{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:14px 0 22px}
+.clos-page-intro{max-width:760px;color:var(--mut);font-size:1.04rem}
+.clos-empty{padding:24px;text-align:center;background:#fff;border:1px dashed var(--line);border-radius:16px;color:var(--mut)}
+.clos-contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.clos-contact-card{background:#f8faf7;border-radius:16px;padding:18px}
+.clos-faq details{margin:10px 0}.clos-faq summary{padding:4px 0}.clos-faq details p{padding-top:10px;color:var(--mut)}
+.clos-message-layout{display:grid;grid-template-columns:minmax(230px,330px) 1fr;gap:14px}
+.clos-message-layout aside{max-height:620px;overflow:auto}
+.clos-message-layout [data-open-conv]{border-radius:12px;background:#f8faf7;border:1px solid var(--line);padding:8px 10px;color:var(--g);font-weight:600;text-align:left;width:100%;margin:5px 0;cursor:pointer;white-space:normal}
+.clos-message-layout [data-open-conv]:hover{background:#eaf1e9}
+@media(max-width:680px){header{position:static}header nav{width:100%}.clos-filter,.clos-message-layout{grid-template-columns:1fr}.clos-animal-photo{height:200px}.row>*{flex:1 1 100%}}
 @page{size:A4;margin:16mm}
 @media print{
   body{background:#fff!important;color:#202820!important;font-size:10.5pt}
@@ -64,31 +86,69 @@ img{max-width:100%}
   h1,h2,h3,h4{break-after:avoid}
 }
 </style>
-<style id="clos-premium-presentation">
-#nav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;width:100%}#nav .clos-nav-public,#nav .clos-nav-account{display:flex;align-items:center;gap:8px;flex-wrap:wrap}#nav a{border-radius:999px;padding:8px 12px;text-decoration:none}#nav a:hover{background:#edf3ec}#nav .nav-cta{background:var(--g);color:#fff}
-.clos-home-hero{max-width:1080px;margin:28px auto 42px;padding:clamp(34px,7vw,76px) 24px;text-align:center;border-radius:28px;background:linear-gradient(140deg,#edf4ec,#f8f5eb);border:1px solid #e0e9df}.clos-home-hero .clos-kicker,.clos-home-intro .clos-kicker{text-align:center}.clos-home-hero h1{max-width:850px;margin:14px auto;font-size:clamp(2rem,5vw,3.7rem);line-height:1.08;text-align:center}.clos-home-hero>p{max-width:700px;margin:0 auto;color:#536357;font-size:1.12rem;line-height:1.7;text-align:center}.clos-home-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:25px}.clos-primary-link,.clos-secondary-link{display:inline-flex;justify-content:center;align-items:center;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700}.clos-primary-link{background:var(--g);color:white}.clos-secondary-link{background:white;color:var(--g);border:1px solid #cbd8ca}.clos-home-intro{text-align:center;max-width:760px;margin:0 auto 44px}.clos-home-intro h2{margin:8px 0}.clos-home-intro p,.clos-section-heading p{color:var(--mut);line-height:1.65}.clos-listings-section{scroll-margin-top:20px}.clos-section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}.clos-section-heading h2{margin:5px 0}.clos-category{margin:26px 0 34px}.clos-category-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}.clos-category-head h3{margin:0}.clos-category-head p{margin:3px 0 0;color:var(--mut);font-size:.9rem}.clos-category-emoji{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:#eff4ed;font-size:1.8rem}.clos-animal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:18px}.clos-animal-card{padding:0;overflow:hidden;display:flex;flex-direction:column;border-radius:18px;transition:transform .18s ease,box-shadow .18s ease}.clos-animal-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #23332216}.clos-animal-photo{width:100%;height:210px;object-fit:cover;background:#edf1eb}.clos-animal-placeholder{display:grid;place-items:center;font-size:4rem}.clos-animal-body{padding:16px;display:flex;flex-direction:column;gap:9px;flex:1}.clos-animal-body h3{margin:0;font-size:1.18rem}.clos-animal-topline,.clos-animal-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}.clos-animal-family{font-size:.82rem;color:var(--mut)}.clos-animal-summary{margin:0;color:var(--mut);line-height:1.5;min-height:3em}.clos-animal-meta{display:flex;gap:6px;flex-wrap:wrap}.clos-animal-meta span{background:#f0f4ef;border-radius:999px;padding:5px 9px;font-size:.78rem;color:#455b4b}.clos-price{font-size:1.12rem;font-weight:800;color:var(--g)}.clos-detail-button{border:1px solid var(--g);background:white;color:var(--g);border-radius:999px;padding:9px 13px;font-weight:700;cursor:pointer}.clos-detail-button:hover{background:#eff5ee}.clos-bottom-cta{margin:48px 0 12px;padding:30px 22px;text-align:center;border-radius:22px;background:#f4f6f1}.clos-bottom-cta p{color:var(--mut)}.clos-modal-backdrop{position:fixed;inset:0;z-index:10000;background:#101810a8;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}.clos-modal-panel{position:relative;background:white;color:#263329;width:min(850px,100%);max-height:min(90vh,900px);overflow:auto;border-radius:22px;padding:clamp(18px,4vw,32px);box-shadow:0 24px 80px #0004}.clos-modal-close{position:sticky;top:0;float:right;border:0;border-radius:50%;width:40px;height:40px;font-size:1.7rem;background:#edf2ec;cursor:pointer;z-index:1}.clos-modal-top{display:grid;grid-template-columns:minmax(180px, .9fr) 1.1fr;gap:22px;align-items:center;margin-bottom:22px}.clos-modal-top img,.clos-modal-placeholder{width:100%;height:250px;object-fit:cover;border-radius:16px;background:#edf2ec}.clos-modal-placeholder{display:grid;place-items:center;font-size:5rem}.clos-modal-top h2{font-size:2rem;margin:8px 0}.clos-modal-top p{color:var(--mut);line-height:1.6}.clos-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0 24px}.clos-detail-field{padding:12px;border-radius:12px;background:#f5f7f3;display:flex;flex-direction:column;gap:5px}.clos-detail-field span{font-size:.8rem;color:var(--mut)}.clos-client-gate{margin-top:22px;padding:20px;border-radius:16px;background:#f1f5ed;border:1px solid #dce7d8}.clos-client-note{color:var(--mut);font-size:.9rem}.clos-filter{grid-template-columns:minmax(0,2fr) minmax(180px,1fr)}
-@media(max-width:700px){#nav{align-items:flex-start}#nav .clos-nav-public,#nav .clos-nav-account{width:100%}.clos-modal-top{grid-template-columns:1fr}.clos-modal-top img,.clos-modal-placeholder{height:210px}.clos-home-hero{margin:12px auto 30px}.clos-filter{grid-template-columns:1fr}}
-</style>
-
 </head><body>
 <header><b id="brand">Le Clos des Poils</b><nav id="nav"></nav></header>
-<main id="app"></main>
-<footer><a href="#/mentions">Mentions légales</a><a href="#/confidentialite">Confidentialité</a><a href="#/reglement">Règlement</a><a href="#/cgv">Conditions de vente</a></footer>
-<!-- Pour un site 100 % RGPD, téléchargez ce fichier et hébergez-le vous-même à côté de index.html -->
+<main id="app"><p class="mut">Chargement…</p></main>
+<footer>
+  <a href="#/mentions">Mentions légales</a>
+  <a href="#/confidentialite">Confidentialité</a>
+  <a href="#/reglement">Règlement</a>
+  <a href="#/cgv">Conditions de vente</a>
+  <a href="#/faq">FAQ</a>
+  <a href="#/contact">Contact</a>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-/* === À REMPLIR (Supabase > Project Settings > API) === */
-const SB_URL='https://xohucwmckmcjqznmfbrs.supabase.co', SB_KEY='sb_publishable_7xiq-m63V_LGIgVbIhQ5ug_7OEClRCa';
-let ELEV='Clos des Poils', ACOMPTE=300, PAYINFO='Paiement par virement, Wero ou chèque. Pour obtenir les coordonnées de paiement (IBAN, ordre du chèque, adresse d’envoi), contactez l’éleveur par téléphone au 06 48 77 46 37 (Jordan Pougnet) : il vous les communiquera.';
-/* ===================================================== */
-const sb=supabase.createClient(SB_URL,SB_KEY),$=s=>document.querySelector(s),app=$('#app');
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const eur=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(n||0);
-const dt=d=>d?new Date(d).toLocaleDateString('fr-FR'):'';
-let ST=['À naître','En croissance','Disponible','Réservée','Adopté','Vendue','Père','Mère','Non disponible'],CC={vaccins:'Vaccins',vermifuge:'Vermifuge',antipar:'Antiparasitaires (puces, tiques)',autres:'Autres soins'};
-let CT=[['reservation','Contrat de réservation','Entre {eleveur} (l’éleveur) et {acquereur} (l’acquéreur).\n\nL’éleveur réserve à l’acquéreur {animal} ({desc}), né(e) le {naissance}, au prix de {prix}. Un acompte de {acompte} confirme la réservation.'],['sante','Engagement santé de l’animal','L’acquéreur s’engage à faire suivre {animal} par un vétérinaire, à respecter le calendrier de vaccins et de vermifuges, et à prévenir l’éleveur en cas de problème de santé.'],['achat','Conditions d’achat','Le solde est dû avant la remise de {animal}, prévue le {remise}. L’animal est remis identifié et accompagné de ses documents de santé.']];
-const DOCS={
-reglement:{t:'Règlement du site',x:`# 1. Objet
+/* === CONFIGURATION === */
+const SB_URL='https://xohucwmckmcjqznmfbrs.supabase.co';
+const SB_KEY='sb_publishable_7xiq-m63V_LGIgVbIhQ5ug_7OEClRCa';
+let ELEV='Clos des Poils', ACOMPTE=300;
+let PAYINFO='Paiement par virement, Wero ou chèque. Pour obtenir les coordonnées de paiement (IBAN, ordre du chèque, adresse d’envoi), contactez l’éleveur par téléphone au 06 48 77 46 37 (Jordan Pougnet) : il vous les communiquera.';
+
+/* Valeurs légales par défaut (modifiables via /dev) */
+const LEGAL_DEFAULTS = {
+  nom:'Jordan Pougnet — Le Clos des Poils',
+  forme:'Entreprise individuelle',
+  siren:'[à compléter via Administration]',
+  siret:'[à compléter via Administration]',
+  adresse:'[adresse de l’élevage à compléter]',
+  email:'[email de contact à compléter]',
+  tel:'06 48 77 46 37',
+  directeur:'Jordan Pougnet',
+  hebergeur:'GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA)',
+  region_bdd:'UE — région Supabase',
+  mediateur:'[médiateur de la consommation à compléter]',
+  sort_acompte:'L’acompte est restitué en cas d’annulation par l’éleveur, ou conservé en cas de désistement de l’acquéreur après signature, sauf accord contraire.',
+  age_remise:'8 semaines (conformément à la réglementation)',
+  mentions_elevage:'Élevage familial déclaré. Animaux identifiés (puce électronique) et enregistrés auprès de l’I-CAD.',
+  duree_compte:'3 ans après le dernier contact',
+  duree_contrats:'10 ans (obligation comptable et légale)',
+  service_email:'Supabase Auth (emails transactionnels)',
+  transferts:'Aucun transfert hors UE en dehors des prestataires listés',
+  tva:'Prix TTC. TVA non applicable, art. 293 B du CGI.',
+  points_cgv:'Délai de rétractation de 14 jours, garanties légales de conformité et des vices cachés, documents remis (carnet de santé, certificat vétérinaire, attestation de cession), modalités de remboursement de l’acompte, recours à un médiateur de la consommation.'
+};
+
+/* === INITIALISATION === */
+const sb = supabase.createClient(SB_URL, SB_KEY);
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur = n => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(n||0);
+const dt = d => d ? new Date(d).toLocaleDateString('fr-FR') : '';
+const dtFull = d => d ? new Date(d).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}) : '';
+
+let ST = ['À naître','En croissance','Disponible','Réservée','Adopté','Vendue','Père','Mère','Non disponible'];
+let CC = {vaccins:'Vaccins',vermifuge:'Vermifuge',antipar:'Antiparasitaires (puces, tiques)',autres:'Autres soins'};
+let CT = [
+  ['reservation','Contrat de réservation','Entre {eleveur} (l’éleveur) et {acquereur} (l’acquéreur).\n\nL’éleveur réserve à l’acquéreur {animal} ({desc}), né(e) le {naissance}, au prix de {prix}. Un acompte de {acompte} confirme la réservation.'],
+  ['sante','Engagement santé de l’animal','L’acquéreur s’engage à faire suivre {animal} par un vétérinaire, à respecter le calendrier de vaccins et de vermifuges, et à prévenir l’éleveur en cas de problème de santé.'],
+  ['achat','Conditions d’achat','Le solde est dû avant la remise de {animal}, prévue le {remise}. L’animal est remis identifié et accompagné de ses documents de santé.']
+];
+
+const DOCS = {
+  reglement:{t:'Règlement du site',x:`# 1. Objet
 Ce site permet aux acquéreurs de suivre l’animal réservé auprès de {{nom}}. Il ne remplace pas le contrat de vente.
 
 # 2. Compte
@@ -117,7 +177,8 @@ Voir la politique de confidentialité.
 
 # 10. Droit applicable et litiges
 Droit français. En cas de litige, l’acquéreur consommateur peut recourir gratuitement à un médiateur de la consommation : {{mediateur}}.`},
-mentions:{t:'Mentions légales',x:`# Éditeur
+
+  mentions:{t:'Mentions légales',x:`# Éditeur
 {{nom}}, {{forme}}, SIREN {{siren}}, {{adresse}}, {{email}}, {{tel}}. Directeur de la publication : {{directeur}}.
 
 # Hébergement
@@ -128,7 +189,8 @@ Site : {{hebergeur}}. Base de données : Supabase, région {{region_bdd}}.
 
 # Propriété intellectuelle
 Les contenus du site sont protégés. Toute reproduction sans accord est interdite.`},
-confidentialite:{t:'Politique de confidentialité',x:`# Responsable du traitement
+
+  confidentialite:{t:'Politique de confidentialité',x:`# Responsable du traitement
 {{nom}}, {{adresse}}, {{email}}.
 
 # Données collectées
@@ -151,184 +213,588 @@ Le site utilise uniquement un stockage technique nécessaire à votre connexion.
 
 # Sécurité
 Connexion chiffrée (HTTPS), accès aux données restreint par compte.`},
-cgv:{t:'Conditions de vente',x:`# Brouillon à faire valider par un professionnel
+
+  cgv:{t:'Conditions de vente',x:`# Brouillon à faire valider par un professionnel
 Prix : {{tva}}. Les animaux sont vendus selon le contrat de réservation et les conditions d’achat signés en ligne.
 
 # Points à compléter avant publication
-{{points_cgv}}`}};
-let me=null,prof=null,OPEN=null,CFG={};
-const LK=[['nom','Nom / raison sociale'],['forme','Forme juridique'],['siren','SIREN'],['adresse','Adresse'],['email','E-mail de contact'],['tel','Téléphone'],['directeur','Directeur de la publication'],['hebergeur','Hébergeur du site (nom, adresse)'],['region_bdd','Région de la base (ex. UE – Paris)'],['mediateur','Médiateur de la consommation (nom, coordonnées)'],['sort_acompte','Sort de l’acompte en cas d’annulation'],['age_remise','Âge minimum de remise de l’animal'],['mentions_elevage','Mentions propres à l’élevage (déclaration, I-CAD…)'],['duree_compte','Durée de conservation du compte'],['duree_contrats','Durée de conservation contrats et paiements'],['service_email','Service d’envoi d’e-mails'],['transferts','Transferts hors UE'],['tva','TVA (TTC ou non applicable, art. 293 B)'],['points_cgv','Conditions de vente : rétractation, garanties, documents remis, remboursement acompte, médiation']];
-const LKM=Object.fromEntries(LK);
-const L=x=>x.replace(/\{\{(\w+)\}\}/g,(m,k)=>CFG.legal?.[k]||`[${LKM[k]||k} à compléter]`);
-const dd=d=>d?dt(d):'[à définir]';
-async function fn(name,body){const{data,error}=await sb.functions.invoke(name,{body});if(error){let m=error.message;try{m=(await error.context.json()).error||m}catch{}throw new Error(m)}return data}
-const isA=()=>prof?.role==='admin'||prof?.role==='dev',isD=()=>prof?.role==='dev';
-const DEF={name:'Le Clos des Poils',hero:'Élevage familial de chiots, chatons et lapereaux. Retrouvez ici le suivi de votre futur compagnon.',colors:{},css:'',sections:[]};
-const secs=w=>(CFG.sections||[]).filter(s=>s.where===w),secHtml=s=>`<div class="card"><h2>${esc(s.title)}</h2>${s.html}</div>`;
-async function loadCfg(){const{data}=await sb.from('settings').select('value').eq('key','site_config').maybeSingle();try{CFG={...DEF,...JSON.parse(data?.value||'{}')}}catch{CFG={...DEF}}
-if(CFG.elev)ELEV=CFG.elev;if(CFG.acompte!=null)ACOMPTE=+CFG.acompte;if(CFG.payinfo)PAYINFO=CFG.payinfo;if(CFG.contracts)CT=CFG.contracts;if(CFG.careCats)CC=CFG.careCats;if(CFG.statuses)ST=CFG.statuses;
-const r=document.documentElement.style;['g','a','bg'].forEach(k=>r.removeProperty('--'+k));for(const[k,v]of Object.entries(CFG.colors||{}))if(v)r.setProperty('--'+k,v);
-let st=$('#cs');if(!st){st=document.createElement('style');st.id='cs';document.head.append(st)}st.textContent=CFG.css||'';
-$('#brand').textContent=CFG.name;document.title=CFG.name}
-function applyDeveloperLabels(root=document){
-  const labels=CFG.uiLabels||{};
-  if(!Object.keys(labels).length)return;
-  const walk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
-  const nodes=[];while(walk.nextNode())nodes.push(walk.currentNode);
-  nodes.forEach(node=>{
-    const original=node.nodeValue.trim();
-    if(Object.prototype.hasOwnProperty.call(labels,original)){
-      const leading=node.nodeValue.match(/^\s*/)?.[0]||'';
-      const trailing=node.nodeValue.match(/\s*$/)?.[0]||'';
-      node.nodeValue=leading+labels[original]+trailing;
+{{points_cgv}}`}
+};
+
+let me = null, prof = null, OPEN = null, CFG = {}, closRealtime = null;
+
+const LK = [
+  ['nom','Nom / raison sociale'],['forme','Forme juridique'],['siren','SIREN'],['siret','SIRET'],
+  ['adresse','Adresse'],['email','E-mail de contact'],['tel','Téléphone'],
+  ['directeur','Directeur de la publication'],['hebergeur','Hébergeur du site'],
+  ['region_bdd','Région de la base'],['mediateur','Médiateur de la consommation'],
+  ['sort_acompte','Sort de l’acompte'],['age_remise','Âge minimum de remise'],
+  ['mentions_elevage','Mentions élevage'],['duree_compte','Durée conservation compte'],
+  ['duree_contrats','Durée conservation contrats'],['service_email','Service email'],
+  ['transferts','Transferts hors UE'],['tva','TVA'],['points_cgv','Points CGV']
+];
+const LKM = Object.fromEntries(LK);
+
+const L = x => x.replace(/\{\{(\w+)\}\}/g, (m,k) => {
+  const val = CFG.legal?.[k] || LEGAL_DEFAULTS[k];
+  return val || `[${LKM[k]||k} à compléter]`;
+});
+const dd = d => d ? dt(d) : '[à définir]';
+
+async function fn(name, body) {
+  const { data, error } = await sb.functions.invoke(name, { body });
+  if (error) {
+    let m = error.message;
+    try { m = (await error.context.json()).error || m; } catch {}
+    throw new Error(m);
+  }
+  return data;
+}
+
+const isA = () => prof?.role === 'admin' || prof?.role === 'dev';
+const isD = () => prof?.role === 'dev';
+const DEF = {
+  name:'Le Clos des Poils',
+  hero:'Élevage familial de chiots, chatons et lapereaux. Retrouvez ici le suivi de votre futur compagnon.',
+  colors:{}, css:'', sections:[]
+};
+const secs = w => (CFG.sections || []).filter(s => s.where === w);
+const secHtml = s => `<div class="card"><h2>${esc(s.title)}</h2>${s.html}</div>`;
+
+/* === CHARGEMENT CONFIG === */
+async function loadCfg() {
+  try {
+    const { data } = await sb.from('settings').select('value').eq('key','site_config').maybeSingle();
+    try { CFG = { ...DEF, ...JSON.parse(data?.value || '{}') }; }
+    catch { CFG = { ...DEF }; }
+  } catch { CFG = { ...DEF }; }
+  if (CFG.elev) ELEV = CFG.elev;
+  if (CFG.acompte != null) ACOMPTE = +CFG.acompte;
+  if (CFG.payinfo) PAYINFO = CFG.payinfo;
+  if (CFG.contracts) CT = CFG.contracts;
+  if (CFG.careCats) CC = CFG.careCats;
+  if (CFG.statuses) ST = CFG.statuses;
+  const r = document.documentElement.style;
+  ['g','a','bg'].forEach(k => r.removeProperty('--'+k));
+  for (const [k,v] of Object.entries(CFG.colors || {})) if (v) r.setProperty('--'+k, v);
+  let st = $('#cs');
+  if (!st) { st = document.createElement('style'); st.id = 'cs'; document.head.append(st); }
+  st.textContent = CFG.css || '';
+  const brand = $('#brand');
+  if (brand) brand.textContent = CFG.name || DEF.name;
+  document.title = CFG.name || DEF.name;
+}
+
+const fmt = x => x.split('\n\n').map(p => {
+  if (p.startsWith('# ')) {
+    const lines = p.slice(2).split('\n');
+    return `<h3>${esc(lines[0])}</h3>${esc(lines.slice(1).join('\n')).replace(/\n/g,'<br>')}`;
+  }
+  return `<p>${esc(p).replace(/\n/g,'<br>')}</p>`;
+}).join('');
+
+/* === INIT === */
+async function init() {
+  let bad = 0;
+  try {
+    await loadCfg();
+    const { data:{ session } } = await sb.auth.getSession();
+    me = session?.user || null;
+    prof = null;
+    if (me) {
+      const { data } = await sb.from('profiles').select('*').eq('id', me.id).single();
+      prof = data;
+    }
+  } catch (e) {
+    bad = 1;
+    if (!CFG.name) CFG = { ...DEF };
+    app.innerHTML = '<div class="card err"><b>Erreur de chargement.</b><br>' + esc(e.message || e) + '<br><br>Vérifiez votre connexion internet puis rechargez la page.</div>';
+  }
+  nav();
+  if (!bad) route();
+  applyDeveloperLabels();
+}
+
+sb.auth.onAuthStateChange((ev, sess) => {
+  const id = sess?.user?.id || null;
+  if (id !== (me?.id || null)) setTimeout(init, 0);
+});
+
+/* === PERSONNALISATION DES LIBELLÉS === */
+function applyDeveloperLabels(root = document) {
+  const labels = CFG.uiLabels || {};
+  if (!Object.keys(labels).length) return;
+  const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walk.nextNode()) nodes.push(walk.currentNode);
+  nodes.forEach(node => {
+    const original = node.nodeValue.trim();
+    if (Object.prototype.hasOwnProperty.call(labels, original)) {
+      const leading = node.nodeValue.match(/^\s*/)?.[0] || '';
+      const trailing = node.nodeValue.match(/\s*$/)?.[0] || '';
+      node.nodeValue = leading + labels[original] + trailing;
     }
   });
 }
-const labelObserver=new MutationObserver(records=>{
-  if(!CFG.uiLabels||!Object.keys(CFG.uiLabels).length)return;
-  records.forEach(rec=>rec.addedNodes.forEach(n=>{
-    if(n.nodeType===Node.ELEMENT_NODE)applyDeveloperLabels(n);
-    else if(n.nodeType===Node.TEXT_NODE&&n.parentElement)applyDeveloperLabels(n.parentElement);
-  }));
-});
-labelObserver.observe(document.body,{childList:true,subtree:true});
-const fmt=x=>x.split('\n\n').map(p=>p.startsWith('# ')?`<h3>${esc(p.slice(2).split('\n')[0])}</h3>${esc(p.split('\n').slice(1).join('\n')).replace(/\n/g,'<br>')}`:`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('');
-async function init(){let bad=0;try{await loadCfg();const{data:{session}}=await sb.auth.getSession();me=session?.user||null;prof=null;if(me){const{data}=await sb.from('profiles').select('*').eq('id',me.id).single();prof=data}}catch(e){bad=1;if(!CFG.name)CFG={...DEF};app.innerHTML='<div class="card err">Erreur de chargement : '+esc(e.message||e)+'</div>'}nav();if(!bad)route()}
-sb.auth.onAuthStateChange((ev,sess)=>{const id=sess?.user?.id||null;if(id!==(me?.id||null))setTimeout(init,0)});addEventListener('hashchange',route);
-function nav(){
-  const publicLinks='<a href="#/">Accueil</a>'+secs('page').map(s=>`<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('')+'<a href="#/mentions">Informations légales</a>';
-  const privateLinks=me?`${isA()?'<a href="#/compte">Gestion élevage</a>':'<a href="#/compte">Mon espace</a>'}${isD()?'<a href="#/admin-textes">Documents légaux</a><a href="#/dev">Administration du site</a>':''}<a href="#" id="out">Déconnexion</a>`:'<a href="#/compte">Espace client</a>';
-  $('#nav').innerHTML=publicLinks+privateLinks;
-  const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut()}
+
+/* === NAVIGATION === */
+const CLOS_ROLE_LABELS = {client:'Client', admin:'Éleveur', seller:'Vendeur', dev:'Développeur'};
+const closIsStaff = () => ['admin','dev'].includes(prof?.role);
+const closNotice = msg => `<div class="card" role="status">${esc(msg)}</div>`;
+
+function nav() {
+  let links = '<a href="#/">Accueil</a><a href="#/faq">FAQ</a><a href="#/contact">Contact</a>';
+  links += secs('page').map(s => `<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('');
+  if (me) {
+    const role = prof?.role || 'client';
+    const label = role === 'dev' ? 'Admin' : role === 'admin' ? 'Espace éleveur' : role === 'seller' ? 'Espace vendeur' : 'Mon espace';
+    links += `<a href="#/compte">${label}</a><a href="#/messages">Messagerie</a>`;
+    if (role === 'dev') links += '<a href="#/dev">Admin site</a><a href="#/admin-textes">Documents</a>';
+    links += '<a href="#" id="out">Déconnexion</a>';
+  } else {
+    links += '<a href="#/compte">Connexion / Inscription</a>';
+  }
+  const navEl = $('#nav');
+  if (navEl) navEl.innerHTML = links;
+  const o = $('#out');
+  if (o) o.onclick = async e => {
+    e.preventDefault();
+    try { if (closRealtime) { sb.removeChannel(closRealtime); closRealtime = null; } } catch {}
+    await sb.auth.signOut();
+  };
 }
-function route(){const h=location.hash.slice(2);if(DOCS[h])return doc(h);if(h==='compte')return me?(isA()?admin():client()):login();if(h==='admin-textes'&&isA())return textes();if(h==='dev'&&isD())return dev();if(h.startsWith('p-')){const x=secs('page').find(y=>'p-'+y.id===h);if(x){app.innerHTML=`<h1>${esc(x.title)}</h1>${x.html}`;return}}home()}
-async function home(){
-  const {data,error}=await sb.from('animals').select('name,emoji,sp,descr,born,remise,price,sex,status,photos,data').eq('status','Disponible');
-  if(error){app.innerHTML=`<div class="card err">Impossible de charger les annonces : ${esc(error.message)}</div>`;return;}
-  const annonces=(data||[]).map(a=>{
-    const photos=a.photos||[],photo=photos.length?photos[photos.length-1]:null,r=a.data?.profile||{};
-    const disponibilite=r.disponibilite_reelle||r.disponibilite_prevue||a.remise||'';
-    const lignes=[];
-    if(a.sp)lignes.push(`<span><b>Espèce :</b> ${esc(a.sp)}</span>`);
-    if(r.race)lignes.push(`<span><b>Race :</b> ${esc(r.race)}</span>`);
-    if(a.sex)lignes.push(`<span><b>Sexe :</b> ${esc(a.sex)}</span>`);
-    if(r.couleur)lignes.push(`<span><b>Robe :</b> ${esc(r.couleur)}</span>`);
-    lignes.push(`<span><b>Date de naissance :</b> ${a.born?dt(a.born):'À confirmer'}</span>`);
-    if(r.poids)lignes.push(`<span><b>Poids :</b> ${esc(r.poids)}</span>`);
-    lignes.push(`<span><b>Disponible à partir du :</b> ${disponibilite?dt(disponibilite):'À confirmer'}</span>`);
-    const complement=[];
-    if(r.caractere)complement.push(`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`);
-    if(r.habitudes)complement.push(`<p><b>Habitudes et socialisation :</b> ${esc(r.habitudes)}</p>`);
-    if(r.alimentation)complement.push(`<p><b>Alimentation actuelle :</b> ${esc(r.alimentation)}</p>`);
-    if(r.conseils)complement.push(`<p><b>Conseils :</b> ${esc(r.conseils)}</p>`);
-    const origines=[];
-    if(r.date_mise_bas)origines.push(`<span><b>Date de naissance de la portée :</b> ${dt(r.date_mise_bas)}</span>`);
-    if(r.pere_portee)origines.push(`<span><b>Père :</b> ${esc(r.pere_portee)}</span>`);
-    if(r.mere_portee)origines.push(`<span><b>Mère :</b> ${esc(r.mere_portee)}</span>`);
-    if(r.numero_portee)origines.push(`<span><b>Référence de portée :</b> ${esc(r.numero_portee)}</span>`);
-    if(origines.length)complement.push(`<h4>Origines</h4><div class="row">${origines.join('')}</div>`);
-    const litter=(r.race_portee||r.poids_naissance||r.petits_nes!==''&&r.petits_nes!=null)
-      ? `<h4>Informations sur la portée</h4><div class="row">${r.race_portee?`<span><b>Variété :</b> ${esc(r.race_portee)}</span>`:''}${r.petits_nes!==''&&r.petits_nes!=null?`<span><b>Nombre de petits nés :</b> ${esc(r.petits_nes)}</span>`:''}${r.poids_naissance?`<span><b>Poids moyen à la naissance :</b> ${esc(r.poids_naissance)}</span>`:''}</div>`:'';
-    const enSavoirPlus=(complement.length||litter)?`<details style="margin-top:10px"><summary>En savoir plus sur ${esc(a.name)}</summary><div style="padding-top:8px">${complement.join('')}${litter}</div></details>`:'';
-    return `<article class="card" style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;">
-      ${photo?`<img src="${esc(photo.url)}" alt="Photo de ${esc(a.name)}" loading="lazy" style="width:170px;height:170px;max-width:38vw;object-fit:cover;border-radius:12px;flex-shrink:0;">`:`<div aria-label="Aucune photo disponible" style="width:170px;height:170px;max-width:38vw;display:flex;align-items:center;justify-content:center;background:var(--line);border-radius:12px;font-size:2.5rem;flex-shrink:0;">Aucune photo</div>`}
-      <div style="flex:1;min-width:220px;"><h3 style="margin-top:0">${esc(a.name)} <span class="tag">Disponible</span></h3>
-      ${a.descr?`<p>${esc(a.descr)}</p>`:''}<div class="row" style="gap:8px 18px">${lignes.join('')}</div>
-      ${r.caractere?`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`:''}${enSavoirPlus}<p style="font-size:1.15rem;margin-bottom:0"><b>${eur(a.price)}</b></p></div></article>`;
-  }).join('');
-  app.innerHTML=`<h1>${esc(CFG.name)}</h1><p>${esc(CFG.hero)}</p><h2>Nos animaux disponibles</h2>`+(annonces||'<p class="mut">Aucun animal disponible pour le moment.</p>')+'<p><a href="#/compte">Accéder à mon espace client</a></p>'+secs('home').map(secHtml).join('');
+
+/* === ROUTEUR UNIFIÉ === */
+function route() {
+  const h = location.hash.slice(2) || '';
+  // Documents légaux
+  if (DOCS[h]) return doc(h);
+  // Pages publiques
+  if (h === 'faq') return closFaq();
+  if (h === 'contact') return closContact();
+  // Messagerie
+  if (h === 'messages') {
+    if (!me) { location.hash = '#/compte'; return; }
+    if (!['client','seller','admin','dev'].includes(prof?.role)) {
+      app.innerHTML = '<h1>Messagerie</h1><div class="card err">Votre compte n’a pas accès à la messagerie.</div>';
+      return;
+    }
+    return closMessagesByRole();
+  }
+  // Espaces
+  if (h === 'compte') {
+    if (!me) return login();
+    if (prof?.role === 'dev' || prof?.role === 'admin') return admin();
+    if (prof?.role === 'seller') return closSeller();
+    return client();
+  }
+  if (h === 'vendeur') {
+    if (me && prof?.role === 'seller') return closSeller();
+    location.hash = '#/compte'; return;
+  }
+  if (h === 'admin-textes' && isA()) return textes();
+  if (h === 'dev' && isD()) return dev();
+  // Pages dynamiques
+  if (h.startsWith('p-')) {
+    const x = secs('page').find(y => 'p-'+y.id === h);
+    if (x) { app.innerHTML = `<h1>${esc(x.title)}</h1>${x.html}`; return; }
+  }
+  // Défaut
+  home();
 }
-async function doc(k){const{data}=await sb.from('settings').select('*').eq('key',k).maybeSingle();const ok=data?.validated;
-app.innerHTML=`<h1>${DOCS[k].t}</h1>${ok?`<p class="mut">Version validée le ${dt(data.validated_at)}</p>`:'<p class="tag">Brouillon en attente de validation par l’éleveur</p>'}`+fmt(L(ok?data.value:DOCS[k].x))}
-function login(sign){app.innerHTML=`<div class="card"><h2>${sign?'Créer mon compte':'Connexion'}</h2><form id="f">
-${sign?'<label>Prénom<input name="prenom" required></label><label>Nom<input name="nom" required></label><label>Téléphone<input name="tel" type="tel"></label>':''}
-<label>E-mail<input name="email" type="email" required autocomplete="email"></label>
-<label>Mot de passe${sign?' (10 caractères minimum)':''}<input name="pw" type="password" minlength="${sign?10:1}" required autocomplete="${sign?'new-password':'current-password'}"></label>
-${sign?'<label><input type="checkbox" name="ok" required> Je suis majeur(e) et j’accepte le <a href="#/reglement" target="_blank">règlement</a> et la <a href="#/confidentialite" target="_blank">politique de confidentialité</a>.</label>':''}
-<p id="m" class="err"></p><button>${sign?'Créer mon compte':'Se connecter'}</button> <button type="button" class="s" id="sw">${sign?'J’ai déjà un compte':'Créer un compte'}</button></form></div>`;
-$('#sw').onclick=()=>login(!sign);
-$('#f').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
-const r=sign?await sb.auth.signUp({email:f.email,password:f.pw,options:{data:{prenom:f.prenom,nom:f.nom,tel:f.tel,consent:new Date().toISOString()}}}):await sb.auth.signInWithPassword({email:f.email,password:f.pw});
-if(r.error)$('#m').textContent=r.error.message;else if(sign&&!r.data.session)app.innerHTML='<div class="card">Compte créé. Vérifiez votre boîte mail pour confirmer votre adresse, puis connectez-vous.</div>'}}
-const careHtml=(a,editable=false)=>{
-  return Object.entries(CC).map(([k,l])=>{
-    const c=a.data?.care?.[k]||[];
-    return c.length?`<h4>${l}</h4>`+c.map((x,i)=>`
-      <div class="care-item no-print" data-animal="${a.id}" data-k="${k}" data-i="${i}" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; border-bottom:1px dotted var(--line); padding-bottom:4px;">
-        <span>${esc(x.n)} — ${dt(x.d)}${x.rd?' · rappel le '+dt(x.rd):''}</span>
-        ${editable?`<span>
-          <button type="button" class="s c-edit" style="padding:2px 8px;font-size:0.8rem;margin-left:8px" title="Modifier">Modifier</button>
-          <button type="button" class="d c-del" style="padding:2px 8px;font-size:0.8rem" title="Supprimer">Supprimer</button>
-        </span>`:''}
+
+addEventListener('hashchange', route);
+
+/* === PAGE ACCUEIL === */
+function catOf(v) {
+  const x = String(v||'').toLowerCase();
+  if (/bovin|vache|taureau|veau/.test(x)) return ['Bovins','🐄'];
+  if (/caprin|chèvre|chevre|bouc|chevreau/.test(x)) return ['Caprins','🐐'];
+  if (/ovin|mouton|brebis|agneau/.test(x)) return ['Ovins','🐑'];
+  if (/équin|equin|cheval|poney|âne|ane/.test(x)) return ['Équins','🐴'];
+  if (/porcin|cochon|porc|truie/.test(x)) return ['Porcins','🐖'];
+  if (/volaille|poule|coq|canard|oie|dinde|pintade/.test(x)) return ['Volailles','🐓'];
+  if (/chien|chiot|canin/.test(x)) return ['Chiens','🐕'];
+  if (/chat|chaton|félin|felin/.test(x)) return ['Chats','🐈'];
+  if (/lapin|lapereau|cunicul/.test(x)) return ['Lapins','🐇'];
+  return ['Autres animaux','🐾'];
+}
+
+async function home() {
+  document.title = 'Accueil — ' + (CFG.name || DEF.name);
+  app.innerHTML = `
+    <div class="clos-hero">
+      <div class="clos-kicker">Bienvenue au Clos des Poils</div>
+      <h1>Des animaux, du soin et de belles rencontres.</h1>
+      <p>${esc(CFG.hero || DEF.hero)}</p>
+      <div class="clos-actions">
+        <button type="button" id="clos-jump">Découvrir les annonces</button>
+        ${!me
+          ? '<a href="#/compte"><button class="s" type="button">Créer un compte / Se connecter</button></a>'
+          : '<a href="#/messages"><button class="s" type="button">Ouvrir ma messagerie</button></a>'}
       </div>
-    `).join(''):'';
-  }).join('')||'<div class="mut">Aucun soin enregistré</div>'
-};
-const fill=(t,a)=>t.replace('{eleveur}',ELEV).replace('{acquereur}',prof.prenom+' '+prof.nom).replace(/\{animal\}/g,a.name).replace('{desc}',a.descr||'').replace('{naissance}',dd(a.born)).replace('{remise}',dd(a.remise)).replace('{prix}',eur(a.price)).replace('{acompte}',eur(ACOMPTE));
-const fiche=(a,P,S)=>{
-  const p=P.filter(x=>x.animal_id==a.id),paid=p.reduce((s,x)=>s+x.a,0),sg=S.filter(x=>x.animal_id==a.id);
-  const photos = a.photos || [];
-  const lastPhoto = photos.length > 0 ? photos[photos.length - 1] : null;
-  
-  const galerie = photos.length > 0 ? photos.map((ph, i) => `
-    <div style="margin-bottom:15px; border:1px solid var(--line); padding:10px; border-radius:8px;">
-      <img src="${esc(ph.url)}" style="max-width:100%; border-radius:8px; max-height:300px; object-fit:cover;" alt="Photo">
-      <p style="margin:8px 0 0 0;"><b>${dt(ph.date)}</b> — ${esc(ph.comment)}</p>
-      ${i === photos.length - 1 ? '<span class="tag" style="margin-left:10px">Photo de profil actuelle</span>' : ''}
     </div>
-  `).join('') : '<p class="mut">Aucune photo pour le moment.</p>';
+    <div class="clos-section-head">
+      <div>
+        <div class="clos-kicker" style="color:var(--g)">Nos animaux</div>
+        <h2 id="annonces">Les animaux disponibles</h2>
+        <p class="clos-page-intro">Parcourez les annonces par famille animale et ouvrez chaque fiche pour découvrir ses informations.</p>
+      </div>
+    </div>
+    <div class="clos-filter">
+      <input id="clos-animal-search" placeholder="Rechercher un animal, une race…" aria-label="Rechercher">
+      <select id="clos-animal-category" aria-label="Filtrer par famille"><option value="">Toutes les familles</option></select>
+    </div>
+    <div id="clos-animal-results"><p class="mut">Chargement des annonces…</p></div>
+  `;
+
+  if (!me) {
+    app.insertAdjacentHTML('beforeend', `
+      <section class="card" style="margin-top:24px">
+        <h2>Un renseignement ?</h2>
+        <p>Vous pouvez consulter les annonces librement. Pour poser une question à un vendeur, créer une demande ou suivre une réservation, créez votre espace client.</p>
+        <div class="clos-actions">
+          <a href="#/compte"><button type="button">Créer mon compte client</button></a>
+          <a href="#/contact"><button class="s" type="button">Contacter l’élevage</button></a>
+        </div>
+      </section>
+    `);
+  }
+
+  const jumpBtn = $('#clos-jump');
+  if (jumpBtn) jumpBtn.onclick = () => { const el = $('#annonces'); if (el) el.scrollIntoView({behavior:'smooth'}); };
+
+  const host = $('#clos-animal-results');
+  try {
+    const { data, error } = await sb.from('animals')
+      .select('id,name,emoji,sp,descr,born,remise,price,sex,status,photos,data')
+      .eq('status','Disponible')
+      .order('id',{ascending:false});
+    if (error) throw error;
+    const animals = data || [];
+    const cats = [...new Set(animals.map(a => catOf(a.sp)[0]))];
+    const catSel = $('#clos-animal-category');
+    if (catSel) catSel.insertAdjacentHTML('beforeend', cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join(''));
+
+    const render = () => {
+      const q = ($('#clos-animal-search')?.value || '').toLowerCase().trim();
+      const cat = $('#clos-animal-category')?.value || '';
+      const filtered = animals.filter(a =>
+        (!cat || catOf(a.sp)[0] === cat) &&
+        (!q || [a.name,a.sp,a.descr,a.data?.profile?.race].join(' ').toLowerCase().includes(q))
+      );
+      if (!filtered.length) {
+        host.innerHTML = '<div class="clos-empty">Aucun animal ne correspond à cette recherche.</div>';
+        return;
+      }
+      const groups = {};
+      filtered.forEach(a => {
+        const [c,emoji] = catOf(a.sp);
+        (groups[c] ??= {emoji, items:[]}).items.push(a);
+      });
+      host.innerHTML = Object.entries(groups).map(([c,g]) => `
+        <section class="clos-category">
+          <div class="clos-category-head">
+            <span style="font-size:1.7rem">${g.emoji}</span>
+            <h2 style="margin:0">${esc(c)}</h2>
+            <span class="clos-count">${g.items.length} annonce(s)</span>
+          </div>
+          <div class="clos-animal-grid">
+            ${g.items.map(a => {
+              const r = a.data?.profile || {};
+              const photo = a.photos?.length ? a.photos[a.photos.length-1] : null;
+              const meta = [a.sp, r.race, a.sex, a.born ? 'Né(e) le '+dt(a.born) : null].filter(Boolean);
+              return `<article class="card clos-animal">
+                ${photo
+                  ? `<img class="clos-animal-photo" src="${esc(photo.url)}" alt="${esc(a.name)}" loading="lazy">`
+                  : `<div class="clos-animal-photo" style="display:grid;place-items:center;font-size:4rem" aria-hidden="true">${g.emoji}</div>`}
+                <div class="clos-animal-body">
+                  <div><span class="tag">Disponible</span></div>
+                  <h3 style="margin:0">${esc(a.name)}</h3>
+                  ${a.descr ? `<p>${esc(a.descr)}</p>` : ''}
+                  <div class="clos-animal-meta">${meta.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+                  ${r.caractere ? `<p><b>Caractère :</b> ${esc(r.caractere)}</p>` : ''}
+                  ${(r.disponibilite_reelle||r.disponibilite_prevue||a.remise) ? `<p class="mut">Disponible à partir du ${dt(r.disponibilite_reelle||r.disponibilite_prevue||a.remise)}</p>` : ''}
+                  <div class="clos-price">${eur(a.price)}</div>
+                  <details>
+                    <summary>Voir la fiche détaillée</summary>
+                    <div style="padding-top:10px">
+                      ${r.habitudes ? `<p><b>Socialisation :</b> ${esc(r.habitudes)}</p>` : ''}
+                      ${r.alimentation ? `<p><b>Alimentation :</b> ${esc(r.alimentation)}</p>` : ''}
+                      ${r.couleur ? `<p><b>Robe / couleur :</b> ${esc(r.couleur)}</p>` : ''}
+                      ${r.poids ? `<p><b>Poids :</b> ${esc(r.poids)}</p>` : ''}
+                      ${r.conseils ? `<p><b>Conseils :</b> ${esc(r.conseils)}</p>` : ''}
+                      ${r.pere_portee ? `<p><b>Père :</b> ${esc(r.pere_portee)}</p>` : ''}
+                      ${r.mere_portee ? `<p><b>Mère :</b> ${esc(r.mere_portee)}</p>` : ''}
+                    </div>
+                  </details>
+                  <a href="${me?'#/messages':'#/compte'}"><button type="button" style="width:100%">${me?'Poser une question':'Se connecter pour contacter'}</button></a>
+                </div>
+              </article>`;
+            }).join('')}
+          </div>
+        </section>
+      `).join('');
+    };
+
+    const searchEl = $('#clos-animal-search');
+    const catEl = $('#clos-animal-category');
+    if (searchEl) searchEl.oninput = render;
+    if (catEl) catEl.onchange = render;
+    render();
+
+  } catch (e) {
+    host.innerHTML = `
+      <div class="clos-empty" style="border-color:#a83c35;color:#a83c35">
+        <b>Impossible de charger les annonces.</b><br>
+        ${esc(e.message || e)}<br><br>
+        <button type="button" onclick="location.reload()">Réessayer</button>
+      </div>`;
+  }
+}
+
+/* === LOGIN === */
+function login(sign = false) {
+  document.title = (sign ? 'Créer mon compte' : 'Connexion') + ' — ' + (CFG.name || DEF.name);
+  app.innerHTML = `
+    <div class="card" style="max-width:520px;margin:0 auto">
+      <h2>${sign ? 'Créer mon compte' : 'Connexion'}</h2>
+      <form id="f">
+        ${sign
+          ? '<label>Prénom<input name="prenom" required maxlength="60"></label><label>Nom<input name="nom" required maxlength="60"></label><label>Téléphone<input name="tel" type="tel" maxlength="20"></label>'
+          : ''}
+        <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+        <label>Mot de passe${sign?' (10 caractères minimum)':''}<input name="pw" type="password" minlength="${sign?10:1}" required autocomplete="${sign?'new-password':'current-password'}"></label>
+        ${sign
+          ? '<label><input type="checkbox" name="ok" required style="width:auto;margin-right:6px"> Je suis majeur(e) et j’accepte le <a href="#/reglement" target="_blank">règlement</a> et la <a href="#/confidentialite" target="_blank">politique de confidentialité</a>.</label>'
+          : ''}
+        <p id="m" class="err"></p>
+        <button>${sign ? 'Créer mon compte' : 'Se connecter'}</button>
+        <button type="button" class="s" id="sw">${sign ? 'J’ai déjà un compte' : 'Créer un compte'}</button>
+      </form>
+      ${!sign ? `<hr><p class="mut">Les comptes vendeur, éleveur et développeur sont créés par l’administration. Une inscription publique crée uniquement un compte client.</p>` : ''}
+    </div>`;
+  $('#sw').onclick = () => login(!sign);
+  $('#f').onsubmit = async e => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(e.target));
+    const r = sign
+      ? await sb.auth.signUp({
+          email: f.email, password: f.pw,
+          options: { data: { prenom:f.prenom, nom:f.nom, tel:f.tel, consent:new Date().toISOString() } }
+        })
+      : await sb.auth.signInWithPassword({ email: f.email, password: f.pw });
+    if (r.error) $('#m').textContent = r.error.message;
+    else if (sign && !r.data.session)
+      app.innerHTML = '<div class="card">Compte créé. Vérifiez votre boîte mail pour confirmer votre adresse, puis connectez-vous.</div>';
+  };
+}
+
+/* === DOCUMENTS LÉGAUX === */
+async function doc(k) {
+  const { data } = await sb.from('settings').select('*').eq('key', k).maybeSingle().then(r => r, () => ({data:null}));
+  const ok = data?.validated;
+  document.title = DOCS[k].t + ' — ' + (CFG.name || DEF.name);
+  app.innerHTML = `<h1>${DOCS[k].t}</h1>
+    ${ok
+      ? `<p class="mut">Version validée le ${dt(data.validated_at)}</p>`
+      : '<p class="tag">Brouillon en attente de validation</p>'}`
+    + fmt(L(ok ? data.value : DOCS[k].x));
+}
+
+/* === FICHE ANIMAL (client) === */
+const careHtml = (a, editable = false) => {
+  return Object.entries(CC).map(([k,l]) => {
+    const c = a.data?.care?.[k] || [];
+    return c.length
+      ? `<h4>${l}</h4>` + c.map((x,i) => `
+          <div class="care-item no-print" data-animal="${a.id}" data-k="${k}" data-i="${i}" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;border-bottom:1px dotted var(--line);padding-bottom:4px">
+            <span>${esc(x.n)} — ${dt(x.d)}${x.rd?' · rappel le '+dt(x.rd):''}</span>
+            ${editable ? `<span>
+              <button type="button" class="s c-edit" style="padding:2px 8px;font-size:0.8rem;margin-left:8px">Modifier</button>
+              <button type="button" class="d c-del" style="padding:2px 8px;font-size:0.8rem">Supprimer</button>
+            </span>` : ''}
+          </div>`).join('')
+      : '';
+  }).join('') || '<div class="mut">Aucun soin enregistré</div>';
+};
+
+const fill = (t, a) => t
+  .replace(/\{eleveur\}/g, ELEV)
+  .replace(/\{acquereur\}/g, (prof?.prenom||'') + ' ' + (prof?.nom||''))
+  .replace(/\{animal\}/g, a.name)
+  .replace(/\{desc\}/g, a.descr || '')
+  .replace(/\{naissance\}/g, dd(a.born))
+  .replace(/\{remise\}/g, dd(a.remise))
+  .replace(/\{prix\}/g, eur(a.price))
+  .replace(/\{acompte\}/g, eur(ACOMPTE));
+
+/* === ESPACE CLIENT === */
+async function client() {
+  document.title = 'Mon espace — ' + (CFG.name || DEF.name);
+  try {
+    const { data:A } = await sb.from('animals').select('*').eq('buyer', me.id);
+    const ids = (A||[]).map(a => a.id);
+    let P = [], S = [];
+    if (ids.length) {
+      const [pRes, sRes] = await Promise.all([
+        sb.from('payments').select('*').in('animal_id', ids).order('d'),
+        sb.from('signatures').select('*').in('animal_id', ids)
+      ]);
+      P = pRes.data || []; S = sRes.data || [];
+    }
+    app.innerHTML = `<h1>Bonjour ${esc(prof?.prenom || '')}</h1>`
+      + (A?.length
+          ? A.map(a => fiche(a, P, S)).join('')
+          : '<p class="mut">Aucun animal n’est encore rattaché à votre compte. L’éleveur le fera après votre réservation.</p>')
+      + secs('client').map(secHtml).join('')
+      + `<div class="card"><h3>Messagerie avec l’éleveur</h3>
+          <p>Posez vos questions, transmettez un document ou demandez des nouvelles de votre réservation.</p>
+          <a href="#/messages"><button type="button">Accéder à mes discussions</button></a></div>`
+      + `<div class="card"><h3>Mes données</h3>
+          <button class="s" id="ex" type="button">Télécharger mes données</button>
+          <button class="d" id="del" type="button">Supprimer mon compte</button></div>`;
+
+    document.querySelectorAll('[data-print-animal]').forEach(b => b.onclick = () => {
+      const animal = A.find(x => x.id == b.dataset.printAnimal);
+      if (animal) printAnimalSheet(animal, P, S);
+    });
+    document.querySelectorAll('.sf').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const { error } = await sb.from('signatures').insert({
+        animal_id: +f.dataset.a, user_id: me.id,
+        contract_key: f.dataset.k,
+        name: f.querySelector('input:not([type=checkbox])').value
+      });
+      if (error) alert(error.message);
+      else { alert('Contrat signé ✔'); client(); }
+    });
+    const exBtn = $('#ex');
+    if (exBtn) exBtn.onclick = () => {
+      const blob = new Blob([JSON.stringify({profil:prof, animaux:A, paiements:P, signatures:S}, null, 1)], {type:'application/json'});
+      const u = document.createElement('a');
+      u.href = URL.createObjectURL(blob); u.download = 'mes-donnees.json'; u.click();
+    };
+    const delBtn = $('#del');
+    if (delBtn) delBtn.onclick = async () => {
+      if (!confirm('Supprimer définitivement votre compte ? Les contrats signés peuvent être conservés selon nos obligations légales.')) return;
+      const { error } = await sb.rpc('delete_my_account');
+      if (error) { alert(error.message); return; }
+      await sb.auth.signOut();
+      location.hash = '#/';
+    };
+  } catch (e) {
+    app.innerHTML = '<div class="card err">Erreur : ' + esc(e.message) + '</div>';
+  }
+}
+
+function fiche(a, P, S) {
+  const p = P.filter(x => x.animal_id == a.id);
+  const paid = p.reduce((s,x) => s + (Number(x.a) || 0), 0);
+  const sg = S.filter(x => x.animal_id == a.id);
+  const photos = a.photos || [];
+  const lastPhoto = photos.length ? photos[photos.length-1] : null;
+
+  const galerie = photos.length
+    ? photos.map((ph, i) => `
+        <div style="margin-bottom:15px;border:1px solid var(--line);padding:10px;border-radius:8px">
+          <img src="${esc(ph.url)}" style="max-width:100%;border-radius:8px;max-height:300px;object-fit:cover" alt="Photo de ${esc(a.name)}">
+          <p style="margin:8px 0 0 0"><b>${dt(ph.date)}</b> — ${esc(ph.comment)}</p>
+          ${i === photos.length-1 ? '<span class="tag" style="margin-left:10px">Photo de profil actuelle</span>' : ''}
+        </div>`).join('')
+    : '<p class="mut">Aucune photo pour le moment.</p>';
+
+  const r = a.data?.profile || {};
 
   return `<div class="card">
-    <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
-      ${lastPhoto ? `<img src="${esc(lastPhoto.url)}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--g);">` : '<div style="width:100px;height:100px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:2rem;">Aucune photo</div>'}
+    <div style="display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap">
+      ${lastPhoto
+        ? `<img src="${esc(lastPhoto.url)}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--g)" alt="${esc(a.name)}">`
+        : '<div style="width:100px;height:100px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:2rem">—</div>'}
       <div>
         <h2 style="margin:0">${esc(a.name)} <span class="tag">${esc(a.status)}</span></h2>
         <p style="margin:4px 0 0 0">${esc(a.sp)} · né(e) le ${dt(a.born)}</p>
       </div>
       <button type="button" class="s no-print" data-print-animal="${a.id}" style="margin-left:auto">Télécharger / imprimer la fiche</button>
     </div>
-    
-    ${(()=>{const r=a.data?.profile||{};return `<h3>Informations complémentaires</h3><div class="row"><span><b>Race :</b> ${esc(r.race||'Non renseignée')}</span><span><b>Sexe :</b> ${esc(a.sex||'Non renseigné')}</span><span><b>Couleur :</b> ${esc(r.couleur||'Non renseignée')}</span><span><b>Poids :</b> ${esc(r.poids||'Non renseigné')}</span></div><p><b>Identification :</b> ${r.identifie==='Oui'?'Identifié — '+esc(r.identification_type||'Type non précisé')+' n° '+esc(r.identification_numero||'Non renseigné'):'Non identifié'}</p>${r.disponibilite_prevue?`<p><b>Date de disponibilité estimée :</b> ${dt(r.disponibilite_prevue)}</p>`:''}${r.disponibilite_reelle?`<p><b>Date de disponibilité confirmée :</b> ${dt(r.disponibilite_reelle)}</p>`:''}${r.depart_prevu?`<p><b>Date de départ prévue :</b> ${dt(r.depart_prevu)}</p>`:''}${(r.numero_portee||r.date_saillie||r.date_mise_bas||r.petits_nes||r.origines_portee)?`<h3>Informations sur la portée</h3><p>${r.numero_portee?' <b>Portée :</b> '+esc(r.numero_portee):''}${r.pere_portee?' · <b>Père :</b> '+esc(r.pere_portee):''}${r.mere_portee?' · <b>Mère :</b> '+esc(r.mere_portee):''}</p>${r.date_saillie?`<p><b>Date de saillie :</b> ${dt(r.date_saillie)}</p>`:''}${r.mise_bas_prevue?`<p><b>Mise bas prévue :</b> ${dt(r.mise_bas_prevue)}</p>`:''}${r.date_mise_bas?`<p><b>Date de mise bas :</b> ${dt(r.date_mise_bas)}</p>`:''}<p><b>Petits nés :</b> ${esc(r.petits_nes??'—')} · <b>Vivants à la naissance :</b> ${esc(r.petits_vivants??'—')} · <b>Morts-nés :</b> ${esc(r.morts_nes??'—')} · <b>Vivants à 48 h :</b> ${esc(r.petits_48h??'—')} · <b>Sevrés :</b> ${esc(r.petits_sevres??'—')}</p>${r.date_sevrage?`<p><b>Date de sevrage :</b> ${dt(r.date_sevrage)}</p>`:''}${r.poids_naissance?`<p><b>Poids moyen à la naissance :</b> ${esc(r.poids_naissance)}</p>`:''}${r.poids_portee?`<p><b>Poids au dernier contrôle :</b> ${esc(r.poids_portee)}</p>`:''}${r.deroulement_portee?`<p><b>Déroulement :</b> ${esc(r.deroulement_portee)}</p>`:''}${r.origines_portee?`<p><b>Suivi de la portée :</b> ${esc(r.origines_portee)}</p>`:''}`:''}${r.caractere?`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`:''}${r.habitudes?`<p><b>Habitudes :</b> ${esc(r.habitudes)}</p>`:''}${r.alimentation?`<p><b>Alimentation :</b> ${esc(r.alimentation)}</p>`:''}${r.notes_sante?`<p><b>Observations santé :</b> ${esc(r.notes_sante)}</p>`:''}</div>`})()}
+
+    <h3>Informations complémentaires</h3>
+    <div class="row">
+      <span><b>Race :</b> ${esc(r.race||'Non renseignée')}</span>
+      <span><b>Sexe :</b> ${esc(a.sex||'Non renseigné')}</span>
+      <span><b>Couleur :</b> ${esc(r.couleur||'Non renseignée')}</span>
+      <span><b>Poids :</b> ${esc(r.poids||'Non renseigné')}</span>
+    </div>
+    <p><b>Identification :</b> ${r.identifie==='Oui'?'Identifié — '+esc(r.identification_type||'Type non précisé')+' n° '+esc(r.identification_numero||'Non renseigné'):'Non identifié'}</p>
+    ${r.disponibilite_prevue ? `<p><b>Date de disponibilité estimée :</b> ${dt(r.disponibilite_prevue)}</p>` : ''}
+    ${r.disponibilite_reelle ? `<p><b>Date de disponibilité confirmée :</b> ${dt(r.disponibilite_reelle)}</p>` : ''}
+    ${r.depart_prevu ? `<p><b>Date de départ prévue :</b> ${dt(r.depart_prevu)}</p>` : ''}
+    ${r.caractere ? `<p><b>Caractère :</b> ${esc(r.caractere)}</p>` : ''}
+    ${r.habitudes ? `<p><b>Habitudes :</b> ${esc(r.habitudes)}</p>` : ''}
+    ${r.alimentation ? `<p><b>Alimentation :</b> ${esc(r.alimentation)}</p>` : ''}
+    ${r.notes_sante ? `<p><b>Observations santé :</b> ${esc(r.notes_sante)}</p>` : ''}
+
     <h3>Actualités en photos</h3>
     ${galerie}
-    
-    <hr style="margin:20px 0; border:0; border-top:1px solid var(--line)">
-    
-    <h3>Paiements</h3>${p.map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun paiement enregistré</div>'}
-    <p><b>Prix ${eur(a.price)} · versé ${eur(paid)} · reste ${eur(a.price-paid)}</b></p><p class="mut">Acompte : ${eur(ACOMPTE)} sous 7 jours. ${esc(PAYINFO)}</p>
-    
-    <h3>Suivi santé</h3>${careHtml(a)}
-    
-    <h3>Contrats</h3>`+CT.map(([k,t,x])=>{const s=sg.find(y=>y.contract_key==k);return `<details><summary>${t} ${s?'✔ signé le '+dt(s.at):''}</summary><p>${esc(fill(x,a)).replace(/\n/g,'<br>')}</p>${s?'':`<form class="sf" data-a="${a.id}" data-k="${k}"><label><input type="checkbox" required> Lu et approuvé</label><label>Nom complet<input required></label><button>Signer</button></form>`}</details>`}).join('')+'</div>'};
 
-function printAnimalSheet(a,P=[],S=[]){
-  const profile=a.data?.profile||{};
-  const payments=P.filter(x=>x.animal_id==a.id);
-  const paid=payments.reduce((sum,x)=>sum+(Number(x.a)||0),0);
-  const photos=a.photos||[];
-  const care=a.data?.care||{};
-  const pdfCfg=CFG.pdf||{};
-  const val=v=>v!==undefined&&v!==null&&String(v).trim()!==''?esc(v):'';
-  const field=(label,v)=>val(v)?`<div class="field"><b>${label}</b><span>${val(v)}</span></div>`:'';
-  const block=(title,content)=>content?`<section><h2>${title}</h2>${content}</section>`:'';
-  const careHtml=Object.entries(CC).map(([key,label])=>{
-    const entries=care[key]||[];
-    return entries.length?`<div class="careline"><b>${esc(label)} :</b> ${entries.map(x=>`${esc(x.n||'')} (${dt(x.d)}${x.rd?' ; rappel '+dt(x.rd):''})`).join(' · ')}</div>`:'';
-  }).join('')||'<p>Aucun soin enregistré.</p>';
-  const paymentsHtml=payments.length?payments.map(x=>`${dt(x.d)} ${esc(x.l||'Paiement')} : ${eur(x.a)}`).join(' · '):'Aucun paiement enregistré';
-  const photo=photos.length?`<img class="portrait" src="${esc(photos[photos.length-1].url)}" alt="Photo de ${esc(a.name)}">`:'';
-  const availability=profile.disponibilite_reelle||profile.disponibilite_prevue||'';
-  const doc=`<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Fiche ${esc(a.name)}</title>
+    <hr style="margin:20px 0">
+    <h3>Paiements</h3>
+    ${p.map(x => `<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('') || '<div class="mut">Aucun paiement enregistré</div>'}
+    <p><b>Prix ${eur(a.price)} · versé ${eur(paid)} · reste ${eur((Number(a.price)||0)-paid)}</b></p>
+    <p class="mut">Acompte : ${eur(ACOMPTE)} sous 7 jours. ${esc(PAYINFO)}</p>
+
+    <h3>Suivi santé</h3>
+    ${careHtml(a)}
+
+    <h3>Contrats</h3>
+    ${CT.map(([k,t,x]) => {
+      const s = sg.find(y => y.contract_key == k);
+      return `<details>
+        <summary>${t} ${s?'✔ signé le '+dt(s.at):''}</summary>
+        <p>${esc(fill(x, a)).replace(/\n/g,'<br>')}</p>
+        ${s ? '' : `<form class="sf" data-a="${a.id}" data-k="${k}">
+          <label><input type="checkbox" required style="width:auto;margin-right:6px"> Lu et approuvé</label>
+          <label>Nom complet<input required></label>
+          <button type="submit">Signer</button></form>`}
+      </details>`;
+    }).join('')}
+  </div>`;
+}
+
+/* === IMPRESSION FICHE === */
+function printAnimalSheet(a, P = [], S = []) {
+  const profile = a.data?.profile || {};
+  const payments = P.filter(x => x.animal_id == a.id);
+  const paid = payments.reduce((s,x) => s + (Number(x.a)||0), 0);
+  const photos = a.photos || [];
+  const care = a.data?.care || {};
+  const pdfCfg = CFG.pdf || {};
+  const val = v => v !== undefined && v !== null && String(v).trim() !== '' ? esc(v) : '';
+  const field = (label, v) => val(v) ? `<div class="field"><b>${label}</b><span>${val(v)}</span></div>` : '';
+  const block = (title, content) => content ? `<section><h2>${title}</h2>${content}</section>` : '';
+  const careHtmlStr = Object.entries(CC).map(([key, label]) => {
+    const entries = care[key] || [];
+    return entries.length
+      ? `<div class="careline"><b>${esc(label)} :</b> ${entries.map(x => `${esc(x.n||'')} (${dt(x.d)}${x.rd?' ; rappel '+dt(x.rd):''})`).join(' · ')}</div>`
+      : '';
+  }).join('') || '<p>Aucun soin enregistré.</p>';
+  const paymentsHtml = payments.length
+    ? payments.map(x => `${dt(x.d)} ${esc(x.l||'Paiement')} : ${eur(x.a)}`).join(' · ')
+    : 'Aucun paiement enregistré';
+  const photo = photos.length ? `<img class="portrait" src="${esc(photos[photos.length-1].url)}" alt="">` : '';
+  const availability = profile.disponibilite_reelle || profile.disponibilite_prevue || '';
+
+  const doc = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Fiche ${esc(a.name)}</title>
   <style>
   @page{size:A4 portrait;margin:7mm}
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;color:#26332b;font:7.3pt/1.22 Arial,sans-serif}
-  body{width:100%}
+  html,body{margin:0;padding:0;color:#26332b;font:7.3pt/1.22 Arial,sans-serif;width:100%}
   header{display:flex;justify-content:space-between;align-items:end;border-bottom:2px solid #315b45;padding:0 0 4px;margin-bottom:5px}
   .brand{font-size:12pt;font-weight:bold;color:#315b45}.sub{font-size:7pt;color:#68756c;text-align:right}
   .hero{display:flex;align-items:center;gap:9px;margin:4px 0 6px;min-height:44px}
   .portrait{width:48px;height:48px;object-fit:cover;border-radius:6px}
-  h1{font-size:15pt;margin:0 0 2px}h2{font-size:8.2pt;color:#315b45;margin:0 0 3px;padding-bottom:2px;border-bottom:1px solid #dfe6df}
+  h1{font-size:15pt;margin:0 0 2px}
+  h2{font-size:8.2pt;color:#315b45;margin:0 0 3px;padding-bottom:2px;border-bottom:1px solid #dfe6df}
   h3{font-size:7.4pt;margin:3px 0 1px}
   .meta{color:#68756c;font-size:6.6pt}
   .layout{display:grid;grid-template-columns:1fr 1fr;gap:5px 9px;align-items:start}
@@ -339,445 +805,785 @@ function printAnimalSheet(a,P=[],S=[]){
   .field span{display:block}
   p{margin:2px 0}ul{margin:2px 0;padding-left:12px}
   .careline{margin:2px 0;overflow-wrap:anywhere}
-  .wide{grid-column:1/-1}
   footer{border-top:1px solid #dfe6df;margin-top:5px;padding-top:3px;font-size:6pt;color:#68756c}
   .small{font-size:6.2pt;color:#68756c}
-  @media print{html,body{width:100%;height:auto}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   </style></head><body>
   <header><div class="brand">${esc(pdfCfg.title||CFG.name||'Le Clos des Poils')}</div><div class="sub">${esc(pdfCfg.subtitle||'Fiche individuelle de présentation et de suivi')}</div></header>
-  <div class="hero">${photo}<div><h1>${esc(a.name)}</h1><div>${esc(a.sp||'Espèce non renseignée')} · ${esc(a.sex||'Sexe non renseigné')} · ${esc(a.status||'Statut non renseigné')}</div><div class="meta">Fiche éditée le ${new Date().toLocaleDateString('fr-FR')} · ${photos.length} photo(s) enregistrée(s)</div></div></div>
+  <div class="hero">${photo}<div><h1>${esc(a.name)}</h1><div>${esc(a.sp||'Espèce non renseignée')} · ${esc(a.sex||'Sexe non renseigné')} · ${esc(a.status||'Statut non renseigné')}</div><div class="meta">Fiche éditée le ${new Date().toLocaleDateString('fr-FR')} · ${photos.length} photo(s)</div></div></div>
   <div class="layout">
   ${block('IDENTITÉ ET DISPONIBILITÉ',`<div class="grid">${field('Espèce',a.sp)}${field('Race',profile.race)}${field('Sexe',a.sex)}${field('Couleur / robe',profile.couleur)}${field('Date de naissance',dt(a.born)||'À confirmer')}${field('Disponible à partir du',dt(availability)||'À confirmer')}${field('Poids actuel',profile.poids)}${field('Statut',a.status)}${field('Identification',profile.identifie==='Oui'?(profile.identification_type||'')+' '+(profile.identification_numero||''):'Non renseignée')}${field('Date d’identification',dt(profile.identification_date))}</div>${field('Description',a.descr)}`)}
-  ${block('ORIGINES ET PORTÉE',`<div class="grid">${field('Référence de portée',profile.numero_portee)}${field('Père',profile.pere_portee||profile.pere)}${field('Mère',profile.mere_portee||profile.mere)}${field('Date de saillie',dt(profile.date_saillie))}${field('Date de mise bas',dt(profile.date_mise_bas))}${field('Petits nés / vivants',`${profile.petits_nes??''}${profile.petits_vivants!=null?' / '+profile.petits_vivants:''}`)}${field('Petits sevrés',profile.petits_sevres)}${field('Date de sevrage',dt(profile.date_sevrage))}${field('Variété de la portée',profile.race_portee)}${field('Poids moyen à la naissance',profile.poids_naissance)}</div>${field('Observations sur la portée',profile.deroulement_portee)}${field('Suivi de la portée',profile.origines_portee)}`)}
-  ${block('CARACTÈRE ET QUOTIDIEN',`<div class="grid">${field('Caractère',profile.caractere)}${field('Habitudes / socialisation',profile.habitudes)}${field('Alimentation actuelle',profile.alimentation)}${field('Conseils particuliers',profile.conseils)}</div>`)}
-  ${block('SANTÉ ET SOINS',`<div class="grid">${field('Dernier contrôle vétérinaire',dt(profile.dernier_controle))}${field('Antécédents / traitements',profile.antecedents)}${field('Observations de santé',profile.notes_sante)}</div>${careHtml}`)}
-  ${block('RÉSERVATION ET FINANCES',`<div class="grid">${field('Disponibilité estimée',dt(profile.disponibilite_prevue))}${field('Disponibilité confirmée',dt(profile.disponibilite_reelle))}${field('Date de réservation',dt(profile.date_reservation))}${field('Départ prévu',dt(profile.depart_prevu))}${field('Départ effectif',dt(profile.depart_effectif))}${field('Date de remise',dt(a.remise))}${field('Prix de vente',eur(a.price))}${field('Total versé',eur(paid))}${field('Solde restant',eur((Number(a.price)||0)-paid))}${field('Acompte déclaré',eur(profile.acompte))}</div><h3>Historique des paiements</h3><p>${paymentsHtml}</p>`)}
-  ${block('NOTES ET INFORMATIONS COMPLÉMENTAIRES',`${field('Notes complémentaires',profile.notes)}${field('Informations libres',profile.informations)}`)}
+  ${block('ORIGINES ET PORTÉE',`<div class="grid">${field('Référence de portée',profile.numero_portee)}${field('Père',profile.pere_portee||profile.pere)}${field('Mère',profile.mere_portee||profile.mere)}${field('Date de saillie',dt(profile.date_saillie))}${field('Date de mise bas',dt(profile.date_mise_bas))}${field('Petits nés / vivants',`${profile.petits_nes??''}${profile.petits_vivants!=null?' / '+profile.petits_vivants:''}`)}${field('Petits sevrés',profile.petits_sevres)}${field('Date de sevrage',dt(profile.date_sevrage))}${field('Variété de la portée',profile.race_portee)}${field('Poids moyen naissance',profile.poids_naissance)}</div>${field('Observations portée',profile.deroulement_portee)}`)}
+  ${block('CARACTÈRE ET QUOTIDIEN',`<div class="grid">${field('Caractère',profile.caractere)}${field('Habitudes',profile.habitudes)}${field('Alimentation',profile.alimentation)}${field('Conseils',profile.conseils)}</div>`)}
+  ${block('SANTÉ ET SOINS',`<div class="grid">${field('Dernier contrôle vétérinaire',dt(profile.dernier_controle))}${field('Antécédents',profile.antecedents)}${field('Observations santé',profile.notes_sante)}</div>${careHtmlStr}`)}
+  ${block('RÉSERVATION ET FINANCES',`<div class="grid">${field('Disponibilité estimée',dt(profile.disponibilite_prevue))}${field('Disponibilité confirmée',dt(profile.disponibilite_reelle))}${field('Date de réservation',dt(profile.date_reservation))}${field('Départ prévu',dt(profile.depart_prevu))}${field('Date de remise',dt(a.remise))}${field('Prix de vente',eur(a.price))}${field('Total versé',eur(paid))}${field('Solde restant',eur((Number(a.price)||0)-paid))}${field('Acompte déclaré',eur(profile.acompte))}</div><h3>Historique des paiements</h3><p>${paymentsHtml}</p>`)}
   </div>
-  <footer>${esc(pdfCfg.footer||'Document de suivi édité par l’éleveur. Il ne remplace pas les documents vétérinaires ou officiels.')} <span class="small">— Les dates non renseignées sont indiquées « À confirmer ».</span></footer>
-  <script>window.addEventListener('load',()=>{const imgs=[...document.images];Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=r;i.onerror=r}))).then(()=>setTimeout(()=>{window.print()},200));});<\/script>
+  <footer>${esc(pdfCfg.footer||'Document de suivi édité par l’éleveur. Ne remplace pas les documents vétérinaires ou officiels.')}</footer>
+  <script>window.addEventListener('load',()=>{const imgs=[...document.images];Promise.all(imgs.map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=r;i.onerror=r}))).then(()=>setTimeout(()=>window.print(),200));});<\/script>
   </body></html>`;
-  const win=window.open('','_blank');
-  if(!win){alert('Autorisez les fenêtres contextuelles pour générer le document.');return;}
-  win.document.open();win.document.write(doc);win.document.close();
+  const win = window.open('', '_blank');
+  if (!win) { alert('Autorisez les fenêtres contextuelles pour générer le document.'); return; }
+  win.document.open(); win.document.write(doc); win.document.close();
 }
-async function client(){const{data:A}=await sb.from('animals').select('*').eq('buyer',me.id),ids=(A||[]).map(a=>a.id);
-const[{data:P},{data:S}]=ids.length?await Promise.all([sb.from('payments').select('*').in('animal_id',ids).order('d'),sb.from('signatures').select('*').in('animal_id',ids)]):[{data:[]},{data:[]}];
-app.innerHTML=`<h1>Bonjour ${esc(prof.prenom)}</h1>`+(A?.length?A.map(a=>fiche(a,P,S)).join(''):'<p class="mut">Aucun animal n’est encore rattaché à votre compte. L’éleveur le fera après votre réservation.</p>')+secs('client').map(secHtml).join('')+'<div class="card"><h3>Mes données</h3><button class="s" id="ex">Télécharger mes données</button> <button class="d" id="del">Supprimer mon compte</button></div>';
-document.querySelectorAll('[data-print-animal]').forEach(b=>b.onclick=()=>{const animal=A.find(x=>x.id==b.dataset.printAnimal);if(animal)printAnimalSheet(animal,P,S)});
-document.querySelectorAll('.sf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('signatures').insert({animal_id:+f.dataset.a,user_id:me.id,contract_key:f.dataset.k,name:f.querySelector('input:not([type=checkbox])').value});error?alert(error.message):(alert('Contrat signé ✔'),client())});
-$('#ex').onclick=()=>{const u=document.createElement('a');u.href=URL.createObjectURL(new Blob([JSON.stringify({profil:prof,animaux:A,paiements:P,signatures:S},null,1)],{type:'application/json'}));u.download='mes-donnees.json';u.click()};
-$('#del').onclick=async()=>{if(confirm('Supprimer définitivement votre compte ? Les contrats signés peuvent être conservés selon nos obligations légales.')){const{error}=await sb.rpc('delete_my_account');if(error){alert(error.message);return}await sb.auth.signOut();location.hash='#/'}}}
-async function admin(){const[{data:A},{data:U},{data:P},{data:S}]=await Promise.all([sb.from('animals').select('*').order('id'),sb.from('profiles').select('id,prenom,nom,role').in('role',['client','seller']),sb.from('payments').select('*').order('d'),sb.from('signatures').select('*')]);
-const ML={name:60,sp:40,descr:500,sex:20},inp=(a,k,l)=>`<label>${l}<input name="${k}" maxlength="${ML[k]}" value="${esc(a[k])}"></label>`;
-app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</button><br><br>`+A.map(a=>{
+
+/* === ADMIN (éleveur) === */
+async function admin() {
+  document.title = 'Espace éleveur — ' + (CFG.name || DEF.name);
+  try {
+    const [aRes, uRes, pRes, sRes] = await Promise.all([
+      sb.from('animals').select('*').order('id'),
+      sb.from('profiles').select('id,prenom,nom,role').in('role', ['client','seller']),
+      sb.from('payments').select('*').order('d'),
+      sb.from('signatures').select('*')
+    ]);
+    const A = aRes.data || [], U = uRes.data || [], P = pRes.data || [], S = sRes.data || [];
+    const ML = {name:60, sp:40, descr:500, sex:20};
+    const inp = (a, k, l) => `<label>${l}<input name="${k}" maxlength="${ML[k]}" value="${esc(a[k]||'')}"></label>`;
+
+    app.innerHTML = `<h1>Espace éleveur</h1>
+      <div class="card">
+        <h2>Messagerie et demandes clients</h2>
+        <p>Consultez toutes les demandes, répondez aux clients et attribuez une conversation à un vendeur.</p>
+        <a href="#/messages"><button type="button">Ouvrir toutes les conversations</button></a>
+      </div>
+      <button id="new" type="button">Ajouter un animal</button><br><br>`
+      + A.map(a => adminAnimalCard(a, A, U, P, S)).join('');
+
+    $('#new').onclick = async () => {
+      const { error } = await sb.from('animals').insert({ name:'Nouvel animal', status:'À naître' });
+      if (error) alert(error.message); else admin();
+    };
+
+    // Formulaires fiche animal
+    document.querySelectorAll('.ef').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const o = Object.fromEntries(new FormData(f));
+      const a = A.find(x => x.id == f.closest('[data-id]').dataset.id);
+      const d = a.data || {};
+      const profile = d.profile || {};
+      Object.keys(o).filter(k => k.startsWith('p_')).forEach(k => {
+        profile[k.slice(2)] = o[k]; delete o[k];
+      });
+      d.profile = profile;
+      o.data = d;
+      o.buyer = o.buyer || null;
+      o.price = +o.price;
+      o.born = o.born || null;
+      o.remise = o.remise || null;
+      o.sex = o.sex || null;
+      const { error } = await sb.from('animals').update(o).eq('id', a.id);
+      if (error) alert(error.message); else { OPEN = a.id; admin(); }
+    });
+
+    document.querySelectorAll('.ident-select').forEach(sel => sel.onchange = () => {
+      const form = sel.closest('form');
+      form.querySelectorAll('.ident-detail').forEach(el => {
+        el.style.display = sel.value === 'Oui' ? 'block' : 'none';
+        if (sel.value !== 'Oui') el.querySelectorAll('input,select').forEach(i => i.value = '');
+      });
+    });
+
+    // Soins
+    document.querySelectorAll('.cf').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const o = Object.fromEntries(new FormData(f));
+      const a = A.find(x => x.id == f.closest('[data-id]').dataset.id);
+      const d = a.data || {};
+      d.care = d.care || {};
+      (d.care[o.k] = d.care[o.k] || []).push({ n:o.n, d:o.d, rd:o.rd });
+      const { error } = await sb.from('animals').update({ data:d }).eq('id', a.id);
+      if (error) alert(error.message); else { OPEN = a.id; admin(); }
+    });
+
+    // Paiements
+    document.querySelectorAll('.pf').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const o = Object.fromEntries(new FormData(f));
+      o.a = +o.a;
+      o.animal_id = f.closest('[data-id]').dataset.id;
+      const { error } = await sb.from('payments').insert(o);
+      if (error) alert(error.message); else { OPEN = +o.animal_id; admin(); }
+    });
+
+    document.querySelectorAll('.pay-save').forEach(b => b.onclick = async () => {
+      const row = b.closest('.pay-item');
+      const paymentId = row.dataset.payid;
+      const amount = Number(row.querySelector('[data-pay="a"]').value);
+      const o = {
+        l: row.querySelector('[data-pay="l"]').value.trim(),
+        a: amount,
+        d: row.querySelector('[data-pay="d"]').value
+      };
+      if (!o.l || !o.d || !Number.isFinite(amount) || amount < 0) return alert('Vérifiez les champs.');
+      if (!confirm('Confirmer la modification ?')) return;
+      const { error } = await sb.from('payments').update(o).eq('id', paymentId);
+      if (error) alert(error.message); else { OPEN = Number(row.dataset.animal); admin(); }
+    });
+
+    document.querySelectorAll('.pay-delete').forEach(b => b.onclick = async () => {
+      const row = b.closest('.pay-item');
+      if (!confirm('Supprimer définitivement ce paiement ?')) return;
+      const { error } = await sb.from('payments').delete().eq('id', row.dataset.payid);
+      if (error) alert(error.message); else { OPEN = Number(row.dataset.animal); admin(); }
+    });
+
+    // Soins : supprimer / modifier
+    document.querySelectorAll('.c-del').forEach(b => b.onclick = async () => {
+      if (!confirm('Supprimer ce soin ?')) return;
+      const el = b.closest('.care-item');
+      const a = A.find(x => x.id == el.dataset.animal);
+      const d = a.data || {};
+      if (d.care && d.care[el.dataset.k]) {
+        d.care[el.dataset.k].splice(el.dataset.i, 1);
+        const { error } = await sb.from('animals').update({ data:d }).eq('id', a.id);
+        if (error) alert(error.message); else { OPEN = a.id; admin(); }
+      }
+    });
+    document.querySelectorAll('.c-edit').forEach(b => b.onclick = async () => {
+      const el = b.closest('.care-item');
+      const a = A.find(x => x.id == el.dataset.animal);
+      const d = a.data || {};
+      const k = el.dataset.k, i = el.dataset.i;
+      const old = d.care[k][i];
+      const n = prompt('Nom du soin :', old.n); if (n === null) return;
+      const date = prompt('Date (AAAA-MM-JJ) :', old.d); if (date === null) return;
+      const rd = prompt('Rappel (AAAA-MM-JJ, vide si aucun) :', old.rd || ''); if (rd === null) return;
+      d.care[k][i] = { n, d:date, rd:rd || null };
+      const { error } = await sb.from('animals').update({ data:d }).eq('id', a.id);
+      if (error) alert(error.message); else { OPEN = a.id; admin(); }
+    });
+
+    // Upload photo
+    document.querySelectorAll('.uf').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const fileInput = f.querySelector('input[type="file"]');
+      const comment = f.querySelector('input[name="comment"]').value;
+      const file = fileInput.files[0];
+      if (!file) return;
+      const btn = f.querySelector('button');
+      btn.textContent = 'Envoi...';
+      const animalId = +f.dataset.id;
+      const animal = A.find(x => x.id == animalId);
+      const fileName = `${animalId}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '')}`;
+      const { error: uploadError } = await sb.storage.from('photos').upload(fileName, file);
+      if (uploadError) { alert(uploadError.message); btn.textContent = 'Mettre en ligne'; return; }
+      const { data:{ publicUrl } } = sb.storage.from('photos').getPublicUrl(fileName);
+      const newPhoto = { url:publicUrl, comment, date:new Date().toISOString() };
+      const newPhotos = animal.photos ? [...animal.photos, newPhoto] : [newPhoto];
+      const { error: updateError } = await sb.from('animals').update({ photos:newPhotos }).eq('id', animalId);
+      if (updateError) alert(updateError.message);
+      else { OPEN = animalId; admin(); }
+    });
+
+    document.querySelectorAll('.del-photo').forEach(b => b.onclick = async () => {
+      if (!confirm('Supprimer cette photo ?')) return;
+      const animal = A.find(x => x.id == b.dataset.animal);
+      const newPhotos = [...animal.photos];
+      newPhotos.splice(+b.dataset.i, 1);
+      const { error } = await sb.from('animals').update({ photos:newPhotos }).eq('id', animal.id);
+      if (error) alert(error.message); else { OPEN = animal.id; admin(); }
+    });
+
+  } catch (e) {
+    app.innerHTML = '<div class="card err">Erreur espace éleveur : ' + esc(e.message) + '</div>';
+  }
+}
+
+function adminAnimalCard(a, A, U, P, S) {
   const photos = a.photos || [];
-  const lastPhoto = photos.length > 0 ? photos[photos.length - 1] : null;
+  const lastPhoto = photos.length ? photos[photos.length-1] : null;
   const galerieEdit = photos.map((ph, i) => `
-    <div style="margin-bottom:10px; border:1px solid var(--line); padding:8px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <img src="${esc(ph.url)}" style="width:60px; height:60px; border-radius:8px; object-fit:cover;">
+    <div style="margin-bottom:10px;border:1px solid var(--line);padding:8px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="${esc(ph.url)}" style="width:60px;height:60px;border-radius:8px;object-fit:cover" alt="">
         <div><b>${dt(ph.date)}</b> — ${esc(ph.comment)}</div>
       </div>
       <button type="button" class="d del-photo" data-animal="${a.id}" data-i="${i}" style="padding:2px 8px;font-size:0.8rem">Supprimer</button>
-    </div>
-  `).join('');
+    </div>`).join('');
+  const r = a.data?.profile || {};
+  const v = k => esc(r[k] || '');
+  const ML = {name:60, sp:40, descr:500, sex:20};
+  const inp = (a, k, l) => `<label>${l}<input name="${k}" maxlength="${ML[k]||200}" value="${esc(a[k]||'')}"></label>`;
 
   return `<details class="card" data-id="${a.id}" ${OPEN==a.id?'open':''}>
-  <summary style="display:flex; align-items:center; gap:10px;">
-    ${lastPhoto ? `<img src="${esc(lastPhoto.url)}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">` : 'Aucune photo'}
-    <b>${esc(a.name)}</b> <span class="tag">${esc(a.status)}</span>
-  </summary>
-  <button type="button" class="s no-print" onclick="window.print()" style="float:right">Imprimer</button>
-  <form class="ef"><div class="row">${inp(a,'name','Nom')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
-  <div class="row"><label>Naissance<input type="date" name="born" value="${a.born||''}"></label><label>Remise<input type="date" name="remise" value="${a.remise||''}"></label><label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
-  <label>Statut<select name="status">${ST.map(s=>`<option ${s==a.status?'selected':''}>${s}</option>`).join('')}</select></label>
-  <label>Vendeur responsable<select name="seller_id"><option value="">— Aucun —</option>${U.filter(u=>u.role==='seller').map(u=>`<option value="${u.id}" ${u.id==a.seller_id?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label><label>Acquéreur<select name="buyer"><option value="">—</option>${U.filter(u=>u.role==='client').map(u=>`<option value="${u.id}" ${u.id==a.buyer?'selected':''}>${esc(u.prenom+' '+u.nom)}</option>`).join('')}</select></label></div>
-  ${(()=>{const r=a.data?.profile||{},v=(k)=>esc(r[k]||'');return `<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Identification</h3><div class="row"><label>Animal identifié ?<select name="p_identifie" class="ident-select"><option ${r.identifie==='Non'?'selected':''}>Non</option><option ${r.identifie==='Oui'?'selected':''}>Oui</option></select></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Type d'identification<select name="p_identification_type"><option value="">— Choisir —</option>${['Puce électronique','Tatouage','Bague','Autre'].map(x=>`<option ${r.identification_type===x?'selected':''}>${x}</option>`).join('')}</select></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Numéro d'identification<input name="p_identification_numero" value="${v('identification_numero')}" placeholder="Numéro / référence"></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Date d'identification<input type="date" name="p_identification_date" value="${v('identification_date')}"></label><label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Organisme / vétérinaire<input name="p_identification_organisme" value="${v('identification_organisme')}"></label></div>
-  <h3>Informations générales</h3><div class="row"><label>Race<input name="p_race" value="${v('race')}"></label><label>Couleur / robe<input name="p_couleur" value="${v('couleur')}"></label><label>Poids actuel<input name="p_poids" value="${v('poids')}" placeholder="Ex. 850 g"></label><label>Père<input name="p_pere" value="${v('pere')}"></label><label>Mère<input name="p_mere" value="${v('mere')}"></label></div>
-  <h3>Disponibilité et adoption</h3><div class="row"><label>Date de disponibilité estimée<input type="date" name="p_disponibilite_prevue" value="${v('disponibilite_prevue')}"></label><label>Date de disponibilité réelle<input type="date" name="p_disponibilite_reelle" value="${v('disponibilite_reelle')}"></label><label>Date de réservation<input type="date" name="p_date_reservation" value="${v('date_reservation')}"></label><label>Date de départ prévue<input type="date" name="p_depart_prevu" value="${v('depart_prevu')}"></label><label>Date de départ effective<input type="date" name="p_depart_effectif" value="${v('depart_effectif')}"></label><label>Acompte versé (€)<input type="number" step="0.01" name="p_acompte" value="${v('acompte')}"></label></div>
-  <h3>Santé et suivi sanitaire</h3><div class="row"><label>Dernier contrôle vétérinaire<input type="date" name="p_dernier_controle" value="${v('dernier_controle')}"></label><label>Antécédents / traitements<input name="p_antecedents" value="${v('antecedents')}"></label></div><label>Observations de santé<textarea name="p_notes_sante" rows="2" style="min-height:70px">${v('notes_sante')}</textarea></label>
-  <h3>Portée, reproduction et naissance</h3><div class="row"><label>Numéro / référence de portée<input name="p_numero_portee" value="${v('numero_portee')}" placeholder="Ex. Portée 2026-01"></label><label>Date de saillie<input type="date" name="p_date_saillie" value="${v('date_saillie')}"></label><label>Mâle reproducteur / père<input name="p_pere_portee" value="${v('pere_portee')}" placeholder="Nom ou identification"></label><label>Femelle reproductrice / mère<input name="p_mere_portee" value="${v('mere_portee')}" placeholder="Nom ou identification"></label><label>Date de mise bas prévue<input type="date" name="p_mise_bas_prevue" value="${v('mise_bas_prevue')}"></label><label>Date réelle de mise bas<input type="date" name="p_date_mise_bas" value="${v('date_mise_bas')}"></label></div><div class="row"><label>Nombre total de petits nés<input type="number" min="0" name="p_petits_nes" value="${v('petits_nes')}"></label><label>Petits vivants à la naissance<input type="number" min="0" name="p_petits_vivants" value="${v('petits_vivants')}"></label><label>Morts-nés<input type="number" min="0" name="p_morts_nes" value="${v('morts_nes')}"></label><label>Petits vivants à 48 h<input type="number" min="0" name="p_petits_48h" value="${v('petits_48h')}"></label><label>Petits sevrés<input type="number" min="0" name="p_petits_sevres" value="${v('petits_sevres')}"></label><label>Date de sevrage<input type="date" name="p_date_sevrage" value="${v('date_sevrage')}"></label></div><div class="row"><label>Poids moyen à la naissance<input name="p_poids_naissance" value="${v('poids_naissance')}" placeholder="Ex. 45 g"></label><label>Poids actuel / au contrôle<input name="p_poids_portee" value="${v('poids_portee')}" placeholder="Ex. 320 g"></label><label>Race / variété de la portée<input name="p_race_portee" value="${v('race_portee')}"></label></div><label>Déroulement de la mise bas et observations<textarea name="p_deroulement_portee" rows="2" style="min-height:70px">${v('deroulement_portee')}</textarea></label><label>Suivi de la portée / évolution des petits<textarea name="p_origines_portee" rows="3" style="min-height:90px" placeholder="Évolution, alimentation, croissance, particularités, pertes éventuelles…">${v('origines_portee')}</textarea></label>
-  <h3>Caractère et habitudes</h3><label>Caractère<textarea name="p_caractere" rows="2" style="min-height:70px" placeholder="Calme, joueur, curieux, affectueux…">${v('caractere')}</textarea></label><label>Habitudes et socialisation<textarea name="p_habitudes" rows="2" style="min-height:70px" placeholder="Manipulation, enfants, autres animaux…">${v('habitudes')}</textarea></label><label>Alimentation actuelle<textarea name="p_alimentation" rows="2" style="min-height:70px">${v('alimentation')}</textarea></label><label>Conseils particuliers<textarea name="p_conseils" rows="2" style="min-height:70px">${v('conseils')}</textarea></label>`})()}
-  <button>Enregistrer la fiche</button></form>
-  
-  <h3>Actualités en photos</h3>
-  <div style="background:var(--bg); padding:10px; border-radius:8px; margin-bottom:15px;">
-    ${galerieEdit || '<span class="mut">Aucune photo.</span>'}
-  </div>
-  <form class="uf" data-id="${a.id}" style="background:var(--card); border:1px dashed var(--g); padding:10px; border-radius:8px; margin-bottom:20px;">
-    <h4>Ajouter une photo d'actualité</h4>
-    <div class="row">
-      <label>Fichier image<input type="file" name="file" accept="image/*" required style="padding:5px"></label>
-      <label>Commentaire<input name="comment" placeholder="Ex: Première sortie au jardin !" required></label>
-      <button type="submit" class="s">Mettre en ligne</button>
+    <summary style="display:flex;align-items:center;gap:10px">
+      ${lastPhoto ? `<img src="${esc(lastPhoto.url)}" style="width:40px;height:40px;border-radius:50%;object-fit:cover" alt="">` : '<span>—</span>'}
+      <b>${esc(a.name)}</b> <span class="tag">${esc(a.status)}</span>
+    </summary>
+    <button type="button" class="s no-print" onclick="window.print()" style="float:right">Imprimer</button>
+    <form class="ef">
+      <div class="row">${inp(a,'name','Nom')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
+      <div class="row">
+        <label>Naissance<input type="date" name="born" value="${a.born||''}"></label>
+        <label>Remise<input type="date" name="remise" value="${a.remise||''}"></label>
+        <label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
+        <label>Statut<select name="status">${ST.map(s => `<option ${s==a.status?'selected':''}>${esc(s)}</option>`).join('')}</select></label>
+        <label>Vendeur<select name="seller_id"><option value="">— Aucun —</option>${U.filter(u => u.role === 'seller').map(u => `<option value="${u.id}" ${u.id==a.seller_id?'selected':''}>${esc((u.prenom||'')+' '+(u.nom||''))}</option>`).join('')}</select></label>
+        <label>Acquéreur<select name="buyer"><option value="">—</option>${U.filter(u => u.role === 'client').map(u => `<option value="${u.id}" ${u.id==a.buyer?'selected':''}>${esc((u.prenom||'')+' '+(u.nom||''))}</option>`).join('')}</select></label>
+      </div>
+      <hr style="margin:18px 0">
+      <h3>Identification</h3>
+      <div class="row">
+        <label>Animal identifié ?<select name="p_identifie" class="ident-select"><option ${r.identifie==='Non'?'selected':''}>Non</option><option ${r.identifie==='Oui'?'selected':''}>Oui</option></select></label>
+        <label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Type<select name="p_identification_type"><option value="">—</option>${['Puce électronique','Tatouage','Bague','Autre'].map(x => `<option ${r.identification_type===x?'selected':''}>${x}</option>`).join('')}</select></label>
+        <label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Numéro<input name="p_identification_numero" value="${v('identification_numero')}"></label>
+        <label class="ident-detail" style="display:${r.identifie==='Oui'?'block':'none'}">Date<input type="date" name="p_identification_date" value="${v('identification_date')}"></label>
+      </div>
+      <h3>Informations générales</h3>
+      <div class="row">
+        <label>Race<input name="p_race" value="${v('race')}"></label>
+        <label>Couleur<input name="p_couleur" value="${v('couleur')}"></label>
+        <label>Poids<input name="p_poids" value="${v('poids')}" placeholder="Ex. 850 g"></label>
+      </div>
+      <h3>Disponibilité</h3>
+      <div class="row">
+        <label>Estimée<input type="date" name="p_disponibilite_prevue" value="${v('disponibilite_prevue')}"></label>
+        <label>Réelle<input type="date" name="p_disponibilite_reelle" value="${v('disponibilite_reelle')}"></label>
+        <label>Départ prévu<input type="date" name="p_depart_prevu" value="${v('depart_prevu')}"></label>
+      </div>
+      <h3>Santé</h3>
+      <div class="row">
+        <label>Dernier contrôle<input type="date" name="p_dernier_controle" value="${v('dernier_controle')}"></label>
+        <label>Antécédents<input name="p_antecedents" value="${v('antecedents')}"></label>
+      </div>
+      <label>Observations santé<textarea name="p_notes_sante" rows="2" style="min-height:70px">${v('notes_sante')}</textarea></label>
+      <h3>Portée</h3>
+      <div class="row">
+        <label>N° portée<input name="p_numero_portee" value="${v('numero_portee')}"></label>
+        <label>Père<input name="p_pere_portee" value="${v('pere_portee')}"></label>
+        <label>Mère<input name="p_mere_portee" value="${v('mere_portee')}"></label>
+        <label>Date mise bas<input type="date" name="p_date_mise_bas" value="${v('date_mise_bas')}"></label>
+      </div>
+      <h3>Caractère et habitudes</h3>
+      <label>Caractère<textarea name="p_caractere" rows="2" style="min-height:70px">${v('caractere')}</textarea></label>
+      <label>Habitudes<textarea name="p_habitudes" rows="2" style="min-height:70px">${v('habitudes')}</textarea></label>
+      <label>Alimentation<textarea name="p_alimentation" rows="2" style="min-height:70px">${v('alimentation')}</textarea></label>
+      <button>Enregistrer la fiche</button>
+    </form>
+
+    <h3>Actualités en photos</h3>
+    <div style="background:var(--bg);padding:10px;border-radius:8px;margin-bottom:15px">${galerieEdit || '<span class="mut">Aucune photo.</span>'}</div>
+    <form class="uf" data-id="${a.id}" style="background:var(--card);border:1px dashed var(--g);padding:10px;border-radius:8px;margin-bottom:20px">
+      <h4>Ajouter une photo</h4>
+      <div class="row">
+        <label>Fichier<input type="file" name="file" accept="image/*" required style="padding:5px"></label>
+        <label>Commentaire<input name="comment" placeholder="Ex: Première sortie" required></label>
+        <button type="submit" class="s">Mettre en ligne</button>
+      </div>
+    </form>
+
+    <h3>Soins</h3>${careHtml(a, true)}
+    <form class="cf">
+      <div class="row">
+        <select name="k">${Object.entries(CC).map(([k,l]) => `<option value="${k}">${esc(l)}</option>`).join('')}</select>
+        <input name="n" placeholder="Nom du soin" required>
+        <label>Date<input type="date" name="d" required></label>
+        <label>Rappel<input type="date" name="rd"></label>
+        <button class="s" type="submit">Ajouter un soin</button>
+      </div>
+    </form>
+
+    <h3>Paiements</h3>
+    ${P.filter(x => x.animal_id == a.id).map(x => `
+      <div class="card pay-item" data-payid="${esc(x.id)}" data-animal="${a.id}" style="margin:8px 0;padding:10px">
+        <div class="row">
+          <label>Libellé<input data-pay="l" value="${esc(x.l||'')}"></label>
+          <label>Montant (€)<input data-pay="a" type="number" min="0" step="0.01" value="${esc(x.a)}"></label>
+          <label>Date<input data-pay="d" type="date" value="${esc(x.d||'')}"></label>
+          <button type="button" class="s pay-save">Enregistrer</button>
+          <button type="button" class="d pay-delete">Supprimer</button>
+        </div>
+      </div>`).join('') || '<div class="mut">Aucun paiement enregistré.</div>'}
+    <form class="pf">
+      <div class="row">
+        <input name="l" placeholder="Libellé" required>
+        <input type="number" min="0" step="0.01" name="a" placeholder="Montant €" required>
+        <input type="date" name="d" required>
+        <button class="s" type="submit">Enregistrer un paiement</button>
+      </div>
+    </form>
+
+    <h3>Signatures</h3>
+    ${S.filter(x => x.animal_id == a.id).map(x => `<div>✔ ${esc(x.contract_key)} — ${esc(x.name)} le ${new Date(x.at).toLocaleString('fr-FR')}</div>`).join('') || '<div class="mut">Aucune</div>'}
+  </details>`;
+}
+
+/* === TEXTES LÉGAUX (admin) === */
+async function textes() {
+  try {
+    const { data } = await sb.from('settings').select('*');
+    const m = Object.fromEntries((data||[]).map(r => [r.key, r]));
+    app.innerHTML = '<h1>Textes légaux</h1>'
+      + '<p class="mut">Relisez chaque texte, complétez les variables, puis validez.</p>'
+      + Object.entries(DOCS).map(([k,d]) => `
+        <form class="card" data-k="${k}">
+          <h3>${d.t} ${m[k]?.validated ? `<span class="tag">Validé le ${dt(m[k].validated_at)}</span>` : '<span class="tag">À valider</span>'}</h3>
+          <textarea name="x" style="min-height:300px">${esc(m[k]?.value||d.x)}</textarea><br>
+          <button>Valider et publier</button>
+        </form>`).join('');
+    document.querySelectorAll('form[data-k]').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const { error } = await sb.from('settings').upsert({
+        key: f.dataset.k, value: f.x.value,
+        validated: true, validated_at: new Date().toISOString(), validated_by: me.id
+      });
+      if (error) alert(error.message); else textes();
+    });
+  } catch (e) {
+    app.innerHTML = '<div class="card err">' + esc(e.message) + '</div>';
+  }
+}
+
+/* === ADMIN SITE (dev) === */
+async function dev() {
+  const c = CFG, col = c.colors || {}, D = {g:'#315b45',a:'#c49a62',bg:'#f6f7f2'};
+  const adv = JSON.stringify({elev:ELEV, acompte:ACOMPTE, payinfo:PAYINFO, contracts:CT, careCats:CC, statuses:ST}, null, 1);
+  app.innerHTML = `<h1>Administration du site</h1>
+    <div class="card">
+      <h2>Supervision globale</h2>
+      <p>Vue transversale sur toutes les conversations.</p>
+      <a href="#/messages"><button type="button">Voir toutes les conversations</button></a>
     </div>
-  </form>
+    <form id="df" class="card">
+      <h3>Site</h3>
+      <label>Nom<input name="name" value="${esc(c.name||'')}"></label>
+      <label>Texte d’accueil<textarea name="hero" style="min-height:70px">${esc(c.hero||'')}</textarea></label>
+      <div class="row">${[['g','Couleur principale'],['a','Accent'],['bg','Fond']].map(([k,l]) => `<label>${l}<input type="color" name="c_${k}" value="${col[k]||D[k]}"></label>`).join('')}</div>
+      <label>CSS personnalisé<textarea name="css">${esc(c.css||'')}</textarea></label>
+      <h3>Sections</h3><div id="secs"></div><button type="button" class="s" id="addsec">Ajouter une section</button>
+      <h3>Personnalisation des libellés</h3>
+      <label>Libellés (JSON)<textarea name="ui_labels" rows="6">${esc(JSON.stringify(c.uiLabels||{},null,2))}</textarea></label>
+      <h3>Modèles PDF</h3>
+      <label>Titre PDF<input name="pdf_title" value="${esc(c.pdf?.title||c.name||'Le Clos des Poils')}"></label>
+      <label>Sous-titre PDF<input name="pdf_subtitle" value="${esc(c.pdf?.subtitle||'Fiche individuelle')}"></label>
+      <label>Pied de page PDF<textarea name="pdf_footer" rows="2">${esc(c.pdf?.footer||'Document de suivi édité par l’éleveur.')}</textarea></label>
+      <h3>Informations légales</h3>
+      ${LK.map(([k,l]) => `<label>${l}<input name="l_${k}" value="${esc(c.legal?.[k]||LEGAL_DEFAULTS[k]||'')}"></label>`).join('')}
+      <h3>Avancé (JSON)</h3>
+      <textarea name="adv" style="min-height:180px">${esc(adv)}</textarea><br>
+      <button>Enregistrer le site</button>
+    </form>
+    <div class="card"><h3>Comptes</h3><div id="accts"></div></div>
+    <form id="nu" class="card">
+      <h3>Créer un compte</h3>
+      <div class="row">
+        <label>Prénom<input name="prenom" required maxlength="60"></label>
+        <label>Nom<input name="nom" required maxlength="60"></label>
+        <label>E-mail<input name="email" type="email" required></label>
+        <label>Mot de passe<input name="password" type="password" minlength="10" required></label>
+        <label>Rôle<select name="role"><option>client</option><option>seller</option><option>admin</option><option>dev</option></select></label>
+        <button>Créer</button>
+      </div>
+    </form>
+    <div class="card">
+      <h3>Base de données</h3>
+      <div class="row">
+        <select id="tb">${['animals','payments','signatures','profiles','settings'].map(t => `<option>${t}</option>`).join('')}</select>
+        <button class="s" id="ld" type="button">Charger</button>
+        <button id="sv" type="button">Enregistrer</button>
+      </div>
+      <textarea id="rows" style="min-height:200px"></textarea>
+      <div class="row"><input id="delid" placeholder="id à supprimer"><button class="d" id="dl" type="button">Supprimer</button></div>
+    </div>`;
 
-  <h3>Soins</h3>${careHtml(a, true)}
-  <form class="cf"><div class="row"><select name="k">${Object.entries(CC).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select><input name="n" placeholder="Nom du soin" required><label>Date<input type="date" name="d" required></label><label>Rappel<input type="date" name="rd"></label><button class="s">Ajouter un soin</button></div></form>
-  <h3>Paiements enregistrés</h3><p class="mut">Le développeur et l’administrateur peuvent modifier ou supprimer un paiement existant. Toute modification est enregistrée dans la base de données.</p>
-  ${P.filter(x=>x.animal_id==a.id).map(x=>`<div class="card pay-item" data-payid="${esc(x.id)}" data-animal="${a.id}" style="margin:8px 0;padding:10px"><div class="row"><label>Libellé<input data-pay="l" value="${esc(x.l||'')}"></label><label>Montant (€)<input data-pay="a" type="number" min="0" step="0.01" value="${esc(x.a)}"></label><label>Date<input data-pay="d" type="date" value="${esc(x.d||'')}"></label><button type="button" class="s pay-save">Enregistrer les modifications</button><button type="button" class="d pay-delete">Supprimer le paiement</button></div></div>`).join('')||'<div class="mut">Aucun paiement enregistré.</div>'}
-  <form class="pf"><div class="row"><input name="l" placeholder="Libellé" required><input type="number" min="0" step="0.01" name="a" placeholder="Montant €" required><input type="date" name="d" required><button class="s">Enregistrer un paiement</button></div></form>
-  <h3>Signatures</h3>${S.filter(x=>x.animal_id==a.id).map(x=>`<div>✔ ${esc(x.contract_key)} — ${esc(x.name)} le ${new Date(x.at).toLocaleString('fr-FR')}</div>`).join('')||'<div class="mut">Aucune</div>'}</details>`}).join('');
-const id=el=>+el.closest('[data-id]').dataset.id,done=i=>{OPEN=i;admin()};
-$('#new').onclick=async()=>{await sb.from('animals').insert({name:'Nouvel animal',status:'À naître'});admin()};
-document.querySelectorAll('.ef').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f)),a=A.find(x=>x.id==id(f)),d=a.data||{},profile=d.profile||{};Object.keys(o).filter(k=>k.startsWith('p_')).forEach(k=>{profile[k.slice(2)]=o[k];delete o[k]});d.profile=profile;o.data=d;o.buyer=o.buyer||null;o.price=+o.price;o.born=o.born||null;o.remise=o.remise||null;o.sex=o.sex||null;const{error}=await sb.from('animals').update(o).eq('id',id(f));error?alert(error.message):done(id(f))});
-document.querySelectorAll('.ident-select').forEach(sel=>sel.onchange=()=>{const form=sel.closest('form');form.querySelectorAll('.ident-detail').forEach(el=>{el.style.display=sel.value==='Oui'?'block':'none';if(sel.value!=='Oui')el.querySelectorAll('input,select').forEach(i=>i.value='')})});
-document.querySelectorAll('.cf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f)),a=A.find(x=>x.id==id(f)),d=a.data||{};d.care=d.care||{};(d.care[o.k]=d.care[o.k]||[]).push({n:o.n,d:o.d,rd:o.rd});const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);error?alert(error.message):done(a.id)});
-document.querySelectorAll('.pf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.a=+o.a;o.animal_id=id(f);const{error}=await sb.from('payments').insert(o);error?alert(error.message):done(o.animal_id)});
-
-document.querySelectorAll('.pay-save').forEach(b=>b.onclick=async()=>{
-  const row=b.closest('.pay-item'),paymentId=row.dataset.payid;
-  const amount=Number(row.querySelector('[data-pay="a"]').value);
-  const o={l:row.querySelector('[data-pay="l"]').value.trim(),a:amount,d:row.querySelector('[data-pay="d"]').value};
-  if(!o.l||!o.d||!Number.isFinite(amount)||amount<0)return alert('Vérifiez le libellé, la date et le montant.');
-  if(!confirm('Confirmer la modification de ce paiement ?'))return;
-  const{error}=await sb.from('payments').update(o).eq('id',paymentId);
-  error?alert(error.message):done(Number(row.dataset.animal));
-});
-document.querySelectorAll('.pay-delete').forEach(b=>b.onclick=async()=>{
-  const row=b.closest('.pay-item'),paymentId=row.dataset.payid;
-  if(!confirm('Supprimer définitivement ce paiement ? Cette action ne peut pas être annulée.'))return;
-  const{error}=await sb.from('payments').delete().eq('id',paymentId);
-  error?alert(error.message):done(Number(row.dataset.animal));
-});
-
-document.querySelectorAll('.c-del').forEach(b=>b.onclick=async()=>{
-  if(!confirm('Supprimer ce soin ?')) return;
-  const el=b.closest('.care-item'), a=A.find(x=>x.id==el.dataset.animal), d=a.data||{};
-  if(d.care && d.care[el.dataset.k]){
-    d.care[el.dataset.k].splice(el.dataset.i, 1);
-    const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);
-    error?alert(error.message):done(a.id);
-  }
-});
-document.querySelectorAll('.c-edit').forEach(b=>b.onclick=async()=>{
-  const el=b.closest('.care-item'), a=A.find(x=>x.id==el.dataset.animal), d=a.data||{}, k=el.dataset.k, i=el.dataset.i;
-  const old=d.care[k][i];
-  const n=prompt('Nom du soin :', old.n);
-  if(n===null) return;
-  const date=prompt('Date du soin (AAAA-MM-JJ) :', old.d);
-  if(date===null) return;
-  const rd=prompt('Date de rappel (AAAA-MM-JJ, laissez vide si aucun) :', old.rd||'');
-  if(rd===null) return;
-  d.care[k][i]={n, d:date, rd:rd||null};
-  const{error}=await sb.from('animals').update({data:d}).eq('id',a.id);
-  error?alert(error.message):done(a.id);
-});
-
-document.querySelectorAll('.uf').forEach(f=>f.onsubmit=async e=>{
-  e.preventDefault();
-  const fileInput = f.querySelector('input[type="file"]');
-  const comment = f.querySelector('input[name="comment"]').value;
-  const file = fileInput.files[0];
-  if(!file) return;
-  
-  f.querySelector('button').textContent = 'Envoi...';
-  const animalId = +f.dataset.id;
-  const animal = A.find(x=>x.id==animalId);
-  
-  const fileName = `${animalId}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '')}`;
-  const { error: uploadError } = await sb.storage.from('photos').upload(fileName, file);
-  if(uploadError) { alert(uploadError.message); f.querySelector('button').textContent = 'Mettre en ligne'; return; }
-  
-  const { data: { publicUrl } } = sb.storage.from('photos').getPublicUrl(fileName);
-  
-  const newPhoto = { url: publicUrl, comment: comment, date: new Date().toISOString() };
-  const newPhotos = animal.photos ? [...animal.photos, newPhoto] : [newPhoto];
-  
-  const { error: updateError } = await sb.from('animals').update({ photos: newPhotos }).eq('id', animalId);
-  if(updateError) alert(updateError.message);
-  else done(animalId);
-});
-
-document.querySelectorAll('.del-photo').forEach(b=>b.onclick=async()=>{
-  if(!confirm('Supprimer cette photo ?')) return;
-  const animal = A.find(x=>x.id==b.dataset.animal);
-  const newPhotos = [...animal.photos];
-  newPhotos.splice(b.dataset.i, 1);
-  
-  const { error } = await sb.from('animals').update({ photos: newPhotos }).eq('id', animal.id);
-  if(error) alert(error.message);
-  else done(animal.id);
-});
-}
-async function textes(){const{data}=await sb.from('settings').select('*'),m=Object.fromEntries((data||[]).map(r=>[r.key,r]));
-app.innerHTML='<h1>Textes légaux</h1><p class="mut">Relisez chaque texte, complétez les [crochets], puis validez. Tant qu’un texte n’est pas validé, le brouillon s’affiche avec la mention « en attente de validation ».</p>'+Object.entries(DOCS).map(([k,d])=>`<form class="card" data-k="${k}"><h3>${d.t} ${m[k]?.validated?`<span class="tag">Validé le ${dt(m[k].validated_at)}</span>`:'<span class="tag">À valider</span>'}</h3><textarea name="x">${esc(m[k]?.value||d.x)}</textarea><br><button>Valider et publier</button></form>`).join('');
-document.querySelectorAll('form[data-k]').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('settings').upsert({key:f.dataset.k,value:f.x.value,validated:true,validated_at:new Date().toISOString(),validated_by:me.id});error?alert(error.message):textes()})}
-async function dev(){const c=CFG,col=c.colors||{},D={g:'#2f5d43',a:'#e0953a',bg:'#eef3ec'};
-const adv=JSON.stringify({elev:ELEV,acompte:ACOMPTE,payinfo:PAYINFO,contracts:CT,careCats:CC,statuses:ST},null,1);
-
-
-app.innerHTML=`<h1>Administration du site</h1><p class="mut">Modifiez les contenus, l’apparence et les modèles PDF. Les droits sensibles doivent également être protégés côté Supabase (RLS et fonctions serveur).</p><form id="df" class="card"><h3>Site</h3>
-<label>Nom du site<input name="name" value="${esc(c.name)}"></label><label>Texte d’accueil<textarea name="hero" style="min-height:70px">${esc(c.hero)}</textarea></label>
-<div class="row">${[['g','Couleur principale'],['a','Accent'],['bg','Fond']].map(([k,l])=>`<label>${l}<input type="color" name="c_${k}" value="${col[k]||D[k]}"></label>`).join('')}</div>
-<label>CSS personnalisé (libre)<textarea name="css">${esc(c.css)}</textarea></label>
-<h3>Sections</h3><p class="mut">Emplacement : home (accueil), client (espace acquéreur) ou page (nouvelle page dans le menu). Contenu en HTML libre.</p>
-<div id="secs"></div><button type="button" class="s" id="addsec">Ajouter une section</button>
-<h3>Personnalisation des textes et boutons</h3><p class="mut">Le développeur peut remplacer les libellés affichés dans le site. Dans le JSON, indiquez le texte actuel comme clé et le nouveau texte comme valeur. Cela permet de renommer des titres, boutons, liens et intitulés sans toucher au code.</p><label>Libellés personnalisés (JSON)<textarea name="ui_labels" rows="8">${esc(JSON.stringify(c.uiLabels||{},null,2))}</textarea></label>
-<h3>Modèles PDF</h3><p class="mut">Personnalisez l’en-tête et le pied de page des fiches individuelles exportées.</p><label>Titre des PDF<input name="pdf_title" value="${esc(c.pdf?.title||c.name||'Le Clos des Poils')}"></label><label>Sous-titre des PDF<input name="pdf_subtitle" value="${esc(c.pdf?.subtitle||'Fiche individuelle de suivi')}"></label><label>Pied de page des PDF<textarea name="pdf_footer" rows="2">${esc(c.pdf?.footer||'Document de suivi édité par l’éleveur. Il ne remplace pas les documents vétérinaires ou officiels.')}</textarea></label><h3>Informations légales</h3><p class="mut">Elles remplacent les variables des textes légaux.</p>${LK.map(([k,l])=>`<label>${l}<input name="l_${k}" value="${esc(c.legal?.[k])}"></label>`).join('')}<h3>Avancé (JSON)</h3><p class="mut">Éleveur, acompte, modes de paiement, textes des contrats, catégories de soins, statuts.</p><textarea name="adv">${esc(adv)}</textarea><br><button>Enregistrer le site</button></form>
-<div class="card">
-<div style="display:flex; justify-content:space-between; align-items:center;"><h3>Comptes</h3><button type="button" class="s" onclick="window.print()">Imprimer la liste</button></div>
-<div id="accts"></div></div>
-<form id="nu" class="card"><h3>Créer un compte</h3><div class="row"><label>Prénom<input name="prenom" required maxlength="60"></label><label>Nom<input name="nom" required maxlength="60"></label><label>E-mail<input name="email" type="email" required></label><label>Mot de passe temporaire<input name="password" type="password" minlength="10" required></label><label>Rôle<select name="role"><option>client</option><option>admin</option><option>dev</option></select></label><button>Créer</button></div></form>
-<div class="card"><h3>Base de données (accès direct)</h3><div class="row"><select id="tb">${['animals','payments','signatures','profiles','settings'].map(t=>`<option>${t}</option>`).join('')}</select><button class="s" id="ld">Charger</button><button id="sv">Enregistrer (upsert)</button></div><textarea id="rows"></textarea><div class="row"><input id="delid" placeholder="id (ou clé) à supprimer"><button class="d" id="dl">Supprimer</button></div></div>`;
-const S=(c.sections||[]).map(x=>({...x})),rs=()=>{$('#secs').innerHTML=S.map((s,i)=>`<div class="card" data-i="${i}"><div class="row"><label>Identifiant<input data-f="id" value="${esc(s.id)}"></label><label>Titre<input data-f="title" value="${esc(s.title)}"></label><label>Emplacement<select data-f="where">${['home','client','page'].map(w=>`<option ${w==s.where?'selected':''}>${w}</option>`).join('')}</select></label><button type="button" class="d" data-rm="${i}">Retirer</button></div><textarea data-f="html">${esc(s.html)}</textarea></div>`).join('');
-document.querySelectorAll('#secs [data-f]').forEach(el=>el.oninput=()=>{S[+el.closest('[data-i]').dataset.i][el.dataset.f]=el.value});
-document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{S.splice(+b.dataset.rm,1);rs()})};rs();
-$('#addsec').onclick=()=>{S.push({id:'section'+(S.length+1),title:'Nouvelle section',where:'home',html:'<p>Contenu…</p>'});rs()};
-$('#df').onsubmit=async e=>{e.preventDefault();const f=e.target.elements;let a;try{a=JSON.parse(f.adv.value)}catch{return alert('JSON avancé invalide')}
-const colors={};for(const k of['g','a','bg'])if(f['c_'+k].value!==D[k])colors[k]=f['c_'+k].value;
-let uiLabels;try{uiLabels=JSON.parse(f.ui_labels.value||'{}')}catch{return alert('JSON des libellés invalide')}
-const{error}=await sb.from('settings').upsert({key:'site_config',value:JSON.stringify({...a,name:f['name'].value,hero:f.hero.value,css:f.css.value,colors,sections:S,uiLabels,pdf:{title:f.pdf_title.value,subtitle:f.pdf_subtitle.value,footer:f.pdf_footer.value},legal:Object.fromEntries(LK.map(([k])=>[k,f['l_'+k].value]))}),validated:true,validated_at:new Date().toISOString(),validated_by:me.id});
-if(error)alert(error.message);else{await loadCfg();nav();alert('Site enregistré')}};
-const accts=async()=>{const[{data:U},{data:A}]=await Promise.all([sb.from('profiles').select('*').order('created_at'),sb.from('animals').select('id,buyer')]);
-$('#accts').innerHTML='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><tr><th align="left">Nom</th><th align="left">E-mail</th><th>Rôle</th><th>Créé le</th><th>Animaux</th><th></th></tr>'+U.map(u=>`<tr><td>${esc((u.prenom||'')+' '+(u.nom||''))}</td><td>${esc(u.email)}</td><td><select data-u="${u.id}">${['client','seller','admin','dev'].map(r=>`<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></td><td>${dt(u.created_at)}</td><td align="center">${A.filter(a=>a.buyer==u.id).length}</td><td><button class="d" data-x="${u.id}" data-e="${esc(u.email)}">Supprimer</button></td></tr>`).join('')+'</table></div>';
-document.querySelectorAll('[data-u]').forEach(x=>x.onchange=async()=>{try{await fn('admin-set-role',{id:x.dataset.u,role:x.value});alert('Rôle modifié')}catch(e){alert(e.message)}accts()});
-document.querySelectorAll('[data-x]').forEach(b=>b.onclick=async()=>{if(!confirm('Supprimer le compte '+b.dataset.e+' ? Ses animaux seront détachés, ses contrats signés conservés.'))return;try{await fn('admin-delete-user',{id:b.dataset.x})}catch(e){alert(e.message)}accts()})};accts();
-$('#nu').onsubmit=async e=>{e.preventDefault();try{await fn('admin-create-user',Object.fromEntries(new FormData(e.target)));e.target.reset();alert('Compte créé')}catch(x){alert(x.message)}accts()};
-$('#ld').onclick=async()=>{const{data,error}=await sb.from($('#tb').value).select('*');$('#rows').value=error?error.message:JSON.stringify(data,null,1)};
-$('#sv').onclick=async()=>{let v;try{v=JSON.parse($('#rows').value)}catch{return alert('JSON invalide')}const{error}=await sb.from($('#tb').value).upsert(v);alert(error?error.message:'Enregistré')};
-$('#dl').onclick=async()=>{const t=$('#tb').value;if(!confirm('Supprimer cette ligne de '+t+' ?'))return;const{error}=await sb.from(t).delete().eq(t==='settings'?'key':'id',$('#delid').value);alert(error?error.message:'Supprimé')}}
-/* === EXTENSION LE CLOS DES POILS : rôles, espace vendeur, messagerie === */
-const CLOS_ROLE_LABELS={client:'Client',admin:'Éleveur / administrateur',seller:'Vendeur',dev:'Développeur'};
-const closIsStaff=()=>['admin','dev'].includes(prof?.role);
-const closCanSeeAll=()=>['admin','dev'].includes(prof?.role);
-const closNotice=(msg)=>`<div class="card" role="status">${esc(msg)}</div>`;
-const closDate=d=>d?new Date(d).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}):'';
-let closActiveConversation=null,closRealtime=null;
-
-// Navigation enrichie : chaque rôle reçoit son propre espace.
-nav=function(){
-  const publicLinks='<a href="#/">Accueil</a><a href="#/faq">FAQ</a><a href="#/contact">Contact</a>'+secs('page').map(s=>`<a href="#/p-${esc(s.id)}">${esc(s.title)}</a>`).join('')+'<a href="#/mentions">Informations légales</a>';
-  let privateLinks='';
-  if(!me){privateLinks='<a href="#/compte">Connexion / Inscription</a>'}
-  else {
-    const label=prof?.role==='admin'?'Espace éleveur':prof?.role==='dev'?'Administration':prof?.role==='seller'?'Espace vendeur':'Mon espace client';
-    privateLinks=`<a href="#/compte">${label}</a>`;
-    if(prof?.role==='dev')privateLinks+='<a href="#/dev">Administration du site</a><a href="#/admin-textes">Documents légaux</a>';
-    if(closIsStaff())privateLinks+='<a href="#/messages">Messagerie</a>';
-    privateLinks+='<a href="#" id="out">Déconnexion</a>';
-  }
-  $('#nav').innerHTML=publicLinks+privateLinks;
-  const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();if(closRealtime){sb.removeChannel(closRealtime);closRealtime=null}await sb.auth.signOut()};
-};
-
-const closPublicCTA=()=>`<section class="card" style="border:2px solid var(--g);background:#fff">
-  <h2>Vous souhaitez accueillir l’un de nos animaux ?</h2>
-  <p>Créez votre espace personnel pour échanger avec l’éleveur, poser vos questions, demander une réservation et suivre votre futur compagnon.</p>
-  <div class="row"><a href="#/compte"><button type="button">Créer mon compte / Me connecter</button></a><a href="#/contact"><button type="button" class="s">Contacter l’éleveur</button></a></div>
-  <p class="mut">Un compte vous permet de conserver l’historique de vos échanges et de retrouver les informations de votre réservation.</p>
-</section>`;
-const closOriginalHome=home;
-home=async function(){await closOriginalHome();if(!me){app.insertAdjacentHTML('afterbegin',closPublicCTA());app.insertAdjacentHTML('beforeend',`<div class="card"><h3>Une question avant de vous décider ?</h3><p>L’éleveur peut vous renseigner sur le caractère, les disponibilités, les conditions d’accueil et les étapes d’une réservation.</p><a href="#/contact">Contacter Le Clos des Poils</a></div>`)}else{app.insertAdjacentHTML('beforeend','<p><a href="#/messages">Ouvrir ma messagerie</a></p>')}};
-
-// Connexion et inscription : choix explicite, rôle attribué uniquement par un administrateur.
-const closOriginalLogin=login;
-login=function(sign=false){
-  closOriginalLogin(sign);
-  if(!sign){
-    const card=app.querySelector('.card');
-    if(card)card.insertAdjacentHTML('beforeend',`<hr><p><b>Vous découvrez l’élevage ?</b></p><p>Créez un compte client pour contacter l’éleveur, demander une réservation et suivre votre dossier.</p><button type="button" class="s" id="clos-register">Créer mon compte client</button><p class="mut">Les comptes vendeur, éleveur et développeur sont créés ou autorisés par l’administration. Ils ne peuvent pas être choisis librement à l’inscription.</p>`);
-    const b=$('#clos-register');if(b)b.onclick=()=>login(true);
-  }
-};
-
-// Pages publiques supplémentaires.
-const closOriginalRoute=route;
-route=function(){
-  const h=location.hash.slice(2);
-  if(h==='contact')return closContact();
-  if(h==='faq')return closFaq();
-  if(h==='messages'){if(!me){location.hash='#/compte';return}if(prof?.role==='seller')return closSellerMessages();if(closIsStaff())return closStaffMessages();return closClientMessages()}
-  if(h==='vendeur'){if(me&&prof?.role==='seller')return closSeller();location.hash='#/compte';return}
-  if(h==='compte'&&me&&prof?.role==='seller')return closSeller();
-  return closOriginalRoute();
-};
-// Important : le listener hashchange initial pointait vers l'ancienne route.
-// On le remplace pour que FAQ, Contact et Messagerie soient réellement routées.
-removeEventListener('hashchange', closOriginalRoute);
-addEventListener('hashchange', route);
-function closContact(){
- app.innerHTML=`<h1>Contacter l’éleveur</h1><div class="card"><p>Une question sur un animal, une réservation ou les conditions d’accueil ? Écrivez directement à l’éleveur depuis votre espace client.</p>
- ${me?'<a href="#/messages"><button>Ouvrir la messagerie</button></a>':`<p>Pour conserver une trace de vos échanges, créez un compte ou connectez-vous avant d’envoyer votre message.</p><a href="#/compte"><button>Créer un compte / Se connecter</button></a>`}
- <hr><p><b>Contact téléphonique</b><br><a href="tel:0648774637">06 48 77 46 37</a></p><p class="mut">Les demandes envoyées depuis le site sont conservées dans votre espace personnel.</p></div>`;
-}
-function closFaq(){
- const rows=[['Comment réserver un animal ?','Créez un compte client, ouvrez la messagerie et indiquez le nom de l’animal qui vous intéresse. L’éleveur vous répondra pour préciser les disponibilités et les étapes.'],['Puis-je visiter l’élevage ?','Contactez l’éleveur afin de convenir des modalités et d’un éventuel rendez-vous.'],['Comment suivre mon futur compagnon ?','Une fois votre compte associé à un animal, vous retrouverez sa fiche, les photos, les informations de santé et les paiements enregistrés dans Mon espace.'],['Comment contacter l’éleveur ?','Depuis la messagerie de votre compte ou par téléphone au 06 48 77 46 37.'],['Comment créer un compte vendeur ?','Les rôles vendeur, éleveur et développeur sont attribués par l’administration. Une inscription publique crée uniquement un compte client.'],['Mes échanges sont-ils privés ?','Les conversations sont accessibles au client concerné, à l’éleveur / administrateur et au développeur du site pour le suivi technique et la modération.']];
- app.innerHTML='<h1>Questions fréquentes</h1><p>Les réponses aux questions les plus courantes sur le fonctionnement du site.</p>'+rows.map(([q,a])=>`<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')+`<div class="card"><b>Vous ne trouvez pas votre réponse ?</b><p><a href="#/contact">Contactez l’éleveur</a></p></div>`;
-}
-
-// Messagerie commune. Les droits réels sont imposés par les politiques RLS du SQL fourni séparément.
-async function closGetConversations(){
- const {data,error}=await sb.from('conversations').select('id,customer_id,assigned_to,subject,status,created_at,updated_at').order('updated_at',{ascending:false});
- if(error)throw error;return data||[];
-}
-async function closGetMessages(cid){const{data,error}=await sb.from('messages').select('id,conversation_id,sender_id,body,created_at').eq('conversation_id',cid).order('created_at');if(error)throw error;return data||[]}
-function closMessageShell(title,conversations,selected){
- return `<h1>${esc(title)}</h1><div class="card"><div class="row" style="align-items:center"><div style="flex:1"><b>${conversations.length} conversation(s)</b><p class="mut">Messages enregistrés dans votre espace sécurisé.</p></div><button type="button" class="s" id="clos-refresh">Actualiser</button></div><div class="row clos-message-layout" style="align-items:flex-start"><aside style="flex:1;min-width:230px;max-width:360px" id="clos-thread-list">${conversations.map(c=>`<button type="button" class="s" data-open-conv="${c.id}" style="display:block;width:100%;text-align:left;margin:5px 0;white-space:normal"><b>${esc(c.subject||'Demande de contact')}</b><br><small>${esc(c.status||'Ouverte')} · ${closDate(c.updated_at||c.created_at)}</small></button>`).join('')||'<p class="mut">Aucune conversation pour le moment.</p>'}</aside><section style="flex:2;min-width:260px" id="clos-thread"><p class="mut">Sélectionnez une conversation pour afficher les messages.</p></section></div></div>`;
-}
-async function closRenderThread(cid,canReply=true){
- closActiveConversation=cid;const thread=$('#clos-thread');if(!thread)return;
- const {data:conv,error:ce}=await sb.from('conversations').select('id,subject,status,customer_id,assigned_to').eq('id',cid).single();if(ce){thread.innerHTML=closNotice('Conversation inaccessible.');return}
- const msgs=await closGetMessages(cid);
- thread.innerHTML=`<h3>${esc(conv.subject||'Discussion')}</h3><p class="mut">Statut : ${esc(conv.status||'ouverte')}</p><div id="clos-message-log" style="max-height:440px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg)">${msgs.map(m=>`<div style="max-width:88%;margin:8px ${m.sender_id===me.id?'0 0 8px auto':'0 auto 8px 0'};padding:10px 12px;border-radius:12px;background:${m.sender_id===me.id?'#e5efe7':'#fff'}"><div>${esc(m.body).replace(/\n/g,'<br>')}</div><small class="mut">${closDate(m.created_at)} ${m.sender_id===me.id?'· Vous':''}</small></div>`).join('')||'<p class="mut">Aucun message.</p>'}</div>${canReply?`<form id="clos-send-message" style="margin-top:12px"><label>Votre message<textarea name="body" rows="3" maxlength="5000" required placeholder="Écrivez votre message…"></textarea></label><button>Envoyer le message</button></form>`:''}`;
- const log=$('#clos-message-log');if(log)log.scrollTop=log.scrollHeight;
- const form=$('#clos-send-message');if(form)form.onsubmit=async e=>{e.preventDefault();const body=new FormData(form).get('body').trim();if(!body)return;const b=form.querySelector('button');b.disabled=true;const{error}=await sb.from('messages').insert({conversation_id:cid,sender_id:me.id,body});if(error){alert('Envoi impossible : '+error.message);b.disabled=false;return}await sb.from('conversations').update({updated_at:new Date().toISOString()}).eq('id',cid);await closRenderThread(cid,canReply)};
-}
-async function closCreateConversation(subject,body,animalId=null){
- const{data,error}=await sb.from('conversations').insert({customer_id:me.id,subject:subject.trim(),status:'ouverte',animal_id:animalId}).select('id').single();if(error)throw error;
- const{error:meErr}=await sb.from('messages').insert({conversation_id:data.id,sender_id:me.id,body:body.trim()});if(meErr)throw meErr;
- return data.id;
-}
-async function closClientMessages(){
- try{
-  const conv=await closGetConversations();app.innerHTML=`<h1>Ma messagerie</h1><div class="card"><h3>Nouvelle demande à l’éleveur</h3><form id="clos-new-conversation"><label>Objet<input name="subject" required maxlength="140" placeholder="Ex. Renseignements sur un chiot"></label><label>Votre message<textarea name="body" required maxlength="5000" placeholder="Présentez votre demande…"></textarea></label><label>Animal concerné (facultatif)<select name="animal_id"><option value="">Aucun animal sélectionné</option></select></label><button>Envoyer à l’éleveur</button></form></div>`+closMessageShell('Mes discussions',conv);
-  const {data:animals}=await sb.from('animals').select('id,name').eq('buyer',me.id);const sel=app.querySelector('[name="animal_id"]');(animals||[]).forEach(a=>sel.insertAdjacentHTML('beforeend',`<option value="${a.id}">${esc(a.name)}</option>`));
-  $('#clos-new-conversation').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));try{const id=await closCreateConversation(f.subject,f.body,f.animal_id?Number(f.animal_id):null);alert('Message envoyé à l’éleveur.');await closClientMessages();await closRenderThread(id,true)}catch(x){alert(x.message)}};
-  document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=()=>closRenderThread(b.dataset.openConv,true));$('#clos-refresh').onclick=closClientMessages;
- }catch(e){app.innerHTML='<h1>Ma messagerie</h1>'+closNotice('La messagerie nécessite la migration SQL fournie et ses règles de sécurité. Détail : '+e.message)}
-}
-async function closStaffMessages(){
- try{const conv=await closGetConversations();app.innerHTML=closMessageShell(prof.role==='dev'?'Centre de supervision des conversations':'Messagerie de l’élevage',conv);
- document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=async()=>{await closRenderThread(b.dataset.openConv,true);const thread=$('#clos-thread');if(thread){const c=conv.find(x=>String(x.id)===String(b.dataset.openConv));if(c&&prof.role==='admin'){const {data:sellers}=await sb.from('profiles').select('id,prenom,nom').eq('role','seller');thread.insertAdjacentHTML('afterbegin',`<label>Attribuer au vendeur<select id="clos-assign"><option value="">Non attribué / éleveur</option>${(sellers||[]).map(s=>`<option value="${s.id}" ${s.id===c.assigned_to?'selected':''}>${esc((s.prenom||'')+' '+(s.nom||''))}</option>`).join('')}</select></label>`);$('#clos-assign').onchange=async e=>{const{error}=await sb.from('conversations').update({assigned_to:e.target.value||null}).eq('id',c.id);if(error)alert(error.message);else alert('Attribution mise à jour')}}}});
- $('#clos-refresh').onclick=closStaffMessages;
- }catch(e){app.innerHTML='<h1>Messagerie</h1>'+closNotice('Impossible de charger les conversations : '+e.message)}
-}
-async function closSellerMessages(){
- try{const conv=await closGetConversations();app.innerHTML=closMessageShell('Messages attribués à mon compte vendeur',conv);document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=()=>closRenderThread(b.dataset.openConv,true));$('#clos-refresh').onclick=closSellerMessages}catch(e){app.innerHTML=closNotice(e.message)}
-}
-
-// Tableau de bord vendeur : uniquement les annonces qui lui sont affectées.
-async function closSeller(){
- try{
- const[{data:A,error},{data:U}]=await Promise.all([sb.from('animals').select('*').eq('seller_id',me.id).order('id'),sb.from('profiles').select('id,prenom,nom,role').in('role',['client','seller'])]);if(error)throw error;
- app.innerHTML=`<h1>Espace vendeur</h1><p>Gérez vos annonces, suivez les demandes qui vous sont attribuées et répondez aux clients.</p><div class="row"><div class="card" style="flex:1"><b>${A.length}</b><br><span class="mut">Annonce(s) attribuée(s)</span></div><div class="card" style="flex:1"><a href="#/messages">Ouvrir ma messagerie</a></div></div><div class="card"><h2>Ajouter une annonce</h2><form id="clos-seller-new" class="row"><label>Nom<input name="name" required maxlength="60"></label><label>Espèce<input name="sp" required maxlength="60"></label><label>Prix (€)<input name="price" type="number" min="0" step="0.01" required></label><label>Statut<select name="status"><option>À naître</option><option>En croissance</option><option>Disponible</option></select></label><label>Description<textarea name="descr" rows="2"></textarea></label><button>Créer l’annonce</button></form></div><h2>Mes annonces</h2>`+(A.map(a=>`<div class="card"><form class="clos-seller-edit" data-id="${a.id}"><h3>${esc(a.name)} <span class="tag">${esc(a.status)}</span></h3><div class="row"><label>Nom<input name="name" value="${esc(a.name)}" required></label><label>Espèce<input name="sp" value="${esc(a.sp)}"></label><label>Prix (€)<input name="price" type="number" min="0" step="0.01" value="${Number(a.price)||0}"></label><label>Statut<select name="status">${ST.map(s=>`<option ${s===a.status?'selected':''}>${esc(s)}</option>`).join('')}</select></label><label>Description<textarea name="descr" rows="2">${esc(a.descr||'')}</textarea></label></div><button>Enregistrer</button></form></div>`).join('')||'<p class="mut">Aucune annonce ne vous est encore attribuée. Demandez à l’éleveur de vous affecter un animal.</p>');
- $('#clos-seller-new').onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.target));o.price=Number(o.price);o.seller_id=me.id;const{error}=await sb.from('animals').insert(o);if(error)alert(error.message);else closSeller()};
- document.querySelectorAll('.clos-seller-edit').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(f));o.price=Number(o.price);const{error}=await sb.from('animals').update(o).eq('id',f.dataset.id).eq('seller_id',me.id);if(error)alert(error.message);else closSeller()});
- }catch(e){app.innerHTML='<h1>Espace vendeur</h1>'+closNotice('Espace vendeur non prêt : appliquez la migration SQL. '+e.message)}
-}
-
-// Étend les espaces client / éleveur / développeur sans supprimer les fonctions historiques.
-const closOriginalClient=client;
-client=async function(){await closOriginalClient();const box=document.createElement('div');box.className='card';box.innerHTML='<h2>Messagerie avec l’éleveur</h2><p>Posez vos questions, transmettez un document ou demandez des nouvelles de votre réservation.</p><a href="#/messages"><button>Accéder à mes discussions</button></a>';app.append(box)};
-const closOriginalAdmin=admin;
-admin=async function(){await closOriginalAdmin();const box=document.createElement('div');box.className='card';box.innerHTML='<h2>Messagerie et demandes clients</h2><p>Consultez toutes les demandes, répondez aux clients et attribuez une conversation à un vendeur.</p><a href="#/messages"><button>Ouvrir toutes les conversations</button></a><p><b>Gestion vendeurs :</b> attribuez le rôle vendeur depuis la gestion des comptes, puis affectez-lui les animaux et les conversations.</p>';app.prepend(box)};
-const closOriginalDev=dev;
-dev=async function(){await closOriginalDev();const box=document.createElement('div');box.className='card';box.innerHTML='<h2>Supervision globale</h2><p>Le développeur dispose d’une vue transversale sur toutes les conversations afin de diagnostiquer les problèmes et suivre le bon fonctionnement du service.</p><a href="#/messages"><button>Voir toutes les conversations</button></a><p class="mut">Les permissions de lecture globale sont également vérifiées par Supabase, pas seulement par cette interface.</p>';app.prepend(box)};
-
-// Remplace les listes de rôles de l'interface développeur pour intégrer les vendeurs.
-const closRoleObserver=new MutationObserver(()=>document.querySelectorAll('select[data-u]').forEach(s=>{if(![...s.options].some(o=>o.value==='seller'))s.insertAdjacentHTML('beforeend','<option value="seller">seller</option>')}));
-closRoleObserver.observe(document.body,{childList:true,subtree:true});
-
-
-/* === Refonte navigation, accueil, annonces et messagerie === */
-(()=>{
- const style=document.createElement('style');style.textContent=`
- :root{--bg:#f6f7f2;--card:#fff;--ink:#24352b;--mut:#718076;--g:#315b45;--a:#c49a62;--line:#e1e8df;--shadow:0 12px 32px rgba(32,55,40,.08);--radius:20px}
- body{background:linear-gradient(180deg,#edf3ec 0,#f7f8f4 320px);color:var(--ink)}
- header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:rgba(39,79,55,.96);padding:13px clamp(14px,4vw,38px)}
- header b{font-size:1.2rem}header nav{gap:4px}header a{font-weight:600;font-size:.9rem}
- main{width:min(1180px,100%);padding:clamp(16px,3vw,36px)}
- h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.045em}h2{font-size:1.45rem}h3{font-size:1.12rem}
- .card{border:1px solid rgba(49,91,69,.10);border-radius:20px;box-shadow:var(--shadow);padding:clamp(16px,2.5vw,24px)}
- .clos-hero{padding:clamp(24px,5vw,54px);border-radius:26px;background:linear-gradient(125deg,#244b35,#477452);color:#fff;box-shadow:0 18px 45px rgba(34,70,48,.2);margin-bottom:24px}
- .clos-hero h1,.clos-hero h2{color:#fff}.clos-hero p{max-width:720px;color:#edf4ed;font-size:1.08rem}
- .clos-kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.76rem;font-weight:800;color:#e4c99f}
- .clos-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.clos-actions a{text-decoration:none}
- .clos-actions button{padding:12px 18px;border-radius:12px}.clos-actions .s{color:#fff;border-color:rgba(255,255,255,.65);background:transparent}
- .clos-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:30px 0 14px}
- .clos-section-head h2{margin:0}.clos-category{margin:28px 0}.clos-category-head{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}.clos-category-head .clos-count{margin-left:auto;background:#eaf0e9;color:var(--g);border-radius:99px;padding:3px 10px;font-size:.82rem;font-weight:700}
- .clos-animal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr));gap:16px}
- .clos-animal{overflow:hidden;padding:0;display:flex;flex-direction:column}.clos-animal-photo{width:100%;height:220px;object-fit:cover;background:#e9eee8}.clos-animal-body{padding:18px;display:flex;flex-direction:column;gap:9px;flex:1}.clos-animal-meta{display:flex;gap:7px;flex-wrap:wrap}.clos-animal-meta span{background:#f0f4ef;border-radius:8px;padding:4px 8px;font-size:.82rem;color:#455b4b}.clos-price{font-size:1.2rem;font-weight:800;color:var(--g);margin-top:auto}.clos-filter{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:14px 0 22px}.clos-page-intro{max-width:760px;color:var(--mut);font-size:1.04rem}.clos-empty{padding:24px;text-align:center;background:#fff;border:1px dashed var(--line);border-radius:16px;color:var(--mut)}
- .clos-contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.clos-contact-card{background:#f8faf7;border-radius:16px;padding:18px}.clos-faq details{margin:10px 0}.clos-faq summary{padding:4px 0}.clos-faq details p{padding-top:10px;color:var(--mut)}
- .clos-message-layout{display:grid;grid-template-columns:minmax(230px,330px) 1fr;gap:14px}.clos-message-layout aside{max-height:620px;overflow:auto}.clos-message-layout [data-open-conv]{border-radius:12px;background:#f8faf7}.clos-message-layout [data-open-conv]:hover{background:#eaf1e9}
- @media(max-width:680px){header{position:static}header nav{width:100%}.clos-filter,.clos-message-layout{grid-template-columns:1fr}.clos-animal-photo{height:200px}}
- `;document.head.append(style);
- const catOf=v=>{const x=String(v||'').toLowerCase();if(/bovin|vache|taureau|veau/.test(x))return ['Bovins','🐄'];if(/caprin|chèvre|chevre|bouc|chevreau/.test(x))return ['Caprins','🐐'];if(/ovin|mouton|brebis|agneau/.test(x))return ['Ovins','🐑'];if(/équin|equin|cheval|poney|âne|ane/.test(x))return ['Équins','🐴'];if(/porcin|cochon|porc|truie/.test(x))return ['Porcins','🐖'];if(/volaille|poule|coq|canard|oie|dinde|pintade/.test(x))return ['Volailles','🐓'];if(/chien|chiot|canin/.test(x))return ['Chiens','🐕'];if(/chat|chaton|félin|felin/.test(x))return ['Chats','🐈'];if(/lapin|lapereau|cunicul/.test(x))return ['Lapins','🐇'];return ['Autres animaux','🐾']};
- const roleLabel=()=>prof?.role==='dev'?'Développeur':prof?.role==='admin'?'Éleveur':prof?.role==='seller'?'Vendeur':'Client';
- nav=function(){let links='<a href="#/">Accueil</a><a href="#/faq">Questions fréquentes</a><a href="#/contact">Contact</a>';if(me){links+=`<a href="#/compte">${roleLabel()==='Client'?'Mon espace':`Espace ${roleLabel().toLowerCase()}`}</a><a href="#/messages">Messagerie</a>`;if(prof?.role==='dev')links+='<a href="#/dev">Administration</a><a href="#/admin-textes">Documents</a>';links+='<a href="#" id="out">Déconnexion</a>'}else links+='<a href="#/compte">Connexion / Inscription</a>';$('#nav').innerHTML=links;const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut()}};
- home=async function(){
-  document.title='Accueil — '+CFG.name;app.innerHTML='<div class="clos-hero"><div class="clos-kicker">Bienvenue au Clos des Poils</div><h1>Des animaux, du soin et de belles rencontres.</h1><p>'+esc(CFG.hero||'Découvrez les animaux de notre élevage, leurs fiches et les informations utiles pour préparer leur arrivée.')+'</p><div class="clos-actions"><button type="button" id="clos-jump">Découvrir les annonces</button>'+(!me?'<a href="#/compte"><button class="s">Créer un compte / Se connecter</button></a>':'<a href="#/messages"><button class="s">Ouvrir ma messagerie</button></a>')+'</div></div><div class="clos-section-head"><div><div class="clos-kicker" style="color:var(--g)">Nos animaux</div><h2 id="annonces">Les animaux disponibles</h2><p class="clos-page-intro">Parcourez les annonces par famille animale et ouvrez chaque fiche pour découvrir ses informations.</p></div></div><div class="clos-filter"><input id="clos-animal-search" placeholder="Rechercher un animal, une race…" aria-label="Rechercher"><select id="clos-animal-category"><option value="">Toutes les familles</option></select></div><div id="clos-animal-results"><p class="mut">Chargement des annonces…</p></div>';
-  if(!me)app.insertAdjacentHTML('beforeend','<section class="card" style="margin-top:24px"><h2>Un renseignement ?</h2><p>Vous pouvez consulter les annonces librement. Pour poser une question à un vendeur, créer une demande ou suivre une réservation, créez votre espace client.</p><div class="clos-actions"><a href="#/compte"><button>Créer mon compte client</button></a><a href="#/contact"><button class="s">Contacter l’élevage</button></a></div></section>');
-  $('#clos-jump').onclick=()=>$('#annonces').scrollIntoView({behavior:'smooth'});const host=$('#clos-animal-results');try{const{data,error}=await sb.from('animals').select('id,name,emoji,sp,descr,born,remise,price,sex,status,photos,data').eq('status','Disponible').order('id',{ascending:false});if(error)throw error;const animals=data||[];const cats=[...new Set(animals.map(a=>catOf(a.sp)[0]))];$('#clos-animal-category').insertAdjacentHTML('beforeend',cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join(''));
-  const render=()=>{const q=$('#clos-animal-search').value.toLowerCase().trim(),cat=$('#clos-animal-category').value;const filtered=animals.filter(a=>(!cat||catOf(a.sp)[0]===cat)&&(!q||[a.name,a.sp,a.descr,a.data?.profile?.race].join(' ').toLowerCase().includes(q)));if(!filtered.length){host.innerHTML='<div class="clos-empty">Aucun animal ne correspond à cette recherche.</div>';return}const groups={};filtered.forEach(a=>{const [c,emoji]=catOf(a.sp);(groups[c]??={emoji,items:[]}).items.push(a)});host.innerHTML=Object.entries(groups).map(([c,g])=>`<section class="clos-category"><div class="clos-category-head"><span style="font-size:1.7rem">${g.emoji}</span><h2 style="margin:0">${esc(c)}</h2><span class="clos-count">${g.items.length} annonce(s)</span></div><div class="clos-animal-grid">${g.items.map(a=>{const r=a.data?.profile||{},photo=a.photos?.length?a.photos[a.photos.length-1]:null;const meta=[a.sp,r.race,a.sex,a.born?'Né(e) le '+dt(a.born):null].filter(Boolean);return `<article class="card clos-animal">${photo?`<img class="clos-animal-photo" src="${esc(photo.url)}" alt="${esc(a.name)}" loading="lazy">`:`<div class="clos-animal-photo" style="display:grid;place-items:center;font-size:4rem">${g.emoji}</div>`}<div class="clos-animal-body"><div><span class="tag">Disponible</span></div><h3 style="margin:0">${esc(a.name)}</h3>${a.descr?`<p>${esc(a.descr)}</p>`:''}<div class="clos-animal-meta">${meta.map(x=>`<span>${esc(x)}</span>`).join('')}</div>${r.caractere?`<p><b>Caractère :</b> ${esc(r.caractere)}</p>`:''}${r.disponibilite_reelle||r.disponibilite_prevue||a.remise?`<p class="mut">Disponible à partir du ${dt(r.disponibilite_reelle||r.disponibilite_prevue||a.remise)}</p>`:''}<div class="clos-price">${eur(a.price)}</div><details><summary>Voir la fiche détaillée</summary><div style="padding-top:10px">${r.habitudes?`<p><b>Socialisation :</b> ${esc(r.habitudes)}</p>`:''}${r.alimentation?`<p><b>Alimentation :</b> ${esc(r.alimentation)}</p>`:''}${r.couleur?`<p><b>Robe / couleur :</b> ${esc(r.couleur)}</p>`:''}${r.poids?`<p><b>Poids :</b> ${esc(r.poids)}</p>`:''}${r.conseils?`<p><b>Conseils :</b> ${esc(r.conseils)}</p>`:''}${r.pere_portee?`<p><b>Père :</b> ${esc(r.pere_portee)}</p>`:''}${r.mere_portee?`<p><b>Mère :</b> ${esc(r.mere_portee)}</p>`:''}</div></details><a href="${me?'#/messages':'#/compte'}"><button style="width:100%">${me?'Poser une question':'Se connecter pour contacter'}</button></a></div></article>`}).join('')}</div></section>`).join('')};$('#clos-animal-search').oninput=render;$('#clos-animal-category').onchange=render;render();}catch(e){host.innerHTML=`<div class="clos-empty">Impossible de charger les annonces : ${esc(e.message)}</div>`}
- };
- function closDistinctPage(title,kicker,desc,content){document.title=title+' — '+CFG.name;app.innerHTML=`<section class="clos-hero" style="margin:0 0 24px"><div class="clos-kicker">${kicker}</div><h1>${title}</h1><p>${desc}</p></section>${content}`}
- closContact=function(){closDistinctPage('Parlons de votre projet','Contact & renseignements','Une question sur une annonce, l’élevage ou les conditions d’accueil ? Choisissez le moyen de contact qui vous convient.',`<div class="clos-contact-grid"><section class="card clos-contact-card"><h2>Par téléphone</h2><p>Pour un échange direct avec l’élevage.</p><p><a href="tel:0648774637"><b>06 48 77 46 37</b></a></p></section><section class="card clos-contact-card"><h2>Par messagerie</h2><p>Gardez un historique de vos questions et des réponses.</p>${me?'<a href="#/messages"><button>Accéder à la messagerie</button></a>':'<a href="#/compte"><button>Créer un compte client</button></a>'}</section><section class="card clos-contact-card"><h2>Avant de nous écrire</h2><p>Consultez les réponses aux questions les plus fréquentes sur les annonces, les réservations et votre espace personnel.</p><a href="#/faq">Consulter la FAQ</a></section></div>`)};
- closFaq=function(){const rows=[['Comment trouver un animal ?','Depuis l’accueil, parcourez les familles animales ou utilisez la recherche pour retrouver une annonce.'],['Comment poser une question sur une annonce ?','Créez un compte client ou connectez-vous, puis ouvrez la messagerie. Les clients peuvent contacter les vendeurs.'],['Puis-je contacter plusieurs vendeurs ?','Oui, un client peut ouvrir une conversation avec un vendeur disponible dans la liste des contacts.'],['Comment suivre une réservation ?','Une fois votre compte associé à un animal, les informations disponibles apparaissent dans votre espace client.'],['Comment devenir vendeur ?','Le rôle vendeur est attribué par l’administration du site. Il ne peut pas être choisi lors d’une inscription publique.'],['Qui peut voir les conversations ?','Les personnes participant à une conversation y ont accès. L’éleveur et le développeur disposent également des droits de supervision prévus par le site.']];closDistinctPage('Les réponses à vos questions','Aide & informations','Quelques repères pour utiliser le site et préparer votre projet.',`<div class="clos-faq">${rows.map(([q,a])=>`<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div><section class="card"><h2>Une autre question ?</h2><p>Notre équipe peut vous orienter.</p><a href="#/contact"><button>Nous contacter</button></a></section>`)};
- // Création de conversations avec destinataire explicite : client -> vendeur seulement ; vendeur/dev -> tout compte.
- closCreateConversation=async function(subject,body,animalId=null,recipientId=null){const role=prof?.role;let target=recipientId;if(role==='client'){if(!target)throw new Error('Choisissez un vendeur à contacter.');const{data:s}=await sb.from('profiles').select('id,role').eq('id',target).single();if(!s||s.role!=='seller')throw new Error('Un client peut uniquement contacter un vendeur.')}else if(!['seller','dev','admin'].includes(role))throw new Error('Votre compte ne peut pas démarrer une conversation.');if(!target)throw new Error('Choisissez une personne à contacter.');const row={customer_id:role==='client'?me.id:target,assigned_to:role==='client'?target:(role==='seller'?me.id:null),created_by:me.id,recipient_id:target,subject:subject.trim(),status:'ouverte',animal_id:animalId};const{data,error}=await sb.from('conversations').insert(row).select('id').single();if(error)throw error;const{error:meErr}=await sb.from('messages').insert({conversation_id:data.id,sender_id:me.id,body:body.trim()});if(meErr)throw meErr;return data.id};
- const oldClientMessages=closClientMessages,oldStaffMessages=closStaffMessages,oldSellerMessages=closSellerMessages;
- async function contactChoices(){const{data,error}=await sb.rpc('clos_contact_directory');if(error)throw error;return (data||[]).filter(p=>p.id!==me.id)}
- async function startForm(){const people=await contactChoices();return `<section class="card"><h2>Nouvelle conversation</h2><form id="clos-new-conversation"><label>Personne à contacter<select name="recipient_id" required><option value="">Choisir un contact…</option>${people.map(p=>`<option value="${p.id}">${esc([p.prenom,p.nom].filter(Boolean).join(' ')||p.id)} — ${esc(p.role)}</option>`).join('')}</select></label><label>Objet<input name="subject" required maxlength="140" placeholder="Objet de votre message"></label><label>Message<textarea name="body" required maxlength="5000" placeholder="Écrivez votre message…"></textarea></label><button>Envoyer</button></form>${!people.length?'<p class="mut">Aucun contact disponible pour le moment.</p>':''}</section>`}
- async function renderInbox(title){const conv=await closGetConversations();app.innerHTML=`<h1>${esc(title)}</h1><p class="clos-page-intro">Retrouvez vos échanges, ouvrez une discussion ou démarrez une nouvelle conversation.</p>${await startForm()}${closMessageShell('Vos conversations',conv)}`;$('#clos-new-conversation').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));try{const id=await closCreateConversation(f.subject,f.body,null,f.recipient_id);await renderInbox(title);await closRenderThread(id,true)}catch(x){alert(x.message)}};document.querySelectorAll('[data-open-conv]').forEach(b=>b.onclick=()=>closRenderThread(b.dataset.openConv,true));$('#clos-refresh').onclick=()=>renderInbox(title)}
- closClientMessages=()=>renderInbox('Messagerie client');closSellerMessages=()=>renderInbox('Messagerie vendeur');closStaffMessages=()=>renderInbox(prof?.role==='dev'?'Supervision des échanges':'Messagerie de l’élevage');
- route=function(){const h=location.hash.slice(2);if(h==='contact')return closContact();if(h==='faq')return closFaq();if(h==='messages'){if(!me){location.hash='#/compte';return}if(!['client','seller','admin','dev'].includes(prof?.role)){app.innerHTML='<h1>Messagerie</h1><p>Votre compte ne dispose pas de ce service.</p>';return}return prof.role==='client'?closClientMessages():prof.role==='seller'?closSellerMessages():closStaffMessages()}if(h==='vendeur'){if(me&&prof?.role==='seller')return closSeller();location.hash='#/compte';return}if(h==='compte'&&me&&prof?.role==='seller')return closSeller();return closOriginalRoute()};
- removeEventListener('hashchange',closOriginalRoute);addEventListener('hashchange',route);
-
-// === REPRISE DE LA PRESENTATION : accueil centré, fiches détaillées et navigation claire ===
-const closDetailText=(v)=>v===null||v===undefined||v===''?'':String(v);
-const closPhotoUrl=(a)=>{const p=Array.isArray(a.photos)&&a.photos.length?a.photos[a.photos.length-1]:null;return typeof p==='string'?p:(p?.url||p?.src||'')};
-const closField=(label,value)=>value?`<div class="clos-detail-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`:'';
-const closAnimalModal=(a)=>{
- const [family,emoji]=catOf(a.sp),r=a.data?.profile||{},photo=closPhotoUrl(a);
- const fields=[
-  closField('Espèce / famille',a.sp||family),
-  closField('Race',r.race),
-  closField('Sexe',a.sex),
-  closField('Date de naissance',a.born?dt(a.born):''),
-  closField('Robe / couleur',r.couleur),
-  closField('Poids',r.poids),
-  closField('Caractère',r.caractere),
-  closField('Habitudes et socialisation',r.habitudes),
-  closField('Alimentation actuelle',r.alimentation),
-  closField('Disponibilité',r.disponibilite_reelle||r.disponibilite_prevue||a.remise?dt(r.disponibilite_reelle||r.disponibilite_prevue||a.remise):''),
-  closField('Père',r.pere_portee),
-  closField('Mère',r.mere_portee),
-  closField('Référence de portée',r.numero_portee),
-  closField('Race de la portée',r.race_portee),
-  closField('Nombre de petits nés',r.petits_nes),
-  closField('Poids à la naissance',r.poids_naissance),
-  closField('Date de mise bas',r.date_mise_bas?dt(r.date_mise_bas):''),
-  closField('Conseils',r.conseils)
- ].filter(Boolean).join('');
- const contact=me&&prof?.role==='client'
-  ?`<a class="clos-primary-link" href="#/messages">Contacter un vendeur à propos de cet animal</a>`
-  :!me
-   ?`<section class="clos-client-gate"><h3>Une question sur cet animal ?</h3><p>Vous pouvez consulter librement toutes les informations publiques de cette fiche. Pour contacter un vendeur et conserver vos échanges, créez un compte client ou connectez-vous.</p><a href="#/compte" class="clos-primary-link">Créer un compte client / Se connecter</a></section>`
-   :`<a class="clos-primary-link" href="#/messages">Contacter un vendeur à propos de cet animal</a>`;
- return `<div class="clos-modal-backdrop" id="clos-animal-modal" role="dialog" aria-modal="true" aria-labelledby="clos-modal-title"><section class="clos-modal-panel"><button class="clos-modal-close" id="clos-modal-close" aria-label="Fermer">×</button><div class="clos-modal-top">${photo?`<img src="${esc(photo)}" alt="${esc(a.name)}">`:`<div class="clos-modal-placeholder">${emoji}</div>`}<div><span class="clos-kicker">${esc(family)} · ${esc(a.status||'Annonce')}</span><h2 id="clos-modal-title">${esc(a.name||'Animal')}</h2><p>${esc(a.descr||'Découvrez les informations disponibles sur cet animal.')}</p><div class="clos-price">${a.price!==null&&a.price!==undefined?eur(a.price):'Prix sur demande'}</div></div></div><h3>Fiche complète de l’animal</h3><div class="clos-detail-grid">${fields||'<p>Informations complémentaires à venir.</p>'}</div><p class="clos-client-note">Cette fiche présente les informations publiques relatives à l’animal. Les données de paiement, les contrats et les informations personnelles de l’acheteur ne sont pas affichés.</p>${contact}</section></div>`;
-};
-nav=function(){
- const publicLinks='<a href="#/">Accueil</a><a href="#/faq">FAQ</a><a href="#/contact">Contact</a>';
- let account='';
- if(me){const role=roleLabel();account=`<a href="#/compte">Mon espace ${role==='Client'?'client':role.toLowerCase()}</a><a href="#/messages">${prof?.role==='dev'?'Toutes les conversations':'Messagerie'}</a>`;if(prof?.role==='dev')account+='<a href="#/dev">Administration du site</a><a href="#/admin-textes">Documents</a>';account+='<a href="#" id="out">Déconnexion</a>'}
- else account='<a class="nav-cta" href="#/compte">Connexion / Inscription</a>';
- $('#nav').innerHTML=`<div class="clos-nav-public">${publicLinks}</div><div class="clos-nav-account">${account}</div>`;
- const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();if(closRealtime){sb.removeChannel(closRealtime);closRealtime=null}await sb.auth.signOut()};
-};
-home=async function(){
- document.title='Accueil — '+CFG.name;
- app.innerHTML=`<section class="clos-home-hero"><div class="clos-kicker">Bienvenue au Clos des Poils</div><h1>Le bonheur commence par une belle rencontre.</h1><p>${esc(CFG.hero||'Découvrez notre élevage, nos animaux disponibles et toutes les informations pour préparer leur accueil.')}</p><div class="clos-home-actions"><a class="clos-primary-link" href="#annonces" id="clos-jump">Découvrir les animaux</a>${!me?'<a class="clos-secondary-link" href="#/compte">Créer mon compte client</a>':'<a class="clos-secondary-link" href="#/messages">Accéder à ma messagerie</a>'}</div></section>
- <section class="clos-home-intro"><div class="clos-kicker">Le Clos des Poils</div><h2>Un élevage, des histoires, des rencontres</h2><p>Chaque animal a son histoire. Prenez le temps de découvrir nos annonces, comparez les informations et ouvrez une fiche pour en savoir davantage.</p></section>
- <section id="annonces" class="clos-listings-section"><div class="clos-section-heading"><div><div class="clos-kicker">Nos pensionnaires</div><h2>Les animaux disponibles</h2><p>Filtrez les annonces par famille ou recherchez une race, un nom ou une espèce. Toutes les informations publiques de chaque animal sont accessibles, même sans compte.</p></div></div><div class="clos-filter"><input id="clos-animal-search" placeholder="Rechercher un animal, une race…" aria-label="Rechercher un animal"><select id="clos-animal-category"><option value="">Toutes les familles</option></select></div><div id="clos-animal-results"><p class="mut">Chargement des annonces…</p></div></section>
- <section class="clos-bottom-cta"><h2>Vous avez un coup de cœur ?</h2><p>Connectez-vous ou créez votre espace client pour obtenir des informations complémentaires et contacter un vendeur.</p><a class="clos-primary-link" href="#/compte">Accéder à mon espace client</a></section>`;
- const host=$('#clos-animal-results');try{
-  const {data,error}=await sb.from('animals_public').select('id,name,emoji,sp,descr,born,remise,price,sex,status,photos,data').order('id',{ascending:false});if(error)throw error;
-  const animals=data||[],cats=[...new Set(animals.map(a=>catOf(a.sp)[0]))];$('#clos-animal-category').insertAdjacentHTML('beforeend',cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join(''));
-  const render=()=>{const q=$('#clos-animal-search').value.toLowerCase().trim(),cat=$('#clos-animal-category').value;const filtered=animals.filter(a=>(!cat||catOf(a.sp)[0]===cat)&&(!q||[a.name,a.sp,a.descr,a.data?.profile?.race].join(' ').toLowerCase().includes(q)));if(!filtered.length){host.innerHTML='<div class="clos-empty">Aucun animal ne correspond à votre recherche.</div>';return}
-   const groups={};filtered.forEach(a=>{const [c,emoji]=catOf(a.sp);(groups[c]??={emoji,items:[]}).items.push(a)});
-   host.innerHTML=Object.entries(groups).map(([c,g])=>`<section class="clos-category"><div class="clos-category-head"><span class="clos-category-emoji">${g.emoji}</span><div><h3>${esc(c)}</h3><p>${g.items.length} annonce${g.items.length>1?'s':''}</p></div></div><div class="clos-animal-grid">${g.items.map(a=>{const r=a.data?.profile||{},photo=closPhotoUrl(a),meta=[a.sp,r.race,a.sex].filter(Boolean);return `<article class="card clos-animal-card">${photo?`<img class="clos-animal-photo" src="${esc(photo)}" alt="${esc(a.name)}" loading="lazy">`:`<div class="clos-animal-photo clos-animal-placeholder">${g.emoji}</div>`}<div class="clos-animal-body"><div class="clos-animal-topline"><span class="tag">Disponible</span><span class="clos-animal-family">${esc(c)}</span></div><h3>${esc(a.name||'Animal')}</h3><p class="clos-animal-summary">${esc((a.descr||'').slice(0,145))}${(a.descr||'').length>145?'…':''}</p><div class="clos-animal-meta">${meta.map(x=>`<span>${esc(x)}</span>`).join('')}</div><div class="clos-animal-card-bottom"><strong class="clos-price">${a.price!==null&&a.price!==undefined?eur(a.price):'Prix sur demande'}</strong><button type="button" class="clos-detail-button" data-animal-detail="${a.id}">Voir la fiche</button></div></div></article>`}).join('')}</div></section>`).join('');
-   host.querySelectorAll('[data-animal-detail]').forEach(b=>b.onclick=()=>{const a=animals.find(x=>String(x.id)===b.dataset.animalDetail);if(!a)return;const old=$('#clos-animal-modal');if(old)old.remove();document.body.insertAdjacentHTML('beforeend',closAnimalModal(a));const modal=$('#clos-animal-modal');$('#clos-modal-close').onclick=()=>modal.remove();modal.onclick=e=>{if(e.target===modal)modal.remove()};});
+  // Sections dynamiques
+  const S = (c.sections || []).map(x => ({...x}));
+  const rs = () => {
+    $('#secs').innerHTML = S.map((s,i) => `
+      <div class="card" data-i="${i}">
+        <div class="row">
+          <label>ID<input data-f="id" value="${esc(s.id||'')}"></label>
+          <label>Titre<input data-f="title" value="${esc(s.title||'')}"></label>
+          <label>Emplacement<select data-f="where">${['home','client','page'].map(w => `<option ${w==s.where?'selected':''}>${w}</option>`).join('')}</select></label>
+          <button type="button" class="d" data-rm="${i}">Retirer</button>
+        </div>
+        <textarea data-f="html">${esc(s.html||'')}</textarea>
+      </div>`).join('');
+    document.querySelectorAll('#secs [data-f]').forEach(el => el.oninput = () => {
+      S[+el.closest('[data-i]').dataset.i][el.dataset.f] = el.value;
+    });
+    document.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => {
+      S.splice(+b.dataset.rm, 1); rs();
+    });
   };
-  $('#clos-animal-search').oninput=render;$('#clos-animal-category').onchange=render;render();
- }catch(e){host.innerHTML=`<div class="clos-empty">Impossible de charger les annonces : ${esc(e.message)}</div>`}
-};
-// Les pages FAQ et Contact gardent chacune un objectif distinct et des titres explicites.
-closContact=function(){closDistinctPage('Contacter Le Clos des Poils','Contact','Pour une question précise sur une annonce, un renseignement sur l’élevage ou une demande de rendez-vous.',`<div class="clos-contact-grid"><section class="card clos-contact-card"><h2>Appeler l’élevage</h2><p>Pour un échange direct.</p><a href="tel:0648774637"><b>06 48 77 46 37</b></a></section><section class="card clos-contact-card"><h2>Écrire un message</h2><p>${me?'Retrouvez vos échanges et les réponses dans votre messagerie.':'Créez un compte client pour envoyer une demande et conserver son historique.'}</p>${me?'<a href="#/messages" class="clos-primary-link">Ouvrir la messagerie</a>':'<a href="#/compte" class="clos-primary-link">Créer un compte client</a>'}</section><section class="card clos-contact-card"><h2>Besoin d’aide ?</h2><p>La FAQ explique comment rechercher un animal, utiliser votre compte et contacter un vendeur.</p><a href="#/faq">Consulter les questions fréquentes</a></section></div>`)};
-closFaq=function(){const rows=[['Comment rechercher un animal ?','Utilisez la recherche ou le filtre par famille sur la page d’accueil.'],['Quelles informations sont visibles sans compte ?','Les visiteurs anonymes et les clients connectés voient la même fiche publique complète de l’animal. Seules les informations de paiement, les contrats et les données personnelles de l’acheteur restent privées.'],['Comment obtenir la fiche complète ?','Aucune inscription n’est nécessaire pour consulter la fiche publique complète. Un compte client est nécessaire uniquement pour contacter un vendeur.'],['Qui un client peut-il contacter ?','Un client peut démarrer une conversation uniquement avec un vendeur.'],['Qui peut contacter tous les comptes ?','Les vendeurs, l’éleveur / administrateur et le développeur peuvent contacter les autres comptes selon leurs autorisations.'],['Qui peut consulter les conversations ?','Les participants à une conversation y ont accès. L’éleveur et le développeur disposent d’un accès de supervision à l’ensemble des échanges.'],['Comment devenir vendeur ?','Le rôle vendeur est attribué par l’administration ; il ne peut pas être choisi lors d’une inscription publique.']];closDistinctPage('Questions fréquentes','Centre d’aide','Les réponses pratiques pour consulter les annonces et utiliser votre espace.',`<div class="clos-faq">${rows.map(([q,a])=>`<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>`)};
+  rs();
+  $('#addsec').onclick = () => {
+    S.push({id:'section'+(S.length+1), title:'Nouvelle section', where:'home', html:'<p>Contenu…</p>'});
+    rs();
+  };
 
-})();
+  $('#df').onsubmit = async e => {
+    e.preventDefault();
+    const f = e.target.elements;
+    let a;
+    try { a = JSON.parse(f.adv.value); } catch { return alert('JSON avancé invalide'); }
+    const colors = {};
+    for (const k of ['g','a','bg']) if (f['c_'+k].value !== D[k]) colors[k] = f['c_'+k].value;
+    let uiLabels;
+    try { uiLabels = JSON.parse(f.ui_labels.value || '{}'); } catch { return alert('JSON libellés invalide'); }
+    const { error } = await sb.from('settings').upsert({
+      key:'site_config',
+      value: JSON.stringify({
+        ...a,
+        name: f['name'].value, hero: f.hero.value, css: f.css.value, colors, sections:S, uiLabels,
+        pdf: {title:f.pdf_title.value, subtitle:f.pdf_subtitle.value, footer:f.pdf_footer.value},
+        legal: Object.fromEntries(LK.map(([k]) => [k, f['l_'+k].value || LEGAL_DEFAULTS[k]]))
+      }),
+      validated:true, validated_at:new Date().toISOString(), validated_by:me.id
+    });
+    if (error) alert(error.message);
+    else { await loadCfg(); nav(); alert('Site enregistré'); }
+  };
+
+  // Comptes
+  const accts = async () => {
+    const [uRes, aRes] = await Promise.all([
+      sb.from('profiles').select('*').order('created_at'),
+      sb.from('animals').select('id,buyer')
+    ]);
+    const U = uRes.data || [], A = aRes.data || [];
+    $('#accts').innerHTML = '<div style="overflow-x:auto"><table><tr><th>Nom</th><th>E-mail</th><th>Rôle</th><th>Créé le</th><th>Animaux</th><th></th></tr>'
+      + U.map(u => `<tr>
+          <td>${esc((u.prenom||'')+' '+(u.nom||''))}</td>
+          <td>${esc(u.email||'')}</td>
+          <td><select data-u="${u.id}">${['client','seller','admin','dev'].map(r => `<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></td>
+          <td>${dt(u.created_at)}</td>
+          <td align="center">${A.filter(a => a.buyer==u.id).length}</td>
+          <td><button class="d" data-x="${u.id}" data-e="${esc(u.email||'')}">Supprimer</button></td>
+        </tr>`).join('') + '</table></div>';
+    document.querySelectorAll('[data-u]').forEach(x => x.onchange = async () => {
+      try { await fn('admin-set-role',{id:x.dataset.u, role:x.value}); alert('Rôle modifié'); }
+      catch (e) { alert(e.message); }
+      accts();
+    });
+    document.querySelectorAll('[data-x]').forEach(b => b.onclick = async () => {
+      if (!confirm('Supprimer le compte '+b.dataset.e+' ?')) return;
+      try { await fn('admin-delete-user',{id:b.dataset.x}); } catch (e) { alert(e.message); }
+      accts();
+    });
+  };
+  accts();
+
+  $('#nu').onsubmit = async e => {
+    e.preventDefault();
+    try { await fn('admin-create-user', Object.fromEntries(new FormData(e.target))); e.target.reset(); alert('Compte créé'); }
+    catch (x) { alert(x.message); }
+    accts();
+  };
+
+  $('#ld').onclick = async () => {
+    const { data, error } = await sb.from($('#tb').value).select('*');
+    $('#rows').value = error ? error.message : JSON.stringify(data, null, 1);
+  };
+  $('#sv').onclick = async () => {
+    let v;
+    try { v = JSON.parse($('#rows').value); } catch { return alert('JSON invalide'); }
+    const { error } = await sb.from($('#tb').value).upsert(v);
+    alert(error ? error.message : 'Enregistré');
+  };
+  $('#dl').onclick = async () => {
+    const t = $('#tb').value;
+    if (!confirm('Supprimer cette ligne ?')) return;
+    const { error } = await sb.from(t).delete().eq(t === 'settings' ? 'key' : 'id', $('#delid').value);
+    alert(error ? error.message : 'Supprimé');
+  };
+}
+
+/* === FAQ / CONTACT === */
+function pageHero(title, kicker, desc) {
+  return `<section class="clos-hero" style="margin:0 0 24px">
+    <div class="clos-kicker">${esc(kicker)}</div>
+    <h1>${esc(title)}</h1>
+    <p>${esc(desc)}</p>
+  </section>`;
+}
+
+function closContact() {
+  document.title = 'Contact — ' + (CFG.name || DEF.name);
+  app.innerHTML = pageHero('Parlons de votre projet','Contact & renseignements',
+    'Une question sur une annonce, l’élevage ou les conditions d’accueil ? Choisissez le moyen de contact qui vous convient.')
+    + `<div class="clos-contact-grid">
+        <section class="card clos-contact-card">
+          <h2>Par téléphone</h2>
+          <p>Pour un échange direct avec l’élevage.</p>
+          <p><a href="tel:0648774637"><b>06 48 77 46 37</b></a></p>
+        </section>
+        <section class="card clos-contact-card">
+          <h2>Par messagerie</h2>
+          <p>Gardez un historique de vos questions et des réponses.</p>
+          ${me
+            ? '<a href="#/messages"><button type="button">Accéder à la messagerie</button></a>'
+            : '<a href="#/compte"><button type="button">Créer un compte client</button></a>'}
+        </section>
+        <section class="card clos-contact-card">
+          <h2>Avant de nous écrire</h2>
+          <p>Consultez les réponses aux questions les plus fréquentes.</p>
+          <a href="#/faq">Consulter la FAQ</a>
+        </section>
+      </div>`;
+}
+
+function closFaq() {
+  document.title = 'FAQ — ' + (CFG.name || DEF.name);
+  const rows = [
+    ['Comment trouver un animal ?', 'Depuis l’accueil, parcourez les familles animales ou utilisez la recherche pour retrouver une annonce.'],
+    ['Comment poser une question sur une annonce ?', 'Créez un compte client ou connectez-vous, puis ouvrez la messagerie. Les clients peuvent contacter les vendeurs.'],
+    ['Puis-je contacter plusieurs vendeurs ?', 'Oui, un client peut ouvrir une conversation avec un vendeur disponible dans la liste des contacts.'],
+    ['Comment suivre une réservation ?', 'Une fois votre compte associé à un animal, les informations disponibles apparaissent dans votre espace client.'],
+    ['Comment devenir vendeur ?', 'Le rôle vendeur est attribué par l’administration du site. Il ne peut pas être choisi lors d’une inscription publique.'],
+    ['Qui peut voir les conversations ?', 'Les personnes participant à une conversation y ont accès. L’éleveur et le développeur disposent des droits de supervision prévus par le site.']
+  ];
+  app.innerHTML = pageHero('Les réponses à vos questions','Aide & informations',
+    'Quelques repères pour utiliser le site et préparer votre projet.')
+    + `<div class="clos-faq">${rows.map(([q,a]) => `<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>
+      <section class="card">
+        <h2>Une autre question ?</h2>
+        <p>Notre équipe peut vous orienter.</p>
+        <a href="#/contact"><button type="button">Nous contacter</button></a>
+      </section>`;
+}
+
+/* === MESSAGERIE === */
+async function closGetConversations() {
+  const { data, error } = await sb.from('conversations')
+    .select('id,customer_id,assigned_to,subject,status,created_at,updated_at')
+    .order('updated_at',{ascending:false});
+  if (error) throw error;
+  return data || [];
+}
+
+async function closGetMessages(cid) {
+  const { data, error } = await sb.from('messages')
+    .select('id,conversation_id,sender_id,body,created_at')
+    .eq('conversation_id', cid).order('created_at');
+  if (error) throw error;
+  return data || [];
+}
+
+function closMessageShell(title, conversations) {
+  return `<h1>${esc(title)}</h1>
+    <div class="card">
+      <div class="row" style="align-items:center">
+        <div style="flex:1">
+          <b>${conversations.length} conversation(s)</b>
+          <p class="mut">Messages enregistrés dans votre espace sécurisé.</p>
+        </div>
+        <button type="button" class="s" id="clos-refresh">Actualiser</button>
+      </div>
+      <div class="row clos-message-layout" style="align-items:flex-start">
+        <aside id="clos-thread-list">
+          ${conversations.map(c => `
+            <button type="button" data-open-conv="${c.id}">
+              <b>${esc(c.subject||'Demande de contact')}</b><br>
+              <small class="mut">${esc(c.status||'Ouverte')} · ${dtFull(c.updated_at||c.created_at)}</small>
+            </button>`).join('') || '<p class="mut">Aucune conversation pour le moment.</p>'}
+        </aside>
+        <section id="clos-thread"><p class="mut">Sélectionnez une conversation pour afficher les messages.</p></section>
+      </div>
+    </div>`;
+}
+
+async function closRenderThread(cid, canReply = true) {
+  const thread = $('#clos-thread');
+  if (!thread) return;
+  try {
+    const { data:conv, error:ce } = await sb.from('conversations')
+      .select('id,subject,status,customer_id,assigned_to').eq('id', cid).single();
+    if (ce) throw ce;
+    const msgs = await closGetMessages(cid);
+    thread.innerHTML = `<h3>${esc(conv.subject||'Discussion')}</h3>
+      <p class="mut">Statut : ${esc(conv.status||'ouverte')}</p>
+      <div id="clos-message-log" style="max-height:440px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg)">
+        ${msgs.map(m => `
+          <div style="max-width:88%;margin:8px ${m.sender_id===me.id?'0 0 8px auto':'0 auto 8px 0'};padding:10px 12px;border-radius:12px;background:${m.sender_id===me.id?'#e5efe7':'#fff'}">
+            <div>${esc(m.body).replace(/\n/g,'<br>')}</div>
+            <small class="mut">${dtFull(m.created_at)} ${m.sender_id===me.id?'· Vous':''}</small>
+          </div>`).join('') || '<p class="mut">Aucun message.</p>'}
+      </div>
+      ${canReply ? `<form id="clos-send-message" style="margin-top:12px">
+        <label>Votre message<textarea name="body" rows="3" maxlength="5000" required placeholder="Écrivez votre message…"></textarea></label>
+        <button type="submit">Envoyer le message</button>
+      </form>` : ''}`;
+    const log = $('#clos-message-log');
+    if (log) log.scrollTop = log.scrollHeight;
+    const form = $('#clos-send-message');
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      const body = new FormData(form).get('body').trim();
+      if (!body) return;
+      const b = form.querySelector('button');
+      b.disabled = true;
+      const { error } = await sb.from('messages').insert({ conversation_id:cid, sender_id:me.id, body });
+      if (error) { alert('Envoi impossible : ' + error.message); b.disabled = false; return; }
+      await sb.from('conversations').update({ updated_at:new Date().toISOString() }).eq('id', cid);
+      await closRenderThread(cid, canReply);
+    };
+  } catch (e) {
+    thread.innerHTML = '<div class="card err">Conversation inaccessible : ' + esc(e.message) + '</div>';
+  }
+}
+
+async function closGetContacts() {
+  // Tentative via RPC, sinon fallback direct
+  try {
+    const { data, error } = await sb.rpc('clos_contact_directory');
+    if (error) throw error;
+    return (data || []).filter(p => p.id !== me.id);
+  } catch {
+    // Fallback : liste des vendeurs + (si staff) tous les clients
+    const roles = prof?.role === 'client' ? ['seller'] : ['seller','client','admin'];
+    const { data, error } = await sb.from('profiles').select('id,prenom,nom,role').in('role', roles);
+    if (error) return [];
+    return (data || []).filter(p => p.id !== me.id);
+  }
+}
+
+async function closStartForm() {
+  const people = await closGetContacts();
+  return `<section class="card">
+    <h2>Nouvelle conversation</h2>
+    <form id="clos-new-conversation">
+      <label>Personne à contacter
+        <select name="recipient_id" required>
+          <option value="">Choisir un contact…</option>
+          ${people.map(p => `<option value="${p.id}">${esc([p.prenom,p.nom].filter(Boolean).join(' ')||p.id)} — ${esc(p.role)}</option>`).join('')}
+        </select>
+      </label>
+      <label>Objet<input name="subject" required maxlength="140" placeholder="Objet de votre message"></label>
+      <label>Message<textarea name="body" required maxlength="5000" placeholder="Écrivez votre message…"></textarea></label>
+      <button type="submit">Envoyer</button>
+    </form>
+    ${!people.length ? '<p class="mut">Aucun contact disponible pour le moment.</p>' : ''}
+  </section>`;
+}
+
+async function closCreateConversation(subject, body, animalId = null, recipientId = null) {
+  const role = prof?.role;
+  let target = recipientId;
+  if (role === 'client') {
+    if (!target) throw new Error('Choisissez un vendeur à contacter.');
+    const { data:s } = await sb.from('profiles').select('id,role').eq('id', target).single();
+    if (!s || s.role !== 'seller') throw new Error('Un client peut uniquement contacter un vendeur.');
+  } else if (!['seller','dev','admin'].includes(role)) {
+    throw new Error('Votre compte ne peut pas démarrer une conversation.');
+  }
+  if (!target) throw new Error('Choisissez une personne à contacter.');
+  const row = {
+    customer_id: role === 'client' ? me.id : target,
+    assigned_to: role === 'client' ? target : (role === 'seller' ? me.id : null),
+    subject: subject.trim(),
+    status: 'ouverte',
+    animal_id: animalId
+  };
+  // Champs optionnels (créés par migration éventuelle)
+  if ('created_by' in row || true) row.created_by = me.id;
+  if ('recipient_id' in row || true) row.recipient_id = target;
+  const { data, error } = await sb.from('conversations').insert(row).select('id').single();
+  if (error) throw error;
+  const { error: meErr } = await sb.from('messages').insert({ conversation_id:data.id, sender_id:me.id, body:body.trim() });
+  if (meErr) throw meErr;
+  return data.id;
+}
+
+async function renderInbox(title) {
+  try {
+    const conv = await closGetConversations();
+    app.innerHTML = `<h1>${esc(title)}</h1>
+      <p class="clos-page-intro">Retrouvez vos échanges, ouvrez une discussion ou démarrez une nouvelle conversation.</p>
+      ${await closStartForm()}
+      ${closMessageShell('Vos conversations', conv)}`;
+    const form = $('#clos-new-conversation');
+    if (form) form.onsubmit = async e => {
+      e.preventDefault();
+      const f = Object.fromEntries(new FormData(e.target));
+      try {
+        const id = await closCreateConversation(f.subject, f.body, null, f.recipient_id);
+        await renderInbox(title);
+        await closRenderThread(id, true);
+      } catch (x) { alert(x.message); }
+    };
+    document.querySelectorAll('[data-open-conv]').forEach(b => b.onclick = () => closRenderThread(b.dataset.openConv, true));
+    const r = $('#clos-refresh'); if (r) r.onclick = () => renderInbox(title);
+  } catch (e) {
+    app.innerHTML = `<h1>${esc(title)}</h1>
+      <div class="card err">
+        <b>La messagerie n’est pas encore disponible.</b><br>
+        ${esc(e.message)}<br><br>
+        Vérifiez que les tables <code>conversations</code> et <code>messages</code> existent dans Supabase et que les politiques RLS autorisent la lecture/écriture.
+      </div>`;
+  }
+}
+
+function closMessagesByRole() {
+  if (prof?.role === 'dev') return renderInbox('Supervision des échanges');
+  if (prof?.role === 'admin') return renderInbox('Messagerie de l’élevage');
+  if (prof?.role === 'seller') return renderInbox('Messagerie vendeur');
+  return renderInbox('Messagerie client');
+}
+
+/* === ESPACE VENDEUR === */
+async function closSeller() {
+  document.title = 'Espace vendeur — ' + (CFG.name || DEF.name);
+  try {
+    const [aRes, uRes] = await Promise.all([
+      sb.from('animals').select('*').eq('seller_id', me.id).order('id'),
+      sb.from('profiles').select('id,prenom,nom,role').in('role', ['client','seller'])
+    ]);
+    if (aRes.error) throw aRes.error;
+    const A = aRes.data || [];
+    app.innerHTML = `<h1>Espace vendeur</h1>
+      <p>Gérez vos annonces et répondez aux clients.</p>
+      <div class="row">
+        <div class="card" style="flex:1"><b>${A.length}</b><br><span class="mut">Annonce(s)</span></div>
+        <div class="card" style="flex:1"><a href="#/messages">Ouvrir ma messagerie</a></div>
+      </div>
+      <div class="card">
+        <h2>Ajouter une annonce</h2>
+        <form id="clos-seller-new" class="row">
+          <label>Nom<input name="name" required maxlength="60"></label>
+          <label>Espèce<input name="sp" required maxlength="60"></label>
+          <label>Prix (€)<input name="price" type="number" min="0" step="0.01" required></label>
+          <label>Statut<select name="status"><option>À naître</option><option>En croissance</option><option>Disponible</option></select></label>
+          <label>Description<textarea name="descr" rows="2"></textarea></label>
+          <button type="submit">Créer l’annonce</button>
+        </form>
+      </div>
+      <h2>Mes annonces</h2>
+      ${A.map(a => `
+        <div class="card">
+          <form class="clos-seller-edit" data-id="${a.id}">
+            <h3>${esc(a.name)} <span class="tag">${esc(a.status)}</span></h3>
+            <div class="row">
+              <label>Nom<input name="name" value="${esc(a.name)}" required></label>
+              <label>Espèce<input name="sp" value="${esc(a.sp||'')}"></label>
+              <label>Prix (€)<input name="price" type="number" min="0" step="0.01" value="${Number(a.price)||0}"></label>
+              <label>Statut<select name="status">${ST.map(s => `<option ${s===a.status?'selected':''}>${esc(s)}</option>`).join('')}</select></label>
+              <label>Description<textarea name="descr" rows="2">${esc(a.descr||'')}</textarea></label>
+            </div>
+            <button type="submit">Enregistrer</button>
+          </form>
+        </div>`).join('') || '<p class="mut">Aucune annonce ne vous est encore attribuée.</p>'}`;
+    $('#clos-seller-new').onsubmit = async e => {
+      e.preventDefault();
+      const o = Object.fromEntries(new FormData(e.target));
+      o.price = Number(o.price);
+      o.seller_id = me.id;
+      const { error } = await sb.from('animals').insert(o);
+      if (error) alert(error.message); else closSeller();
+    };
+    document.querySelectorAll('.clos-seller-edit').forEach(f => f.onsubmit = async e => {
+      e.preventDefault();
+      const o = Object.fromEntries(new FormData(f));
+      o.price = Number(o.price);
+      const { error } = await sb.from('animals').update(o).eq('id', f.dataset.id).eq('seller_id', me.id);
+      if (error) alert(error.message); else closSeller();
+    });
+  } catch (e) {
+    app.innerHTML = `<h1>Espace vendeur</h1><div class="card err">Espace vendeur indisponible : ${esc(e.message)}</div>`;
+  }
+}
+
+/* === DÉMARRAGE === */
 init();
-</script></body></html>
+</script>
+</body></html>
