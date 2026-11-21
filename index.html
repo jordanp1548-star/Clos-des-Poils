@@ -35,19 +35,19 @@ let ST=['Disponible','Réservée','Vendue','Père','Mère'],CC={vaccins:'Vaccins
 let CT=[['reservation','Contrat de réservation','Entre {eleveur} (l’éleveur) et {acquereur} (l’acquéreur).\n\nL’éleveur réserve à l’acquéreur {animal} ({desc}), né(e) le {naissance}, au prix de {prix}. Un acompte de {acompte} confirme la réservation.'],['sante','Engagement santé de l’animal','L’acquéreur s’engage à faire suivre {animal} par un vétérinaire, à respecter le calendrier de vaccins et de vermifuges, et à prévenir l’éleveur en cas de problème de santé.'],['achat','Conditions d’achat','Le solde est dû avant la remise de {animal}, prévue le {remise}. L’animal est remis identifié et accompagné de ses documents de santé.']];
 const DOCS={
 reglement:{t:'Règlement du site',x:`# 1. Objet
-Ce site permet aux acquéreurs de suivre l’animal réservé auprès de [NOM DE L’ÉLEVAGE / ÉLEVEUR]. Il ne remplace pas le contrat de vente.
+Ce site permet aux acquéreurs de suivre l’animal réservé auprès de {{nom}}. Il ne remplace pas le contrat de vente.
 
 # 2. Compte
 Le compte est réservé aux personnes majeures. Les informations fournies doivent être exactes. Les identifiants sont personnels et ne doivent pas être partagés.
 
 # 3. Fiches et suivi de l’animal
-Les fiches, soins, vaccins, vermifuges et paiements sont renseignés et modifiés uniquement par l’éleveur. L’acquéreur les consulte en lecture seule et peut signaler une erreur à [E-MAIL].
+Les fiches, soins, vaccins, vermifuges et paiements sont renseignés et modifiés uniquement par l’éleveur. L’acquéreur les consulte en lecture seule et peut signaler une erreur à {{email}}.
 
 # 4. Réservation et acompte
-La réservation est enregistrée par l’éleveur. Un acompte de ${ACOMPTE} € est à régler dans les [7] jours. La réservation devient définitive à la signature des contrats en ligne et à réception de l’acompte. Sort de l’acompte en cas d’annulation : [À COMPLÉTER].
+La réservation est enregistrée par l’éleveur. Un acompte de ${ACOMPTE} € est à régler dans les 7 jours. La réservation devient définitive à la signature des contrats en ligne et à réception de l’acompte. Sort de l’acompte en cas d’annulation : {{sort_acompte}}.
 
 # 5. Remise de l’animal
-L’animal est remis à l’âge minimum légal [À VÉRIFIER selon l’espèce], identifié et accompagné des documents prévus par la loi.
+L’animal est remis à l’âge minimum légal {{age_remise}}, identifié et accompagné des documents prévus par la loi.
 
 # 6. Signature électronique
 La saisie du nom complet et la case « lu et approuvé » valent signature électronique ; la date et l’heure sont conservées.
@@ -62,20 +62,20 @@ Le site est fourni en l’état ; des interruptions sont possibles pour maintena
 Voir la politique de confidentialité.
 
 # 10. Droit applicable et litiges
-Droit français. En cas de litige, l’acquéreur consommateur peut recourir gratuitement à un médiateur de la consommation : [NOM ET COORDONNÉES DU MÉDIATEUR].`},
+Droit français. En cas de litige, l’acquéreur consommateur peut recourir gratuitement à un médiateur de la consommation : {{mediateur}}.`},
 mentions:{t:'Mentions légales',x:`# Éditeur
-[NOM / RAISON SOCIALE], [forme juridique], SIREN [N°], [adresse], [e-mail], [téléphone]. Directeur de la publication : [NOM].
+{{nom}}, {{forme}}, SIREN {{siren}}, {{adresse}}, {{email}}, {{tel}}. Directeur de la publication : {{directeur}}.
 
 # Hébergement
-Site : [Netlify / OVH / autre, adresse]. Base de données : Supabase, région [UE – à vérifier dans votre projet].
+Site : {{hebergeur}}. Base de données : Supabase, région {{region_bdd}}.
 
 # Activité d’élevage
-[Déclaration d’activité, numéro SIREN indiqué dans les annonces, identification I-CAD pour chiens et chats, autres mentions obligatoires selon l’espèce : À VÉRIFIER avec votre chambre d’agriculture ou la DDPP.]
+{{mentions_elevage}}
 
 # Propriété intellectuelle
 Les contenus du site sont protégés. Toute reproduction sans accord est interdite.`},
 confidentialite:{t:'Politique de confidentialité',x:`# Responsable du traitement
-[NOM, adresse, e-mail de contact].
+{{nom}}, {{adresse}}, {{email}}.
 
 # Données collectées
 Identité (prénom, nom), e-mail, téléphone, données de réservation et de suivi de l’animal, paiements enregistrés, signatures électroniques horodatées, date d’acceptation du règlement.
@@ -84,13 +84,13 @@ Identité (prénom, nom), e-mail, téléphone, données de réservation et de su
 Gérer votre compte et la réservation (exécution du contrat) ; respecter les obligations comptables et légales ; assurer la sécurité du site (intérêt légitime).
 
 # Durées de conservation
-Compte : durée de la relation puis [3 ans]. Contrats et paiements : [10 ans, obligations comptables]. Après suppression du compte, les contrats signés peuvent être conservés pour ces durées.
+Compte : durée de la relation puis {{duree_compte}}. Contrats et paiements : {{duree_contrats}}. Après suppression du compte, les contrats signés peuvent être conservés pour ces durées.
 
 # Destinataires
-L’éleveur, et nos prestataires techniques : [hébergeur], Supabase, [service d’e-mail]. Transferts hors UE : [À PRÉCISER].
+L’éleveur, et nos prestataires techniques : {{hebergeur}}, Supabase, {{service_email}}. Transferts hors UE : {{transferts}}.
 
 # Vos droits
-Accès, rectification, effacement, limitation, opposition, portabilité. Depuis « Mon espace » vous pouvez télécharger vos données et supprimer votre compte. Sinon écrivez à [E-MAIL]. Vous pouvez saisir la CNIL (cnil.fr).
+Accès, rectification, effacement, limitation, opposition, portabilité. Depuis « Mon espace » vous pouvez télécharger vos données et supprimer votre compte. Sinon écrivez à {{email}}. Vous pouvez saisir la CNIL (cnil.fr).
 
 # Cookies
 Le site utilise uniquement un stockage technique nécessaire à votre connexion. Aucun traceur publicitaire ni de mesure d’audience : aucun bandeau de consentement n’est requis. Si vous ajoutez un outil de statistiques, ce texte et un bandeau devront être mis à jour.
@@ -98,17 +98,22 @@ Le site utilise uniquement un stockage technique nécessaire à votre connexion.
 # Sécurité
 Connexion chiffrée (HTTPS), accès aux données restreint par compte.`},
 cgv:{t:'Conditions de vente',x:`# Brouillon à faire valider par un professionnel
-Prix : [TTC / TVA non applicable, art. 293 B du CGI]. Les animaux sont vendus selon le contrat de réservation et les conditions d’achat signés en ligne.
+Prix : {{tva}}. Les animaux sont vendus selon le contrat de réservation et les conditions d’achat signés en ligne.
 
 # Points à compléter avant publication
-[Droit de rétractation en cas de contrat conclu à distance ; garantie légale de conformité ; garantie des défauts cachés et vices rédhibitoires ; documents remis à l’acquéreur (identification, carnet de santé, certificat d’information et d’engagement selon l’espèce) ; remboursement de l’acompte ; médiation de la consommation.]`}};
+{{points_cgv}}`}};
 let me=null,prof=null,OPEN=null,CFG={};
+const LK=[['nom','Nom / raison sociale'],['forme','Forme juridique'],['siren','SIREN'],['adresse','Adresse'],['email','E-mail de contact'],['tel','Téléphone'],['directeur','Directeur de la publication'],['hebergeur','Hébergeur du site (nom, adresse)'],['region_bdd','Région de la base (ex. UE – Paris)'],['mediateur','Médiateur de la consommation (nom, coordonnées)'],['sort_acompte','Sort de l’acompte en cas d’annulation'],['age_remise','Âge minimum de remise de l’animal'],['mentions_elevage','Mentions propres à l’élevage (déclaration, I-CAD…)'],['duree_compte','Durée de conservation du compte'],['duree_contrats','Durée de conservation contrats et paiements'],['service_email','Service d’envoi d’e-mails'],['transferts','Transferts hors UE'],['tva','TVA (TTC ou non applicable, art. 293 B)'],['points_cgv','Conditions de vente : rétractation, garanties, documents remis, remboursement acompte, médiation']];
+const LKM=Object.fromEntries(LK);
+const L=x=>x.replace(/\{\{(\w+)\}\}/g,(m,k)=>CFG.legal?.[k]||`[${LKM[k]||k} à compléter]`);
+const dd=d=>d?dt(d):'[à définir]';
+async function fn(name,body){const{data,error}=await sb.functions.invoke(name,{body});if(error){let m=error.message;try{m=(await error.context.json()).error||m}catch{}throw new Error(m)}return data}
 const isA=()=>prof?.role==='admin'||prof?.role==='dev',isD=()=>prof?.role==='dev';
 const DEF={name:'Le Clos des Poils',hero:'Élevage familial de chiots, chatons et lapereaux. Retrouvez ici le suivi de votre futur compagnon.',colors:{},css:'',sections:[]};
 const secs=w=>(CFG.sections||[]).filter(s=>s.where===w),secHtml=s=>`<div class="card"><h2>${esc(s.title)}</h2>${s.html}</div>`;
 async function loadCfg(){const{data}=await sb.from('settings').select('value').eq('key','site_config').maybeSingle();try{CFG={...DEF,...JSON.parse(data?.value||'{}')}}catch{CFG={...DEF}}
 if(CFG.elev)ELEV=CFG.elev;if(CFG.acompte!=null)ACOMPTE=+CFG.acompte;if(CFG.payinfo)PAYINFO=CFG.payinfo;if(CFG.contracts)CT=CFG.contracts;if(CFG.careCats)CC=CFG.careCats;if(CFG.statuses)ST=CFG.statuses;
-const r=document.documentElement.style;for(const[k,v]of Object.entries(CFG.colors||{}))if(v)r.setProperty('--'+k,v);
+const r=document.documentElement.style;['g','a','bg'].forEach(k=>r.removeProperty('--'+k));for(const[k,v]of Object.entries(CFG.colors||{}))if(v)r.setProperty('--'+k,v);
 let st=$('#cs');if(!st){st=document.createElement('style');st.id='cs';document.head.append(st)}st.textContent=CFG.css||'';
 $('#brand').textContent='🐾 '+CFG.name;document.title=CFG.name}
 const fmt=x=>x.split('\n\n').map(p=>p.startsWith('# ')?`<h3>${esc(p.slice(2).split('\n')[0])}</h3>${esc(p.split('\n').slice(1).join('\n')).replace(/\n/g,'<br>')}`:`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('');
@@ -119,7 +124,7 @@ function route(){const h=location.hash.slice(2);if(DOCS[h])return doc(h);if(h===
 async function home(){const{data}=await sb.from('animals').select('name,emoji,sp,descr,born,remise,price').eq('status','Disponible');
 app.innerHTML=`<h1>${esc(CFG.name)}</h1><p>${esc(CFG.hero)}</p><h2>Disponibles</h2>`+(data?.length?data.map(a=>`<div class="card"><h3>${esc(a.emoji)} ${esc(a.name)} <span class="tag">À l’achat</span></h3><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)}<br><b>${eur(a.price)}</b></p></div>`).join(''):'<p class="mut">Aucun animal disponible pour le moment.</p>')+'<p><a href="#/compte">Espace acquéreur</a></p>'+secs('home').map(secHtml).join('')}
 async function doc(k){const{data}=await sb.from('settings').select('*').eq('key',k).maybeSingle();const ok=data?.validated;
-app.innerHTML=`<h1>${DOCS[k].t}</h1>${ok?`<p class="mut">Version validée le ${dt(data.validated_at)}</p>`:'<p class="tag">Brouillon en attente de validation par l’éleveur</p>'}`+fmt(ok?data.value:DOCS[k].x)}
+app.innerHTML=`<h1>${DOCS[k].t}</h1>${ok?`<p class="mut">Version validée le ${dt(data.validated_at)}</p>`:'<p class="tag">Brouillon en attente de validation par l’éleveur</p>'}`+fmt(L(ok?data.value:DOCS[k].x))}
 function login(sign){app.innerHTML=`<div class="card"><h2>${sign?'Créer mon compte':'Connexion'}</h2><form id="f">
 ${sign?'<label>Prénom<input name="prenom" required></label><label>Nom<input name="nom" required></label><label>Téléphone<input name="tel" type="tel"></label>':''}
 <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
@@ -131,7 +136,7 @@ $('#f').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new For
 const r=sign?await sb.auth.signUp({email:f.email,password:f.pw,options:{data:{prenom:f.prenom,nom:f.nom,tel:f.tel,consent:new Date().toISOString()}}}):await sb.auth.signInWithPassword({email:f.email,password:f.pw});
 if(r.error)$('#m').textContent=r.error.message;else if(sign&&!r.data.session)app.innerHTML='<div class="card">Compte créé. Vérifiez votre boîte mail pour confirmer votre adresse, puis connectez-vous.</div>'}}
 const careHtml=a=>Object.entries(CC).map(([k,l])=>{const c=a.data?.care?.[k]||[];return c.length?`<h4>${l}</h4>`+c.map(x=>`<div>${esc(x.n)} — ${dt(x.d)}${x.rd?' · rappel le '+dt(x.rd):''}</div>`).join(''):''}).join('')||'<div class="mut">Aucun soin enregistré</div>';
-const fill=(t,a)=>t.replace('{eleveur}',ELEV).replace('{acquereur}',prof.prenom+' '+prof.nom).replace(/\{animal\}/g,a.name).replace('{desc}',a.descr||'').replace('{naissance}',dt(a.born)).replace('{remise}',dt(a.remise)).replace('{prix}',eur(a.price)).replace('{acompte}',eur(ACOMPTE));
+const fill=(t,a)=>t.replace('{eleveur}',ELEV).replace('{acquereur}',prof.prenom+' '+prof.nom).replace(/\{animal\}/g,a.name).replace('{desc}',a.descr||'').replace('{naissance}',dd(a.born)).replace('{remise}',dd(a.remise)).replace('{prix}',eur(a.price)).replace('{acompte}',eur(ACOMPTE));
 const fiche=(a,P,S)=>{const p=P.filter(x=>x.animal_id==a.id),paid=p.reduce((s,x)=>s+x.a,0),sg=S.filter(x=>x.animal_id==a.id);
 return `<div class="card"><h2>${esc(a.emoji)} ${esc(a.name)} <span class="tag">${esc(a.status)}</span></h2><p>${esc(a.sp)} · ${esc(a.descr)} · né(e) le ${dt(a.born)} · remise prévue le ${dt(a.remise)}</p>
 <h3>Paiements</h3>${p.map(x=>`<div>${dt(x.d)} — ${esc(x.l)} : ${eur(x.a)}</div>`).join('')||'<div class="mut">Aucun paiement enregistré</div>'}
@@ -140,11 +145,11 @@ return `<div class="card"><h2>${esc(a.emoji)} ${esc(a.name)} <span class="tag">$
 async function client(){const{data:A}=await sb.from('animals').select('*').eq('buyer',me.id),ids=(A||[]).map(a=>a.id);
 const[{data:P},{data:S}]=ids.length?await Promise.all([sb.from('payments').select('*').in('animal_id',ids).order('d'),sb.from('signatures').select('*').in('animal_id',ids)]):[{data:[]},{data:[]}];
 app.innerHTML=`<h1>Bonjour ${esc(prof.prenom)}</h1>`+(A?.length?A.map(a=>fiche(a,P,S)).join(''):'<p class="mut">Aucun animal n’est encore rattaché à votre compte. L’éleveur le fera après votre réservation.</p>')+secs('client').map(secHtml).join('')+'<div class="card"><h3>Mes données</h3><button class="s" id="ex">Télécharger mes données</button> <button class="d" id="del">Supprimer mon compte</button></div>';
-document.querySelectorAll('.sf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('signatures').insert({animal_id:+f.dataset.a,user_id:me.id,contract_key:f.dataset.k,name:f.querySelector('input:not([type=checkbox])').value});error?alert(error.message):client()});
+document.querySelectorAll('.sf').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const{error}=await sb.from('signatures').insert({animal_id:+f.dataset.a,user_id:me.id,contract_key:f.dataset.k,name:f.querySelector('input:not([type=checkbox])').value});error?alert(error.message):(alert('Contrat signé ✔'),client())});
 $('#ex').onclick=()=>{const u=document.createElement('a');u.href=URL.createObjectURL(new Blob([JSON.stringify({profil:prof,animaux:A,paiements:P,signatures:S},null,1)],{type:'application/json'}));u.download='mes-donnees.json';u.click()};
-$('#del').onclick=async()=>{if(confirm('Supprimer définitivement votre compte ? Les contrats signés peuvent être conservés selon nos obligations légales.')){await sb.rpc('delete_my_account');await sb.auth.signOut();location.hash='#/'}}}
+$('#del').onclick=async()=>{if(confirm('Supprimer définitivement votre compte ? Les contrats signés peuvent être conservés selon nos obligations légales.')){const{error}=await sb.rpc('delete_my_account');if(error){alert(error.message);return}await sb.auth.signOut();location.hash='#/'}}}
 async function admin(){const[{data:A},{data:U},{data:P},{data:S}]=await Promise.all([sb.from('animals').select('*').order('id'),sb.from('profiles').select('id,prenom,nom').eq('role','client'),sb.from('payments').select('*').order('d'),sb.from('signatures').select('*')]);
-const inp=(a,k,l)=>`<label>${l}<input name="${k}" value="${esc(a[k])}"></label>`;
+const ML={name:60,emoji:4,sp:40,descr:500,sex:20},inp=(a,k,l)=>`<label>${l}<input name="${k}" maxlength="${ML[k]}" value="${esc(a[k])}"></label>`;
 app.innerHTML=`<h1>Espace éleveur</h1><button id="new">Ajouter un animal</button><br><br>`+A.map(a=>`<details class="card" data-id="${a.id}" ${OPEN==a.id?'open':''}><summary><b>${esc(a.emoji)} ${esc(a.name)}</b> <span class="tag">${esc(a.status)}</span></summary>
 <form class="ef"><div class="row">${inp(a,'name','Nom')}${inp(a,'emoji','Emoji')}${inp(a,'sp','Espèce')}${inp(a,'descr','Description')}${inp(a,'sex','Sexe')}</div>
 <div class="row"><label>Naissance<input type="date" name="born" value="${a.born||''}"></label><label>Remise<input type="date" name="remise" value="${a.remise||''}"></label><label>Prix €<input type="number" name="price" value="${a.price||0}"></label>
@@ -171,20 +176,23 @@ app.innerHTML=`<h1>Mode développeur</h1><form id="df" class="card"><h3>Site</h3
 <label>CSS personnalisé (libre)<textarea name="css">${esc(c.css)}</textarea></label>
 <h3>Sections</h3><p class="mut">Emplacement : home (accueil), client (espace acquéreur) ou page (nouvelle page dans le menu). Contenu en HTML libre.</p>
 <div id="secs"></div><button type="button" class="s" id="addsec">Ajouter une section</button>
-<h3>Avancé (JSON)</h3><p class="mut">Éleveur, acompte, modes de paiement, textes des contrats, catégories de soins, statuts.</p><textarea name="adv">${esc(adv)}</textarea><br><button>Enregistrer le site</button></form>
-<div class="card"><h3>Rôles</h3><div id="roles"></div></div>
+<h3>Informations légales</h3><p class="mut">Elles remplacent les variables des textes légaux.</p>${LK.map(([k,l])=>`<label>${l}<input name="l_${k}" value="${esc(c.legal?.[k])}"></label>`).join('')}<h3>Avancé (JSON)</h3><p class="mut">Éleveur, acompte, modes de paiement, textes des contrats, catégories de soins, statuts.</p><textarea name="adv">${esc(adv)}</textarea><br><button>Enregistrer le site</button></form>
+<div class="card"><h3>Comptes</h3><div id="accts"></div></div>
+<form id="nu" class="card"><h3>Créer un compte</h3><div class="row"><label>Prénom<input name="prenom" required maxlength="60"></label><label>Nom<input name="nom" required maxlength="60"></label><label>E-mail<input name="email" type="email" required></label><label>Mot de passe temporaire<input name="password" type="password" minlength="10" required></label><label>Rôle<select name="role"><option>client</option><option>admin</option><option>dev</option></select></label><button>Créer</button></div></form>
 <div class="card"><h3>Base de données (accès direct)</h3><div class="row"><select id="tb">${['animals','payments','signatures','profiles','settings'].map(t=>`<option>${t}</option>`).join('')}</select><button class="s" id="ld">Charger</button><button id="sv">Enregistrer (upsert)</button></div><textarea id="rows"></textarea><div class="row"><input id="delid" placeholder="id (ou clé) à supprimer"><button class="d" id="dl">Supprimer</button></div></div>`;
 const S=(c.sections||[]).map(x=>({...x})),rs=()=>{$('#secs').innerHTML=S.map((s,i)=>`<div class="card" data-i="${i}"><div class="row"><label>Identifiant<input data-f="id" value="${esc(s.id)}"></label><label>Titre<input data-f="title" value="${esc(s.title)}"></label><label>Emplacement<select data-f="where">${['home','client','page'].map(w=>`<option ${w==s.where?'selected':''}>${w}</option>`).join('')}</select></label><button type="button" class="d" data-rm="${i}">Retirer</button></div><textarea data-f="html">${esc(s.html)}</textarea></div>`).join('');
 document.querySelectorAll('#secs [data-f]').forEach(el=>el.oninput=()=>{S[+el.closest('[data-i]').dataset.i][el.dataset.f]=el.value});
 document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{S.splice(+b.dataset.rm,1);rs()})};rs();
 $('#addsec').onclick=()=>{S.push({id:'section'+(S.length+1),title:'Nouvelle section',where:'home',html:'<p>Contenu…</p>'});rs()};
 $('#df').onsubmit=async e=>{e.preventDefault();const f=e.target.elements;let a;try{a=JSON.parse(f.adv.value)}catch{return alert('JSON avancé invalide')}
-const colors={};for(const k of['g','a','bg'])if(f['c_'+k].value!==D[k]||col[k])colors[k]=f['c_'+k].value;
-const{error}=await sb.from('settings').upsert({key:'site_config',value:JSON.stringify({...a,name:f['name'].value,hero:f.hero.value,css:f.css.value,colors,sections:S}),validated:true,validated_at:new Date().toISOString(),validated_by:me.id});
+const colors={};for(const k of['g','a','bg'])if(f['c_'+k].value!==D[k])colors[k]=f['c_'+k].value;
+const{error}=await sb.from('settings').upsert({key:'site_config',value:JSON.stringify({...a,name:f['name'].value,hero:f.hero.value,css:f.css.value,colors,sections:S,legal:Object.fromEntries(LK.map(([k])=>[k,f['l_'+k].value]))}),validated:true,validated_at:new Date().toISOString(),validated_by:me.id});
 if(error)alert(error.message);else{await loadCfg();nav();alert('Site enregistré')}};
-const{data:U}=await sb.from('profiles').select('id,prenom,nom,email,role');
-$('#roles').innerHTML=U.map(u=>`<div class="row"><span>${esc(u.prenom||'')} ${esc(u.nom||'')} (${esc(u.email)})</span><select data-u="${u.id}">${['client','admin','dev'].map(r=>`<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></div>`).join('');
-document.querySelectorAll('[data-u]').forEach(x=>x.onchange=async()=>{const{error}=await sb.from('profiles').update({role:x.value}).eq('id',x.dataset.u);alert(error?error.message:'Rôle modifié')});
+const accts=async()=>{const[{data:U},{data:A}]=await Promise.all([sb.from('profiles').select('*').order('created_at'),sb.from('animals').select('id,buyer')]);
+$('#accts').innerHTML='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><tr><th align="left">Nom</th><th align="left">E-mail</th><th>Rôle</th><th>Créé le</th><th>Animaux</th><th></th></tr>'+U.map(u=>`<tr><td>${esc((u.prenom||'')+' '+(u.nom||''))}</td><td>${esc(u.email)}</td><td><select data-u="${u.id}">${['client','admin','dev'].map(r=>`<option ${r==u.role?'selected':''}>${r}</option>`).join('')}</select></td><td>${dt(u.created_at)}</td><td align="center">${A.filter(a=>a.buyer==u.id).length}</td><td><button class="d" data-x="${u.id}" data-e="${esc(u.email)}">Supprimer</button></td></tr>`).join('')+'</table></div>';
+document.querySelectorAll('[data-u]').forEach(x=>x.onchange=async()=>{try{await fn('admin-set-role',{id:x.dataset.u,role:x.value});alert('Rôle modifié')}catch(e){alert(e.message)}accts()});
+document.querySelectorAll('[data-x]').forEach(b=>b.onclick=async()=>{if(!confirm('Supprimer le compte '+b.dataset.e+' ? Ses animaux seront détachés, ses contrats signés conservés.'))return;try{await fn('admin-delete-user',{id:b.dataset.x})}catch(e){alert(e.message)}accts()})};accts();
+$('#nu').onsubmit=async e=>{e.preventDefault();try{await fn('admin-create-user',Object.fromEntries(new FormData(e.target)));e.target.reset();alert('Compte créé')}catch(x){alert(x.message)}accts()};
 $('#ld').onclick=async()=>{const{data,error}=await sb.from($('#tb').value).select('*');$('#rows').value=error?error.message:JSON.stringify(data,null,1)};
 $('#sv').onclick=async()=>{let v;try{v=JSON.parse($('#rows').value)}catch{return alert('JSON invalide')}const{error}=await sb.from($('#tb').value).upsert(v);alert(error?error.message:'Enregistré')};
 $('#dl').onclick=async()=>{const t=$('#tb').value;if(!confirm('Supprimer cette ligne de '+t+' ?'))return;const{error}=await sb.from(t).delete().eq(t==='settings'?'key':'id',$('#delid').value);alert(error?error.message:'Supprimé')}}
